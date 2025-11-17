@@ -9,7 +9,7 @@
     <meta name="description"
         content="Sistem pakar untuk mendeteksi/mendiagnosis penyakit pada tanaman cabai dengan algoritma forward chaining">
 
-    <link rel="icon" href="{{ asset('favicon-cabai.ico') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
     <title>@yield('title') SPDHTC</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preload" as="style" href="{{ asset('/assets/css/user/splash-screen.css') }}">

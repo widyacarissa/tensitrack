@@ -11,10 +11,9 @@
                 <div class="col-12 col-lg-6 align-self-center px-3 px-sm-5" data-aos="fade-left" data-aos-anchor="body"
                     id="col2">
                     <h1 class="text-start font-bold ">
-                        Sistem Pakar Diagnosis Penyakit Tanaman Cabai
+                        Langkah Cerdas Cegah Hipertensi
                     </h1>
-                    <p class="lead">Temukan penyakit yang menyerang tanaman cabai anda serta ketahui penyebab dan solusi
-                        pengendaliannya. Daftar sekarang lalu mulai diagnosis untuk hasil panen yang lebih baik!</p>
+                    <p class="lead"> <b>TensiTrack</b> hadir sebagai platform cerdas untuk mengenali potensi risiko hipertensi yang dapat membantu anda mengambil langkah preventif demi kesehatan optimal.</p>
                 </div>
             </div>
         </div>
