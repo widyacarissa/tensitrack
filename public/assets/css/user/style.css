@@ -256,6 +256,33 @@ ol {
     color: #f1b45d !important;
 }
 
+/* Center main navbar links while keeping brand left and actions right
+   - the .nav-center is absolutely centered inside the .navbar .container
+   - on smaller screens (<=992px) it returns to normal flow for collapse behavior */
+.navbar > .container { position: relative; }
+.nav-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 0.75rem;
+    white-space: nowrap;
+    z-index: 2;
+}
+
+/* Ensure items stack/flow normally on smaller screens (collapse) */
+@media (max-width: 992px) {
+    .nav-center {
+        position: static;
+        transform: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        width: 100%;
+    }
+}
+
 /* Fitur Unggulan styles */
 .features-section {
     position: relative;
@@ -310,6 +337,13 @@ ol {
     align-items: center;
     justify-content: center;
     color: #001B48;
+}
+/* Image inside feature icon (svg/png) */
+.feature-icon img.feature-icon-img {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+    display: block;
 }
 .feature-card h5 { color: #072042; font-weight: 600; }
 .feature-card p.small { color: rgba(7,32,66,0.85); }

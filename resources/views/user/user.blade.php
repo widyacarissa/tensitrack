@@ -27,21 +27,27 @@
             <div class="row g-4" data-aos="fade-up">
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="feature-card text-center p-4 rounded">
-                        <div class="feature-icon mx-auto mb-3"><i class="fa-solid fa-weight-scale fa-2x"></i></div>
+                        <div class="feature-icon mx-auto mb-3">
+                            <img src="{{ asset('assets/img/feature/icon_bmi.svg') }}" alt="Kalkulator BMI" class="feature-icon-img">
+                        </div>
                         <h5 class="mb-2">Kalkulator BMI</h5>
                         <p class="small text-muted">Memfasilitasi perhitungan indeks massa tubuh secara otomatis untuk mengetahui kategori berat badan sebagai indikator awal risiko hipertensi.</p>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="feature-card text-center p-4 rounded">
-                        <div class="feature-icon mx-auto mb-3"><i class="fa-solid fa-user-doctor fa-2x"></i></div>
+                        <div class="feature-icon mx-auto mb-3">
+                            <img src="{{ asset('assets/img/feature/icon_screening.svg') }}" alt="Skrining Hipertensi" class="feature-icon-img">
+                        </div>
                         <h5 class="mb-2">Skrining Hipertensi</h5>
                         <p class="small text-muted">Sistem akan memproses faktor risiko yang diinputkan pengguna menentukan kategori kemungkinan hipertensi secara cepat.</p>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="feature-card text-center p-4 rounded">
-                        <div class="feature-icon mx-auto mb-3"><i class="fa-solid fa-file-medical fa-2x"></i></div>
+                        <div class="feature-icon mx-auto mb-3">
+                            <img src="{{ asset('assets/img/feature/icon_history.svg') }}" alt="Riwayat Skrining" class="feature-icon-img">
+                        </div>
                         <h5 class="mb-2">Riwayat Skrining</h5>
                         <p class="small text-muted">Sistem akan secara otomatis menyimpan hasil skrining pengguna untuk mempermudah pemantauan.</p>
                     </div>
