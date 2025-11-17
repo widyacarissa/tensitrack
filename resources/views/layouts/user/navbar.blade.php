@@ -1,11 +1,8 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #001B48;" data-aos="fade-down">
     <div class="container">
-        <a class="navbar-brand font-semibold pe-none" href="#">
-            <div class="d-inline-block">
-                <i class="d-flex justify-content-center fa-solid fa-user-doctor fa-bounce"
-                    style="height: 24px; width: 30px"></i>
-            </div>
-            SPDHTC
+        <a class="navbar-brand font-semibold pe-none d-flex align-items-center" href="#">
+            <img src="{{ asset('logo-tensitrack.png') }}" alt="TensiTrack" width="36" height="36" class="me-2">
+            <span class="navbar-brand-text">TensiTrack</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
