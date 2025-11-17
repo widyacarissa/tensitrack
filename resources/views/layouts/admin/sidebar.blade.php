@@ -1,6 +1,6 @@
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-        <a href="{{ route('admin.beranda') }}">SPDHTC</a>
+        <a href="{{ route('admin.beranda') }}">TensiTrack</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
         {{-- <a href="index.html" class="">SPDHTC</a> --}}

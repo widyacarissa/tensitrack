@@ -69,20 +69,7 @@
                                 Daftar
                             </button>
                         </div>
-                        <div class="text-center mt-4 mb-3">
-                            <div class="text-job text-muted">Atau daftar dengan</div>
-                        </div>
-                        <div class="row sm-gutters">
-                            <div class="col-12">
-                                <a class="btn btn-block btn-social btn-google" href="{{ route('google') }}"
-                                    onclick="event.preventDefault(); document.getElementById('google-form').submit();">
-                                    <span class="fab fa-google"></span> Google
-                                </a>
-                                <form id="google-form" action="{{ route('google') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </div>
+                        <!-- Social login removed -->
                     </form>
                 </div>
             </div>
@@ -99,8 +86,4 @@
 
 @push('jsLibraries')
     <script src="{{ asset('assets/vendor/jquery.pwstrength/jquery.pwstrength.min.js') }}"></script>
-@endpush
-
-@push('cssLibraries')
-    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap-social/bootstrap-social.css') }}">
 @endpush

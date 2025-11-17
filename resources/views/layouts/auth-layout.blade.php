@@ -34,7 +34,7 @@
         <div class="simple-footer mb-0">
             <small>
                 Copyright &copy; {{ date('Y') }}
-                <a href="https://github.com/rizkyilhampra/spdhtc" style="font-weight: 600; text-decoration: underline;" target="_blank">SPDHTC</a>. All rights reserved.
+                <a href="https://tensitrack.id" style="font-weight: 600; text-decoration: underline;" target="_blank">TensiTrack</a>. All rights reserved.
             </small>
         </div>
     </footer>

@@ -10,7 +10,7 @@
         content="Sistem pakar untuk mendeteksi/mendiagnosis penyakit pada tanaman cabai dengan algoritma forward chaining">
 
     <link rel="icon" href="{{ asset('favicon.ico') }}">
-    <title>@yield('title') SPDHTC</title>
+    <title>@yield('title') TensiTrack</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preload" as="style" href="{{ asset('/assets/css/user/splash-screen.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/css/user/splash-screen.css') }}">
