@@ -2,13 +2,13 @@
 @section('content')
     <div id="beranda" class=" section">
         <div class="container">
-            <div class="row min-vh-100 min-vh-u-lg-85 align-content-center">
-                <div class="col-12 col-lg-6 py-5" data-aos="fade-right" id="container-image-hero">
-                    <img class="img-fluid bg-body-tertiary rounded" id="sipakar-home"
-                        src="{{ asset('assets/img/sipakar-home.png') }}" width="1280" height="853"
-                        alt="Gambar Home">
+            <div class="row min-vh-100 min-vh-u-lg-85 align-items-start">
+                    <div class="col-12 col-lg-6 hero-fit-vertical order-lg-2" data-aos="fade-right" id="container-image-hero">
+                        <img class="img-fluid bg-body-tertiary rounded" id="sipakar-home"
+                            src="{{ asset('assets/img/sipakar-home.png') }}" width="773" height="742"
+                            alt="Gambar Home">
                 </div>
-                <div class="col-12 col-lg-6 align-self-center px-3 px-sm-5" data-aos="fade-left" data-aos-anchor="body"
+                <div class="col-12 col-lg-6 align-self-center px-3 px-sm-5 order-lg-1" data-aos="fade-left" data-aos-anchor="body"
                     id="col2">
                     <h1 class="text-start font-bold ">
                         Langkah Cerdas Cegah Hipertensi

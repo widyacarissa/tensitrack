@@ -38,8 +38,57 @@ body.modal-open,
 }
 
 #beranda {
-    padding-top: 3rem;
-    background-image: linear-gradient(to bottom, rgba(98, 126, 66, 0.8) 0%, #fcfcfd 100%) !important;
+    padding-top: 0 !important;
+    background-color: #ffffff !important;
+}
+
+/* Prevent fixed-top navbar from covering content. Adjust if your navbar has different height */
+body {
+    padding-top: 56px; /* adjust value to match actual navbar height (56px is common) */
+}
+
+/* Hero image: make it fully visible and responsive (not cropped) */
+/* Hero image: make it fully visible and responsive (not cropped) */
+#container-image-hero img#sipakar-home {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* Remove extra vertical spacing so image touches navbar */
+#container-image-hero {
+    padding-top: 0 !important; /* override py-5 from the blade if present */
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* Ensure image is not cropped: keep aspect ratio and avoid upscaling beyond real size */
+/* Ensure image is not cropped: keep aspect ratio and avoid upscaling beyond real size */
+#container-image-hero img#sipakar-home {
+    max-width: 773px; /* actual image width */
+    width: 100%; /* fill column but won't exceed max-width */
+    height: auto;
+    object-fit: contain;
+}
+
+/* Make hero fill viewport height (after navbar) vertically without cropping */
+#container-image-hero.hero-fit-vertical {
+    height: calc(100vh - 56px); /* navbar height subtracted */
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center; /* center vertically if image shorter */
+    justify-content: center;
+    overflow: hidden;
+}
+
+#container-image-hero.hero-fit-vertical img#sipakar-home {
+    max-height: 100%;
+    height: auto;
+    width: auto;
+    max-width: none;
+    display: block;
 }
 
 #diagnosis,
@@ -182,4 +231,13 @@ body.modal-open,
 
 ol {
     margin-bottom: 0 !important;
+}
+
+/* Navbar text color customization */
+.navbar.navbar-dark .navbar-brand,
+.navbar.navbar-dark .nav-link {
+    color: #E49502 !important;
+}
+.navbar.navbar-dark .nav-link:hover {
+    color: #f1b45d !important;
 }

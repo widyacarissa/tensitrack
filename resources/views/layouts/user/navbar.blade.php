@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-lg bg-body-transparent" data-aos="fade-down">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #001B48;" data-aos="fade-down">
     <div class="container">
         <a class="navbar-brand font-semibold pe-none" href="#">
             <div class="d-inline-block">
@@ -34,7 +34,7 @@
                     <li class="nav-item">
                         <a href="{{ route('edit-profile') }}" class="nav-link" id="btnNavLinkProfile">
                             <div class="d-grid">
-                                <button class="btn btn-outline-dark font-medium text-start">
+                                <button class="btn btn-outline-light font-medium text-start">
                                     <i class="fa-solid fa-user pe-2"></i>
                                     Profil
                                 </button>
@@ -44,7 +44,7 @@
                     <li class="nav-item">
                         <a href="" id="btnLogout" class="nav-link">
                             <div class="d-grid">
-                                <button class="btn btn-outline-dark font-medium text-start">
+                                <button class="btn btn-outline-light font-medium text-start">
                                     <i class="fa-solid fa-right-from-bracket pe-2"></i>
                                     Keluar
                                 </button>
@@ -70,7 +70,7 @@
                     <li class="nav-item">
                         <a href="{{ route('login') }}" class="nav-link">
                             <div class="d-grid">
-                                <button class="btn btn-outline-dark font-medium text-start">
+                                <button class="btn btn-outline-light font-medium text-start">
                                     <i class="fa-solid fa-right-to-bracket pe-2"></i>
                                     Masuk/Daftar
                                 </button>
