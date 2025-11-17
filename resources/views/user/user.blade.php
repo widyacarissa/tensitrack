@@ -18,6 +18,38 @@
             </div>
         </div>
     </div>
+    <!-- Fitur Unggulan -->
+    <div id="features" class="section features-section">
+        <div class="container">
+            <h2 class="text-center font-semibold mb-3" data-aos="fade-up">Fitur Unggulan</h2>
+            <p class="text-center text-muted mb-5" data-aos="fade-up">TensiTrack menyediakan beberapa fitur canggih yang mendukung proses skrining awal risiko hipertensi dengan lebih optimal</p>
+
+            <div class="row g-4" data-aos="fade-up">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="feature-card text-center p-4 rounded">
+                        <div class="feature-icon mx-auto mb-3"><i class="fa-solid fa-weight-scale fa-2x"></i></div>
+                        <h5 class="mb-2">Kalkulator BMI</h5>
+                        <p class="small text-muted">Memfasilitasi perhitungan indeks massa tubuh secara otomatis untuk mengetahui kategori berat badan sebagai indikator awal risiko hipertensi.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="feature-card text-center p-4 rounded">
+                        <div class="feature-icon mx-auto mb-3"><i class="fa-solid fa-user-doctor fa-2x"></i></div>
+                        <h5 class="mb-2">Skrining Hipertensi</h5>
+                        <p class="small text-muted">Sistem akan memproses faktor risiko yang diinputkan pengguna menentukan kategori kemungkinan hipertensi secara cepat.</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="feature-card text-center p-4 rounded">
+                        <div class="feature-icon mx-auto mb-3"><i class="fa-solid fa-file-medical fa-2x"></i></div>
+                        <h5 class="mb-2">Riwayat Skrining</h5>
+                        <p class="small text-muted">Sistem akan secara otomatis menyimpan hasil skrining pengguna untuk mempermudah pemantauan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="diagnosis" class="section">
         <div class="container">
             <h2 class="font-semibold pb-3" data-aos="fade-up">

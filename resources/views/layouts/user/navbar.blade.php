@@ -17,7 +17,7 @@
                     <a class="nav-link beranda" href="#beranda">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link diagnosis" href="#diagnosis">Fitur</a>
+                    <a class="nav-link diagnosis" href="#features">Fitur</a>
                 </li>
                  <li class="nav-item">
                     <a class="nav-link diagnosis" href="#diagnosis">Alur Kerja</a>
