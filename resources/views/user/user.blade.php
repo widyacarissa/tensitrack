@@ -63,7 +63,7 @@
                             <p class="small text-muted">Dikembangkan oleh tim ahli di bidang kesehatan dan teknologi, sistem ini mampu menganalisis faktor risiko yang dimasukkan pengguna, kemudian memberikan hasil skrining dan rekomendasi tindak lanjut sesuai dengan standar medis yang berlaku.</p>
                         </div>
                         <div class="col-12 col-lg-6 text-center" data-aos="fade-left">
-                            <img src="{{ asset('assets/img/tentang-tensitrack.png') }}" alt="Tentang TensiTrack" class="img-fluid rounded" width="640" height="360">
+                            <img src="{{ asset('logo-tensitrack.png') }}" alt="Logo TensiTrack" class="img-fluid rounded" width="360" height="360">
                         </div>
                     </div>
                 </div>

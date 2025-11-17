@@ -70,7 +70,7 @@
                     <li class="nav-item">
                         <a href="{{ route('login') }}" class="nav-link">
                             <div class="d-grid">
-                                <button class="btn btn-outline-light font-medium text-start">
+                                <button class="btn btn-masuk font-medium text-start">
                                     <i class="fa-solid fa-right-to-bracket pe-2"></i>
                                     Masuk/Daftar
                                 </button>

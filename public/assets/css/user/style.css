@@ -127,6 +127,20 @@ body {
     color: #fff !important;
 }
 
+/* Masuk/Daftar button: orange background and dark navy text */
+.btn-masuk {
+    background-color: #E49502 !important;
+    color: #001B48 !important;
+    border: none !important;
+    transition: background-color 0.15s ease, transform 0.12s ease;
+}
+.btn-masuk:hover,
+.btn-masuk:focus {
+    background-color: #cf7a03 !important; /* slightly darker on hover/focus */
+    color: #001B48 !important;
+    transform: translateY(-1px);
+}
+
 .cambridge-blue {
     color: #a0b195 !important;
 }
