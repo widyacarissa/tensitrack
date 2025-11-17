@@ -1,48 +1,51 @@
-<footer class="d-block bg-dark text-body py-5" data-bs-theme="dark">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-6">
-        <p class="h4 font-semibold mb-3">SPDHTC</p>
-        <p class="mb-0">
-          <small>
-            <strong>SPDHTC (Sistem Pakar Diagnosis Penyakit Tanaman Cabai)</strong> adalah aplikasi bantu untuk
-            mengenali gejala dan kemungkinan penyakit pada tanaman cabai. Dibuat untuk memudahkan masyarakat, khususnya
-            petani cabai, mendapatkan informasi cepat tanpa harus bertemu langsung dengan pakar. Diagnosis saat ini
-            terbatas pada <strong>7 penyakit</strong> dan bersifat edukatif, <strong>bukan pengganti</strong> konsultasi
-            profesional.
-          </small>
-        </p>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="{{ asset('logo-tensitrack.png') }}" alt="TensiTrack logo" />
+        <div>
+          <div class="footer-title">TensiTrack</div>
+          <p class="footer-desc">TensiTrack adalah platform sistem pakar berbasis web yang menggunakan metode forward chaining untuk skrining risiko hipertensi yang cepat dan akurat</p>
+        </div>
       </div>
 
-      <div class="col-12 col-md-4 offset-md-2 mt-4 mt-md-0">
-        <strong class="text-white font-medium d-block mb-2">Tautan</strong>
-        <ul class="list-unstyled link-list mb-0">
-          <li class="link-item d-flex align-items-center gap-2">
-            <i class="fa-brands fa-github fa-fw" aria-hidden="true"></i>
-            <small>
-              <a class="text-reset py-1" href="https://github.com/rizkyilhampra/spdhtc" target="_blank"
-                rel="noopener noreferrer">
-                Repositori Github SPDHTC
-              </a>
-            </small>
-          </li>
-          <li class="link-item d-flex align-items-center gap-2">
-            <i class="fa-solid fa-envelope fa-fw" aria-hidden="true"></i>
-            <small>
-              <a class="text-reset py-1" href="mailto:spdhtc@spdhtc.rizkyilhampra.dev">
-                Kirim email ke SPDHTC
-              </a>
-            </small>
-          </li>
+      <div>
+        <div class="footer-title">Tautan</div>
+        <ul class="footer-list">
+          <li><a href="{{ url('/') }}">Beranda</a></li>
+          <li><a href="{{ url('/fitur') }}">Fitur</a></li>
+          <li><a href="{{ url('/alur-kerja') }}">Alur Kerja</a></li>
+          <li><a href="{{ url('/tentang') }}">Tentang</a></li>
+          <li><a href="{{ url('/artikel') }}">Artikel</a></li>
+          <li><a href="{{ url('/faq') }}">FAQ</a></li>
         </ul>
       </div>
+
+      <div>
+        <div class="footer-title">Layanan</div>
+        <ul class="footer-list">
+          <li><a href="{{ url('/bmi') }}">Kalkulator BMI</a></li>
+          <li><a href="{{ url('/skrining-hipertensi') }}">Skrining risiko hipertensi</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-title">Kontak Kami</div>
+        <div class="contact-item">
+          <div class="icon"><i class="fa-regular fa-envelope"></i></div>
+          <div class="text"><a href="mailto:tensitrack.id@gmail.com" style="color:inherit; text-decoration:none">tensitrack.id@gmail.com</a></div>
+        </div>
+        <div class="contact-item">
+          <div class="icon"><i class="fa-solid fa-phone"></i></div>
+          <div class="text">+62 852 7333 7881</div>
+        </div>
+        <div class="contact-item">
+          <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="text">Jl. Terusan Ryacudu, Way Huwi, Kec. Jati Agung, Kabupaten Lampung Selatan, Lampung 35365</div>
+        </div>
+      </div>
     </div>
 
-    <div class="d-flex justify-content-center mt-5">
-      <small class="font-monospace">
-        Copyright &copy; {{ date('Y') }} &#8226;
-        <a class="text-reset" href="https://github.com/rizkyilhampra/spdhtc" target="_blank" rel="noopener">SPDHTC</a>
-      </small>
-    </div>
+    <div class="footer-bottom">&copy; {{ date('Y') }} TensiTrack &#8226; Semua hak dilindungi</div>
   </div>
 </footer>
