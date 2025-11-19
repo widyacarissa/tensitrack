@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap");
 @charset "UTF-8";
 /**
  * Stisla
@@ -3584,4 +3585,8 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
   animation: pulsate 1s ease-out;
   animation-iteration-count: infinite;
   opacity: 1;
+}
+
+.main-sidebar .sidebar-brand a {
+    font-family: "Poppins", sans-serif;
 }

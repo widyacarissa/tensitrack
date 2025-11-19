@@ -1,9 +1,16 @@
 <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-        <a href="{{ route('admin.beranda') }}">TensiTrack</a>
+        <a href="{{ route('admin.beranda') }}">
+            <img src="{{ asset('logo-tensitrack.png') }}" alt="logo" width="30"
+                class="d-inline-block align-text-top me-2">
+            TensiTrack
+        </a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
-        {{-- <a href="index.html" class="">SPDHTC</a> --}}
+        <a href="{{ route('admin.beranda') }}">
+            <img src="{{ asset('logo-tensitrack.png') }}" alt="logo" width="30"
+                class="d-inline-block align-text-top">
+        </a>
     </div>
     <ul class="sidebar-menu">
         <li class="menu-header">Dashboard</li>
