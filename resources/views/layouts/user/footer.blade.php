@@ -46,6 +46,6 @@
       </div>
     </div>
 
-    <div class="footer-bottom">&copy; {{ date('Y') }} TensiTrack &#8226; Semua hak dilindungi</div>
+    <div class="footer-bottom">&copy; {{ date('Y') }} TensiTrack &#8226; All rights reserved</div>
   </div>
 </footer>
