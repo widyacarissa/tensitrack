@@ -62,11 +62,6 @@ modalEditProfile.addEventListener('show.bs.modal', async () => {
         }
     }
 
-    // Set loading state for basic form elements
-    setElementAttributes(elements.nameInput, 'Mohon Tunggu...', true);
-    setElementAttributes(elements.emailInput, 'Mohon Tunggu...', true);
-    setElementAttributes(elements.addressTextarea, 'Mohon Tunggu...', true);
-
     try {
         const response = await ajaxRequestEditProfile();
         

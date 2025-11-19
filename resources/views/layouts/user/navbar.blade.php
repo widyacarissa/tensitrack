@@ -26,12 +26,12 @@
                     <a class="nav-link penyakit" href="#penyakit">Alur Kerja</a>
                 </li>
             </ul>
-            @if (Auth::check() && Auth::user()->email_verified_at != null && Gate::check('asUser'))
+            @if (Auth::check() && Gate::check('asUser'))
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a href="{{ route('edit-profile') }}" class="nav-link" id="btnNavLinkProfile">
                             <div class="d-grid">
-                                <button class="btn btn-outline-light font-medium text-start">
+                                <button class="btn btn-masuk font-medium text-start">
                                     <i class="fa-solid fa-user pe-2"></i>
                                     Profil
                                 </button>
@@ -41,7 +41,7 @@
                     <li class="nav-item">
                         <a href="" id="btnLogout" class="nav-link">
                             <div class="d-grid">
-                                <button class="btn btn-outline-light font-medium text-start">
+                                <button class="btn btn-masuk font-medium text-start">
                                     <i class="fa-solid fa-right-from-bracket pe-2"></i>
                                     Keluar
                                 </button>

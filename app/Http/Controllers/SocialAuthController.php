@@ -47,7 +47,6 @@ class SocialAuthController extends Controller
         $users = new User([
             'email' => $userFromGoogle->email,
             'name' => $userFromGoogle->name,
-            'email_verified_at' => now(),
             'password' => bcrypt($userFromGoogle->id),
         ]);
         $users->save();
@@ -63,7 +62,6 @@ class SocialAuthController extends Controller
         $authGroupUser = new AuthGroupUser();
         $authGroupUser->fromGoogleAccount($userGoogleAuth);
 
-        $users->markEmailAsVerified();
         Auth::login($users);
         return redirect()->intended(Fortify::redirects('home'));
     }

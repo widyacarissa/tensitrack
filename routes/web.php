@@ -15,7 +15,7 @@ Route::get('/login-as-guest', GuestController::class)->name('login-as-guest')->m
 Route::prefix('admin')->group(function () {
     Route::get('beranda', [BerandaController::class, 'index'])->name('admin.beranda');
     Route::prefix('penyakit')->group(function () {
-        Route::middleware(['auth', 'verified', 'can:asAdmin'])->group(function () {
+        Route::middleware(['auth', 'can:asAdmin'])->group(function () {
             Route::post('store', [\App\Http\Controllers\Admin\PenyakitController::class, 'store'])->name('admin.penyakit.store');
             Route::put('update/{id}', [\App\Http\Controllers\Admin\PenyakitController::class, 'update'])->name('admin.penyakit.update');
             Route::delete('destroy/{id}', [\App\Http\Controllers\Admin\PenyakitController::class, 'destroy'])->name('admin.penyakit.destroy');
@@ -26,7 +26,7 @@ Route::prefix('admin')->group(function () {
         Route::get('pdf', [ShowPdfController::class, 'penyakitPdf'])->name('penyakit.pdf');
     });
     Route::prefix('gejala')->group(function () {
-        Route::middleware(['auth', 'verified', 'can:asAdmin'])->group(function () {
+        Route::middleware(['auth', 'can:asAdmin'])->group(function () {
             Route::post('store', [\App\Http\Controllers\Admin\GejalaController::class, 'store'])->name('admin.gejala.store');
             Route::put('update/{id}', [\App\Http\Controllers\Admin\GejalaController::class, 'update'])->name('admin.gejala.update');
             Route::delete('destroy/{id}', [\App\Http\Controllers\Admin\GejalaController::class, 'destroy'])->name('admin.gejala.destroy');
@@ -37,7 +37,7 @@ Route::prefix('admin')->group(function () {
         Route::get('pdf', [ShowPdfController::class, 'gejalaPdf'])->name('gejala.pdf');
     });
     Route::prefix('rule')->group(function () {
-        Route::middleware(['auth', 'verified', 'can:asAdmin'])->group(function () {
+        Route::middleware(['auth', 'can:asAdmin'])->group(function () {
             Route::post('store', [\App\Http\Controllers\Admin\RuleController::class, 'store'])->name('admin.rule.store');
             Route::put('update/{id}', [\App\Http\Controllers\Admin\RuleController::class, 'update'])->name('admin.rule.update');
             Route::delete('destroy/{id}', [\App\Http\Controllers\Admin\RuleController::class, 'destroy'])->name('admin.rule.destroy');
@@ -48,7 +48,7 @@ Route::prefix('admin')->group(function () {
         Route::get('pdf', [ShowPdfController::class, 'rulePdf'])->name('rule.pdf');
     });
     Route::prefix('histori-diagnosis')->group(function () {
-        Route::middleware(['auth', 'verified', 'can:asAdmin'])->group(function () {
+        Route::middleware(['auth', 'can:asAdmin'])->group(function () {
             Route::delete('destroy', [\App\Http\Controllers\Admin\HistoriDiagnosisController::class, 'destroy'])->name('admin.diagnosis.destroy');
         });
         Route::get('/', [\App\Http\Controllers\Admin\HistoriDiagnosisController::class, 'index'])->name('admin.histori.diagnosis');
@@ -57,7 +57,7 @@ Route::prefix('admin')->group(function () {
     });
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('home', [\App\Http\Controllers\Controller::class, 'authenticated'])->name('home');
 
     Route::middleware('can:asUser')->group(function () {
@@ -84,3 +84,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::post('/auth/google', [SocialAuthController::class, 'redirectToProvider'])->name('google');
 Route::get('/auth/google/callback', [SocialAuthController::class, 'handleProviderCallback'])
     ->name('google.callback');
+
