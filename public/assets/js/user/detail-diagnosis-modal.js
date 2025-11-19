@@ -198,8 +198,8 @@ async function drawChart(data) {
                 label: 'Persentase',
                 data: valueChart,
                 borderWidth: 2,
-                backgroundColor: '#6777ef',
-                borderColor: '#6777ef',
+                backgroundColor: '#001B48',
+                borderColor: '#001B48',
                 borderWidth: 2.5,
                 pointBackgroundColor: '#ffffff',
                 pointRadius: 4
@@ -238,3 +238,4 @@ async function drawChart(data) {
         }
     });
 }
+

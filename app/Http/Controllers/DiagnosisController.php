@@ -47,7 +47,7 @@ class DiagnosisController extends Controller
 
             return $lastDiagnosis;
         }
-
+        
         return $this->newDiagnosis();
     }
 
