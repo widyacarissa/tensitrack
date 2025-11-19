@@ -32,10 +32,14 @@ class UserProfileController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'province' => 'required',
-            'profession' => 'required',
+            'gender' => 'nullable|in:male,female,other',
+            'age' => 'nullable|integer|min:1|max:120',
+            'height' => 'nullable|numeric|min:50|max:250',
+            'weight' => 'nullable|numeric|min:20|max:250',
+            'address' => 'nullable',
+            'city' => 'nullable',
+            'province' => 'nullable',
+            'profession' => 'nullable',
         ]);
 
         try {
@@ -54,10 +58,20 @@ class UserProfileController extends Controller
                 $profile = $user->profile;
             }
 
-            $profile->address = $data['address'];
-            $profile->city = $data['city'];
-            $profile->province = $data['province'];
-            $profile->profession = $data['profession'];
+            $profile->address = $data['address'] ?? null;
+            $profile->city = $data['city'] ?? null;
+            $profile->province = $data['province'] ?? null;
+            $profile->profession = $data['profession'] ?? null;
+            $profile->gender = $data['gender'] ?? null;
+            $profile->age = $data['age'] ?? null;
+            $profile->weight = $data['weight'] ?? null;
+            $profile->height = $data['height'] ?? null;
+            
+            // Calculate BMI automatically
+            if ($data['weight'] && $data['height']) {
+                $profile->calculateBMI();
+            }
+            
             $profile->save();
         } catch (\Throwable $th) {
             Log::error($th->getMessage());

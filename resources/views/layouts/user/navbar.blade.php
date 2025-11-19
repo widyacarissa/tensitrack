@@ -1,7 +1,7 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #001B48;" data-aos="fade-down">
     <div class="container">
         <a class="navbar-brand font-semibold pe-none d-flex align-items-center" href="#">
-            <img src="{{ asset('logo-tensitrack.png') }}" alt="TensiTrack" width="36" height="36" class="me-2">
+            <img src="{{ asset('logo-tensitrack.png') }}" alt="TensiTrack" class="me-2" style="height: 35px; width: auto; object-fit: contain;">
             <span class="navbar-brand-text">TensiTrack</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
