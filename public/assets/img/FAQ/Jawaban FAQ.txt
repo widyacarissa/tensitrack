@@ -1,0 +1,9 @@
+1. Tidak. TensiTrack hanya membantu memberikan indikasi awal terhadap risiko hipertensi, dan hasilnya tidak menggantikan diagnosis medis dari dokter.
+
+2. Sistem TensiTrack menggunakan metode forward chaining untuk menganalisis data pengguna dan menentukan potensi risiko hipertensi berdasarkan faktor-faktor kesehatan tertentu.
+
+3. Ya, kalkulator BMI dapat digunakan oleh siapa saja, tetapi hasilnya perlu disesuaikan dengan kondisi individu seperti usia dan massa otot.
+
+4. TensiTrack menerapkan sistem keamanan data dengan enkripsi agar informasi pribadi pengguna tetap terlindungi.
+
+5. Ya, pengguna disarankan melakukan skrining secara berkala untuk memantau perubahan risiko dan menjaga kesehatan secara berkelanjutan.
