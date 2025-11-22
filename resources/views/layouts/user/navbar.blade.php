@@ -14,16 +14,19 @@
                     <a class="nav-link beranda" href="#beranda">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link diagnosis" href="#features">Fitur</a>
+                    <a class="nav-link alur-interaksi" href="#alur-interaksi">Alur</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link kalkulator-bmi" href="#kalkulator-bmi">BMI</a>
                 </li>
                  <li class="nav-item">
                     <a class="nav-link diagnosis" href="#diagnosis">Alur Kerja</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link penyakit" href="#penyakit">Informasi Penyakit</a>
+                    <a class="nav-link artikel" href="#artikel">Artikel</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link penyakit" href="#penyakit">Alur Kerja</a>
+                    <a class="nav-link faq" href="#faq">FAQ</a>
                 </li>
             </ul>
             @if (Auth::check() && Gate::check('asUser'))
