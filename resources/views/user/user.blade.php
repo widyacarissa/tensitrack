@@ -290,15 +290,15 @@
                         <div class="d-flex align-items-center p-3 rounded-3 shadow-sm bg-light">
                             <div class="me-3 text-primary"><i class="bi bi-check-circle-fill fs-4"></i></div>
                             <div>
-                                <h6 class="fw-bold text-dark mb-0">Cepat & Mudah</h6>
-                                <small class="text-muted">Hanya butuh waktu kurang dari 2 menit.</small>
+                                <h6 class="fw-bold text-dark mb-0">Identifikasi Risiko Tersembun</h6>
+                                <small class="text-muted">Menemukan potensi hipertensi yang sering tidak disadar</small>
                             </div>
                         </div>
                         <div class="d-flex align-items-center p-3 rounded-3 shadow-sm bg-light">
                             <div class="me-3 text-primary"><i class="bi bi-file-medical-fill fs-4"></i></div>
                             <div>
-                                <h6 class="fw-bold text-dark mb-0">Hasil Komprehensif</h6>
-                                <small class="text-muted">Dapatkan saran medis awal yang personal.</small>
+                                <h6 class="fw-bold text-dark mb-0">Rekomendasi Pencegahan</h6>
+                                <small class="text-muted">Dapatkan saran gaya hidup yang dapat anda terapkan</small>
                             </div>
                         </div>
                     </div>
