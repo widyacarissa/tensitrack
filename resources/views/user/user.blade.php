@@ -1,24 +1,54 @@
 @extends('layouts.user.app')
 @section('content')
-    {{-- BAGIAN 1: BERANDA --}}
-    <div id="beranda" class="section">
-        <div class="container">
-            <div class="row min-vh-100 min-vh-u-lg-85 align-items-start">
-                <div class="col-12 col-lg-6 hero-fit-vertical order-lg-2" data-aos="fade-right" id="container-image-hero">
-                    <img class="img-fluid bg-body-tertiary rounded" id="sipakar-home"
-                        src="{{ asset('assets/img/sipakar-home.png') }}" width="773" height="742" alt="Gambar Home">
-                </div>
-                <div class="col-12 col-lg-6 align-self-center px-3 px-sm-5 order-lg-1" data-aos="fade-left"
-                    data-aos-anchor="body" id="col2">
-                    <h1 class="text-start font-bold " style="color: #001B48;">
-                        Langkah Cerdas Cegah Hipertensi
-                    </h1>
-                    <p class="lead"> <b>TensiTrack</b> hadir sebagai platform cerdas untuk mengenali potensi risiko
-                        hipertensi yang dapat membantu anda mengambil langkah preventif demi kesehatan optimal.</p>
-                </div>
+    {{-- Koding 1: BERANDA --}}
+  <div id="beranda" class="section">
+    <div class="container">
+        <div class="row min-vh-100 min-vh-u-lg-85 align-items-start">
+            
+            <!-- Gambar -->
+            <div class="col-12 col-lg-6 hero-fit-vertical order-lg-2" data-aos="fade-right" id="container-image-hero">
+                <img class="img-fluid bg-body-tertiary rounded" id="sipakar-home"
+                    src="{{ asset('assets/img/sipakar-home.png') }}" width="773" height="742" alt="Gambar Home">
             </div>
+
+            <!-- Teks Baru -->
+            <div class="col-12 col-lg-6 align-self-center px-3 px-sm-5 order-lg-1" data-aos="fade-left">
+
+                <span class="badge rounded-pill px-3 py-2 mb-3"
+                    style="background-color: rgba(0, 27, 72, 0.1); color: #001B48; font-weight: 600;">
+                    <i class="bi bi-stars me-1"></i> Sistem Cerdas Deteksi Dini
+                </span>
+
+                <h1 class="text-start fw-bold display-5 mb-3" style="color: #001B48;">
+                    Ketahui Risiko Hipertensi <br>
+                    <span class="text-warning">Sebelum Terlambat</span>
+                </h1>
+
+                <p class="lead text-secondary mb-4" style="line-height: 1.8;">
+                    Hipertensi sering datang tanpa gejala.
+                    <b>TensiTrack</b> membantu Anda memprediksi potensi risiko di masa depan
+                    berdasarkan gaya hidup Anda saat ini.
+                </p>
+
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="#skrining-risiko"
+                        class="btn text-white px-4 py-3 shadow-sm rounded-pill fw-bold"
+                        style="background-color: #001B48;">
+                        Mulai Skrining Gratis
+                    </a>
+
+                    <a href="#kalkulator-bmi"
+                        class="btn btn-outline-dark px-4 py-3 rounded-pill fw-bold">
+                        Cek BMI Dulu
+                    </a>
+                </div>
+
+            </div>
+
         </div>
     </div>
+</div>
+
 
     {{-- BAGIAN 2: ALUR INTERAKSI --}}
     <div id="alur-interaksi" class="section">
