@@ -28,24 +28,7 @@
             </div>
         </div>
     </div>
-            <!-- Tentang TensiTrack -->
-            <div id="about" class="section">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-12 col-lg-6" data-aos="fade-right">
-                            <h2 class="text-start font-bold">Tentang TensiTrack</h2>
-                            <p class="text-muted mb-2">Solusi digital untuk skrining tekanan darah yang cepat dan akurat</p>
 
-                            <p class="small text-muted">TensiTrack adalah platform sistem pakar berbasis web yang menggunakan metode <em>forward chaining</em> untuk membantu pengguna mengenali potensi risiko hipertensi sejak dini.</p>
-
-                            <p class="small text-muted">Dikembangkan oleh tim ahli di bidang kesehatan dan teknologi, sistem ini mampu menganalisis faktor risiko yang dimasukkan pengguna, kemudian memberikan hasil skrining dan rekomendasi tindak lanjut sesuai dengan standar medis yang berlaku.</p>
-                        </div>
-                        <div class="col-12 col-lg-6 text-center" data-aos="fade-left">
-                            <img src="{{ asset('logo-tensitrack.png') }}" alt="Logo TensiTrack" class="img-fluid rounded" width="360" height="360">
-                        </div>
-                    </div>
-                </div>
-            </div>
 
     <div id="diagnosis" class="section">
         <div class="container">
