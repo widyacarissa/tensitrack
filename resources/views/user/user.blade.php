@@ -252,14 +252,14 @@
                                     <div class="bg-white bg-opacity-10 p-3 rounded-3 text-start border border-white border-opacity-10 h-100">
                                         <i class="bi bi-clipboard-pulse text-success mb-2 d-block fs-4"></i>
                                         <small class="d-block opacity-75" style="font-size: 0.7rem;">PARAMETER</small>
-                                        <strong class="small">Gejala Fisik</strong>
+                                        <strong class="small">Hasil pengukuran tekanan darah</strong>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="bg-white bg-opacity-10 p-3 rounded-3 text-start border border-white border-opacity-10 h-100">
                                         <i class="bi bi-person-walking text-warning mb-2 d-block fs-4"></i>
-                                        <small class="d-block opacity-75" style="font-size: 0.7rem;">ANALISIS</small>
-                                        <strong class="small">Gaya Hidup</strong>
+                                        <small class="d-block opacity-75" style="font-size: 0.7rem;">PARAMETER</small>
+                                        <strong class="small">Riwayat keluarga & gaya hidup</strong>
                                     </div>
                                 </div>
                             </div>
