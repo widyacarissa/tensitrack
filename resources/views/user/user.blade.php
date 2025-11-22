@@ -32,111 +32,252 @@
         </div>
     </div>
 
-    {{-- BAGIAN BARU: KALKULATOR BMI (Disisipkan di sini) --}}
-    <div id="kalkulator-bmi" class="section py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                {{-- Kolom Kiri: Penjelasan & Gambar --}}
-                <div class="col-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
-                    <h4 class="fw-bold mb-3" style="color: #f59e0b;">Apa itu BMI?</h4>
-                    <p class="text-muted mb-4">
-                        Body Mass Index (BMI) adalah cara menghitung berat badan ideal berdasarkan tinggi dan berat badan. BMI
-                        juga dapat dibedakan berdasarkan usia.
-                    </p>
+ <!-- SECTION 1: Judul & Deskripsi -->
+  <div id="kalkulator-bmi" class="section pt-5 pb-2" style="background-color: #F4F7FB;">
+    <div class="container py-2">
+        <div class="row justify-content-center text-center mb-2" data-aos="fade-up">
+            <div class="col-lg-8">
+                <h2 class="fw-bold mb-2" style="color: #001B48;">Kalkulator Berat Badan Ideal</h2>
+                <p class="text-muted">
+                    Obesitas adalah salah satu faktor risiko utama Hipertensi. Cek apakah berat badan Anda sudah ideal?
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    <h4 class="fw-bold mb-3" style="color: #f59e0b;">Apa itu kalkulator BMI?</h4>
-                    <p class="text-muted mb-4">
-                        Kalkulator BMI adalah alat untuk mengidentifikasi apakah berat badan kamu termasuk dalam kategori
-                        ideal atau tidak. Kalkulator ini dapat digunakan oleh seseorang yang berusia 20 tahun ke atas.
-                    </p>
+<!-- SECTION 2: Penjelasan & Kalkulator -->
+<div id="kalkulator-bmi" class="section py-3">
+    <div class="container">
+        <div class="row align-items-center">
 
-                    <div class="text-center text-lg-start mt-4">
-                        {{-- Gambar sesuai request user --}}
-                        <img src="https://img.freepik.com/premium-vector/weight-loss-bmi-man-woman-before-after-diet-fitness-fat-thin-man-woman_162329-342.jpg"
-                            alt="Ilustrasi BMI" class="img-fluid rounded shadow-sm"
-                            style="max-height: 300px; object-fit: contain;">
-                    </div>
+            <!-- Kolom Kiri -->
+            <div class="col-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                <h4 class="fw-bold mb-3" style="color: #f59e0b;">Apa itu BMI?</h4>
+                <p class="text-muted mb-4">
+                    Body Mass Index (BMI) adalah cara menghitung berat badan ideal berdasarkan tinggi dan berat badan. BMI
+                    juga dapat dibedakan berdasarkan usia.
+                </p>
+
+                <h4 class="fw-bold mb-3" style="color: #f59e0b;">Apa itu kalkulator BMI?</h4>
+                <p class="text-muted mb-4">
+                    Kalkulator BMI adalah alat untuk mengidentifikasi apakah berat badan kamu termasuk dalam kategori
+                    ideal atau tidak. Kalkulator ini dapat digunakan oleh seseorang yang berusia 20 tahun ke atas.
+                </p>
+
+                <div class="text-center text-lg-start mt-4">
+                    <img src="https://img.freepik.com/premium-vector/weight-loss-bmi-man-woman-before-after-diet-fitness-fat-thin-man-woman_162329-342.jpg"
+                        alt="Ilustrasi BMI" class="img-fluid rounded shadow-sm"
+                        style="max-height: 300px; object-fit: contain;">
                 </div>
+            </div>
 
-                {{-- Kolom Kanan: Form Kalkulator (Kartu Biru) --}}
-                <div class="col-12 col-lg-6" data-aos="fade-left">
-                    <div class="card border-0 shadow-lg p-4" style="background-color: #001B48; border-radius: 15px;">
-                        <div class="card-body text-white">
-                            {{-- Radio Button Gender --}}
-                            <div class="d-flex justify-content-center gap-4 mb-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gender" id="genderLaki"
-                                        value="male" checked>
-                                    <label class="form-check-label" for="genderLaki">Laki-Laki</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="gender" id="genderPerempuan"
-                                        value="female">
-                                    <label class="form-check-label" for="genderPerempuan">Perempuan</label>
-                                </div>
-                            </div>
+            <!-- Kolom Kanan: Kalkulator -->
+            <div class="col-12 col-lg-6" data-aos="fade-left">
+                <div class="card border-0 shadow-lg p-4" style="background-color: #001B48; border-radius: 15px;">
+                    <div class="card-body text-white">
 
-                            {{-- Input Tinggi --}}
-                            <div class="mb-3">
-                                <label for="height" class="form-label fw-bold" style="color: #f59e0b;">Tinggi Badan
-                                    (cm)</label>
-                                <input type="number" class="form-control p-3" id="height"
-                                    placeholder="Masukkan tinggi badan..." style="border-radius: 10px;">
+                        <!-- Radio Gender -->
+                        <div class="d-flex justify-content-center gap-4 mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="genderLaki"
+                                    value="male" checked>
+                                <label class="form-check-label" for="genderLaki">Laki-Laki</label>
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="genderPerempuan"
+                                    value="female">
+                                <label class="form-check-label" for="genderPerempuan">Perempuan</label>
+                            </div>
+                        </div>
 
-                            {{-- Input Berat --}}
-                            <div class="mb-4">
-                                <label for="weight" class="form-label fw-bold" style="color: #f59e0b;">Berat Badan
-                                    (kg)</label>
-                                <input type="number" class="form-control p-3" id="weight"
-                                    placeholder="Masukkan berat badan..." style="border-radius: 10px;">
-                            </div>
+                        <!-- Input Tinggi -->
+                        <div class="mb-3">
+                            <label for="height" class="form-label fw-bold" style="color: #f59e0b;">Tinggi Badan
+                                (cm)</label>
+                            <input type="number" class="form-control p-3" id="height"
+                                placeholder="Masukkan tinggi badan..." style="border-radius: 10px;">
+                        </div>
 
-                            {{-- Tombol Hitung --}}
-                            <div class="d-grid gap-2 mb-4">
-                                <button type="button" onclick="calculateBMI()" class="btn btn-light fw-bold py-3"
-                                    style="color: #001B48; border-radius: 10px;">
-                                    Menghitung BMI
-                                </button>
-                            </div>
+                        <!-- Input Berat -->
+                        <div class="mb-4">
+                            <label for="weight" class="form-label fw-bold" style="color: #f59e0b;">Berat Badan
+                                (kg)</label>
+                            <input type="number" class="form-control p-3" id="weight"
+                                placeholder="Masukkan berat badan..." style="border-radius: 10px;">
+                        </div>
 
-                            {{-- Hasil --}}
-                            <div class="mb-2">
-                                <label for="result" class="form-label fw-bold" style="color: #f59e0b;">Hasil</label>
-                                <input type="text" class="form-control p-3 fw-bold text-center" id="result" readonly
-                                    style="border-radius: 10px; background-color: #fff;" placeholder="-">
-                            </div>
+                        <!-- Tombol Hitung -->
+                        <div class="d-grid gap-2 mb-4">
+                            <button type="button" onclick="calculateBMI()" class="btn btn-light fw-bold py-3"
+                                style="color: #001B48; border-radius: 10px;">
+                                Menghitung BMI
+                            </button>
+                        </div>
+
+                        <!-- Hasil -->
+                        <div class="mb-2">
+                            <label for="result" class="form-label fw-bold" style="color: #f59e0b;">Hasil</label>
+                            <input type="text" class="form-control p-3 fw-bold text-center" id="result" readonly
+                                style="border-radius: 10px; background-color: #fff;" placeholder="-">
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
+</div>
 
-    {{-- BAGIAN 3: DIAGNOSIS --}}
-    <div id="diagnosis" class="section">
-        <div class="container">
-            <h2 class="font-semibold pb-3" data-aos="fade-up">
-                Diagnosis
-            </h2>
-            <div class="row">
-                <div class="col-12" data-aos="fade-up">
-                    <div class="card shadow border border-0">
-                        <div class="card-body">
-                            <div class="card-text">
-                                Sistem ini menggunakan metode forward chaining untuk mendiagnosis penyakit. Proses dimulai
-                                dengan mengevaluasi gejala yang diberikan oleh pengguna, kemudian sistem mencocokkannya
-                                dengan aturan yang ada. Jika terdapat aturan yang terpenuhi, sistem akan memberikan detail
-                                hasil diagnosis penyakit. Detail hasil diagnosis penyakit akan disimpan dalam sistem.
-                                Pengguna dapat melihat kembali detail hasil diagnosis yang telah dilakukan pada histori
-                                diagnosis di menu profil.
+
+   
+    {{-- BAGIAN 4: SKRINING RISIKO (REDESIGNED & ANIMATED) --}}
+    <div id="diagnosis" class="section py-5 position-relative bg-white">
+        {{-- Background Ornament --}}
+        <div style="position: absolute; right: 0; bottom: 0; width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,27,72,0.03) 0%, rgba(255,255,255,0) 70%); z-index: 0;"></div>
+        
+        {{-- Internal Style untuk Animasi Speedometer & Arc --}}
+        <style>
+            /* 1. Animasi Jarum (Needle): Menyapu dari Kiri (Hijau) ke Kanan (Merah) lalu kembali */
+            @keyframes gaugeIntro {
+                0% { transform: rotate(-90deg); }      /* Mulai: Zona Hijau */
+                50% { transform: rotate(90deg); }      /* Sampai: Zona Merah */
+                100% { transform: rotate(0deg); }      /* Selesai: Tengah (Zona Kuning/Siaga) */
+            }
+            
+            .gauge-needle-anim {
+                animation: gaugeIntro 3s cubic-bezier(0.25, 1, 0.5, 1) forwards; 
+                transform-origin: bottom center;
+                transform: rotate(-90deg); /* Posisi awal */
+            }
+
+            /* 2. Animasi Denyut Halus pada Gauge */
+            @keyframes pulseScale {
+                0%, 100% { transform: scale(1); opacity: 0.9; }
+                50% { transform: scale(1.02); opacity: 1; }
+            }
+
+            .gauge-multicolor {
+                /* Membuat 3 Zona Warna: Hijau (Aman), Kuning (Waspada), Merah (Bahaya) */
+                background: conic-gradient(
+                    from 270deg, 
+                    #22c55e 0deg 60deg,   /* Hijau: 0-60 derajat */
+                    #eab308 60deg 120deg, /* Kuning: 60-120 derajat */
+                    #ef4444 120deg 180deg /* Merah: 120-180 derajat */
+                );
+                /* Masking tengahnya agar bolong (seperti donat/busur) */
+                -webkit-mask-image: radial-gradient(closest-side, transparent 70%, black 71%);
+                mask-image: radial-gradient(closest-side, transparent 70%, black 71%);
+                
+                animation: pulseScale 3s ease-in-out infinite;
+            }
+        </style>
+
+        <div class="container py-5 position-relative z-1">
+            <div class="row align-items-center">
+                {{-- Kolom Kiri: Visual Card yang Lebih Interaktif --}}
+                <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right">
+                    <div class="card border-0 shadow-lg rounded-4 text-white overflow-hidden" 
+                         style="background: linear-gradient(135deg, #001B48 0%, #003580 100%); min-height: 520px;">
+                        
+                        {{-- Header Card --}}
+                        <div class="p-4 border-bottom border-white border-opacity-10 d-flex justify-content-between align-items-center bg-black bg-opacity-10">
+                            <div class="d-flex align-items-center">
+                                <div class="spinner-grow text-warning spinner-grow-sm me-2" role="status"></div>
+                                <span class="fw-bold small text-uppercase ls-1">AI Health Monitor</span>
                             </div>
-                            <div class="d-grid pt-3">
-                                <button id="btn-diagnosis" class="btn btn-custom1 py-2">
-                                    Mulai Diagnosis Penyakit
-                                </button>
+                            <i class="bi bi-cpu text-white-50"></i>
+                        </div>
+
+                        {{-- Body Card --}}
+                        <div class="card-body d-flex flex-column justify-content-center align-items-center text-center p-5 position-relative">
+                            
+                            {{-- Visual Speedometer/Gauge Effect (Multicolor) --}}
+                            <div class="position-relative mb-4" style="width: 220px; height: 110px; overflow: hidden;">
+                                {{-- Gauge Arc (3 Warna) --}}
+                                <div class="gauge-multicolor" style="width: 220px; height: 220px; border-radius: 50%;"></div>
+                                
+                                {{-- Animated Needle --}}
+                                <div class="gauge-needle-anim" style="position: absolute; bottom: 0; left: 50%; width: 4px; height: 95px; background: white; border-radius: 2px; box-shadow: 0 0 10px rgba(0,0,0,0.5); margin-left: -2px; z-index: 2;"></div>
+                                
+                                {{-- Center Dot --}}
+                                <div style="position: absolute; bottom: -10px; left: 50%; width: 24px; height: 24px; background: white; border-radius: 50%; transform: translate(-50%, 0); z-index: 3; border: 4px solid #001B48;"></div>
+
+                                {{-- Label Text (Opsional) --}}
+                                <div class="d-flex justify-content-between w-100 position-absolute px-2" style="bottom: 5px; font-size: 0.65rem; font-weight: bold; color: rgba(255,255,255,0.7);">
+                                    <span>AMAN</span>
+                                    <span style="margin-left: 10px;">WASPADA</span>
+                                    <span>BAHAYA</span>
+                                </div>
+                            </div>
+
+                            <h3 class="fw-bold mb-2">Analisis Risiko</h3>
+                            <p class="text-white-50 mb-4 px-3 small">
+                                Teknologi kami memproses data gaya hidup Anda untuk memetakan posisi risiko kesehatan Anda.
+                            </p>
+                            
+                            {{-- Stats / Features Floating --}}
+                            <div class="row g-2 w-100">
+                                <div class="col-6">
+                                    <div class="bg-white bg-opacity-10 p-3 rounded-3 text-start border border-white border-opacity-10 h-100">
+                                        <i class="bi bi-clipboard-pulse text-success mb-2 d-block fs-4"></i>
+                                        <small class="d-block opacity-75" style="font-size: 0.7rem;">PARAMETER</small>
+                                        <strong class="small">Gejala Fisik</strong>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="bg-white bg-opacity-10 p-3 rounded-3 text-start border border-white border-opacity-10 h-100">
+                                        <i class="bi bi-person-walking text-warning mb-2 d-block fs-4"></i>
+                                        <small class="d-block opacity-75" style="font-size: 0.7rem;">ANALISIS</small>
+                                        <strong class="small">Gaya Hidup</strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        {{-- Footer Card --}}
+                        <div class="px-4 py-3 bg-black bg-opacity-25 text-center">
+                            <small class="text-white-50 fst-italic"><i class="bi bi-lock-fill me-1"></i> Data Anda dienkripsi & aman</small>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Kolom Kanan: Typography & CTA yang Kuat --}}
+                <div class="col-lg-6 offset-lg-1" data-aos="fade-left">
+                    <div class="d-inline-block px-3 py-1 rounded-pill bg-warning bg-opacity-10 text-warning fw-bold small mb-3 border border-warning border-opacity-25">
+                        <i class="bi bi-shield-check me-1"></i> PENCEGAHAN DINI
+                    </div>
+                    <h1 class="fw-bold mb-4 display-5" style="color: #001B48;">
+                        Jangan Tunggu Sakit. <br> 
+                        <span class="text-transparent bg-clip-text" style="background-image: linear-gradient(90deg, #001B48, #2563eb); -webkit-background-clip: text; color: transparent; background-clip: text;">Deteksi Dini Sekarang.</span>
+                    </h1>
+                    <p class="lead text-muted mb-4" style="font-size: 1.1rem;">
+                        Hipertensi dijuluki <i>"The Silent Killer"</i> karena sering muncul tanpa gejala. 
+                        Sistem pakar <b>TensiTrack</b> membantu Anda mengenali sinyal bahaya sebelum terlambat.
+                    </p>
+
+                    <div class="d-flex flex-column gap-3 mb-5">
+                        <div class="d-flex align-items-center p-3 rounded-3 shadow-sm bg-light">
+                            <div class="me-3 text-primary"><i class="bi bi-check-circle-fill fs-4"></i></div>
+                            <div>
+                                <h6 class="fw-bold text-dark mb-0">Cepat & Mudah</h6>
+                                <small class="text-muted">Hanya butuh waktu kurang dari 2 menit.</small>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center p-3 rounded-3 shadow-sm bg-light">
+                            <div class="me-3 text-primary"><i class="bi bi-file-medical-fill fs-4"></i></div>
+                            <div>
+                                <h6 class="fw-bold text-dark mb-0">Hasil Komprehensif</h6>
+                                <small class="text-muted">Dapatkan saran medis awal yang personal.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-3 align-items-center">
+                        <button id="btn-diagnosis" class="btn btn-lg text-white shadow px-5 py-3 rounded-pill fw-bold" 
+                            style="background: #001B48; transition: all 0.3s ease;">
+                            Mulai Skrining Gratis <i class="bi bi-arrow-right ms-2"></i>
+                        </button>
                     </div>
                 </div>
             </div>
