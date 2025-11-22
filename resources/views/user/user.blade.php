@@ -18,44 +18,6 @@
             </div>
         </div>
     </div>
-    <!-- Fitur Unggulan -->
-    <div id="features" class="section features-section">
-        <div class="container">
-            <h2 class="text-center font-semibold mb-3" data-aos="fade-up">Fitur Unggulan</h2>
-            <p class="text-center text-muted mb-5" data-aos="fade-up">TensiTrack menyediakan beberapa fitur canggih yang mendukung proses skrining awal risiko hipertensi dengan lebih optimal</p>
-
-            <div class="row g-4" data-aos="fade-up">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="feature-card text-center p-4 rounded">
-                        <div class="feature-icon mx-auto mb-3">
-                            <img src="{{ asset('assets/img/feature/icon_bmi.svg') }}" alt="Kalkulator BMI" class="feature-icon-img">
-                        </div>
-                        <h5 class="mb-2">Kalkulator BMI</h5>
-                        <p class="small text-muted">Memfasilitasi perhitungan indeks massa tubuh secara otomatis untuk mengetahui kategori berat badan sebagai indikator awal risiko hipertensi.</p>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="feature-card text-center p-4 rounded">
-                        <div class="feature-icon mx-auto mb-3">
-                            <img src="{{ asset('assets/img/feature/icon_screening.svg') }}" alt="Skrining Hipertensi" class="feature-icon-img">
-                        </div>
-                        <h5 class="mb-2">Skrining Hipertensi</h5>
-                        <p class="small text-muted">Sistem akan memproses faktor risiko yang diinputkan pengguna menentukan kategori kemungkinan hipertensi secara cepat.</p>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="feature-card text-center p-4 rounded">
-                        <div class="feature-icon mx-auto mb-3">
-                            <img src="{{ asset('assets/img/feature/icon_history.svg') }}" alt="Riwayat Skrining" class="feature-icon-img">
-                        </div>
-                        <h5 class="mb-2">Riwayat Skrining</h5>
-                        <p class="small text-muted">Sistem akan secara otomatis menyimpan hasil skrining pengguna untuk mempermudah pemantauan.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
             <!-- Tentang TensiTrack -->
             <div id="about" class="section">
                 <div class="container">
@@ -103,93 +65,7 @@
             </div>
         </div>
     </div>
-    <div id="penyakit" class=" section">
-        <div class="container">
-            <h2 class="fw-semibold" data-aos="fade-up">
-                Daftar Penyakit Tanaman Cabai
-            </h2>
-            <div class="row">
-                <div class="col-12">
-                    <div class="card card-body border border-0 shadow p-3 mt-3" data-aos="fade-up">
-                        <ul class="nav nav-pills mb-3 d-flex flex-column flex-md-row" id="pills-tab" role="tablist">
-                            @foreach ($penyakit as $p)
-                                <li class="nav-item" role="presentation">
-                                    <div class="d-grid py-1 py-md-0">
-                                        <button class="nav-link" id="pills-{{ $p->id }}-tab" data-bs-toggle="pill"
-                                            data-bs-target="#pills-{{ $p->id }}" type="button" role="tab"
-                                            aria-controls="pills-{{ $p->id }}" aria-selected="false">
-                                            {{ $p->name }}
-                                        </button>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <div class="tab-content" id="pills-tabContent">
-                            @foreach ($penyakit as $p)
-                                <div class="tab-pane fade" id="pills-{{ $p->id }}" role="tabpanel"
-                                    aria-labelledby="pills-{{ $p->id }}-tab" tabindex="0">
-                                    <div class="card border border-start-0 border-end-0 border-bottom-0 border-2">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-12 col-lg-8 pt-5 pt-lg-0 order-1">
-                                                    <div class="pb-3">
-                                                        <h3 class="h4 ">Nama Penyakit</h3>
-                                                        <p class="card-text">
-                                                            {{ $p->name }}
-                                                        </p>
-                                                    </div>
-                                                    <div class="pb-3">
-                                                        <h3 class="h4 ">Penyebab Penyakit</h3>
-                                                        <p class="card-text">
-                                                            {{ $p->reason }}
-                                                        </p>
-                                                    </div>
-                                                    <div>
-                                                        <h3 class="h4 ">Solusi Penyakit</h3>
-                                                        @php
-                                                            $solusi = $p->solution;
-                                                            preg_match_all('/(\d+\.)\s*(.*?)(?=(\d+\.|$))/s', $solusi, $matches);
-                                                            $nomorAsOlTag = '<ol>';
-                                                            for ($i = 0; $i < count($matches[0]); $i++) {
-                                                                $nomorAsOlTag .= '<li>' . $matches[2][$i] . '</li>';
-                                                            }
-                                                            $nomorAsOlTag .= '</ol>';
-                                                            echo $nomorAsOlTag;
-                                                        @endphp
-                                                    </div>
-                                                </div>
-                                                @php
-                                                    $image = $p->image;
-                                                    [$width, $height] = getimagesize(storage_path('app/public/penyakit/' . $image));
-                                                @endphp
-                                                <div class="col-12 col-lg-4 order-lg-2 d-flex align-items-center justify-content-center"
-                                                    id="column-img-penyakit">
-                                                    <div class="container-image-penyakit">
-                                                        <div class="container-chocolat">
-                                                            <a href="#" class="open-image-chocolat">
-                                                                <img width="{{ $width }}"
-                                                                    height="{{ $height }}"
-                                                                    class="img-fluid chocolat-image"
-                                                                    title="{{ $p->name }}"
-                                                                    src="{{ asset('/storage/penyakit/' . $p->image) }}"
-                                                                    alt="{{ $p->name }}" srcset="" loading="lazy"
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-title="Gambar {{ $p->name }}">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     @if (Auth::check() && Gate::check('asUser'))
         @section('title', auth()->user()->name . html_entity_decode(' &mdash;'))
