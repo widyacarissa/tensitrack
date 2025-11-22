@@ -31,7 +31,7 @@
                 </p>
 
                 <div class="d-flex flex-wrap gap-3">
-                    <a href="#skrining-risiko"
+                    <a href="#diagnosis"
                         class="btn text-white px-4 py-3 shadow-sm rounded-pill fw-bold"
                         style="background-color: #001B48;">
                         Mulai Skrining Gratis
