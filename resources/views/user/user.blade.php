@@ -213,8 +213,7 @@
                         {{-- Header Card --}}
                         <div class="p-4 border-bottom border-white border-opacity-10 d-flex justify-content-between align-items-center bg-black bg-opacity-10">
                             <div class="d-flex align-items-center">
-                                <div class="spinner-grow text-warning spinner-grow-sm me-2" role="status"></div>
-                                <span class="fw-bold small text-uppercase ls-1">AI Health Monitor</span>
+
                             </div>
                             <i class="bi bi-cpu text-white-50"></i>
                         </div>
