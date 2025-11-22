@@ -143,6 +143,103 @@
         </div>
     </div>
 
+
+    {{-- BAGIAN 6: FAQ (Pertanyaan Umum) --}}
+    <div id="faq" class="section py-5 bg-white position-relative overflow-hidden">
+        {{-- Decoration Circle --}}
+        <div style="position: absolute; top: -50px; left: -50px; width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, rgba(255,255,255,0) 70%); pointer-events: none;"></div>
+
+        <div class="container py-4">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold" style="color: #001B48;">Pertanyaan Umum</h2>
+                <p class="text-muted">Temukan jawaban untuk pertanyaan yang sering diajukan</p>
+            </div>
+
+            <div class="row justify-content-center" data-aos="fade-up">
+                <div class="col-lg-9">
+                    <div class="accordion accordion-flush d-flex flex-column gap-3" id="accordionFAQ">
+                        
+                        {{-- Q1 --}}
+                        <div class="accordion-item border-0">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button collapsed fw-semibold shadow-sm rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" 
+                                    style="color: #001B48; border: 1px solid #f59e0b; background-color: #fff;">
+                                    Apakah hasil skrining risiko hipertensi pada TensiTrack dapat menggantikan pemeriksaan dokter?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionFAQ">
+                                <div class="accordion-body text-muted pt-2 px-4 pb-4 border-start border-end border-bottom border-warning-subtle rounded-bottom-3 bg-light bg-opacity-25">
+                                    Tidak. TensiTrack hanya membantu memberikan indikasi awal terhadap risiko hipertensi, dan hasilnya tidak menggantikan diagnosis medis dari dokter.
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Q2 --}}
+                        <div class="accordion-item border-0">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed fw-semibold shadow-sm rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" 
+                                    style="color: #001B48; border: 1px solid #f59e0b; background-color: #fff;">
+                                    Bagaimana cara kerja TensiTrack dalam melakukan skrining risiko hipertensi?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionFAQ">
+                                <div class="accordion-body text-muted pt-2 px-4 pb-4 border-start border-end border-bottom border-warning-subtle rounded-bottom-3 bg-light bg-opacity-25">
+                                    Sistem TensiTrack menggunakan metode forward chaining untuk menganalisis data pengguna dan menentukan potensi risiko hipertensi berdasarkan faktor-faktor kesehatan tertentu.
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Q3 --}}
+                        <div class="accordion-item border-0">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed fw-semibold shadow-sm rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" 
+                                    style="color: #001B48; border: 1px solid #f59e0b; background-color: #fff;">
+                                    Apakah kalkulator BMI dapat digunakan oleh seluruh kelompok masyarakat?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionFAQ">
+                                <div class="accordion-body text-muted pt-2 px-4 pb-4 border-start border-end border-bottom border-warning-subtle rounded-bottom-3 bg-light bg-opacity-25">
+                                    Ya, kalkulator BMI dapat digunakan oleh siapa saja, tetapi hasilnya perlu disesuaikan dengan kondisi individu seperti usia dan massa otot.
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Q4 --}}
+                        <div class="accordion-item border-0">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed fw-semibold shadow-sm rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" 
+                                    style="color: #001B48; border: 1px solid #f59e0b; background-color: #fff;">
+                                    Apakah data kesehatan saya aman?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionFAQ">
+                                <div class="accordion-body text-muted pt-2 px-4 pb-4 border-start border-end border-bottom border-warning-subtle rounded-bottom-3 bg-light bg-opacity-25">
+                                    TensiTrack menerapkan sistem keamanan data dengan enkripsi agar informasi pribadi pengguna tetap terlindungi.
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Q5 --}}
+                        <div class="accordion-item border-0">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed fw-semibold shadow-sm rounded-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive" 
+                                    style="color: #001B48; border: 1px solid #f59e0b; background-color: #fff;">
+                                    Apakah skrining risiko hipertensi dapat dilakukan secara berkala?
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionFAQ">
+                                <div class="accordion-body text-muted pt-2 px-4 pb-4 border-start border-end border-bottom border-warning-subtle rounded-bottom-3 bg-light bg-opacity-25">
+                                    Ya, pengguna disarankan melakukan skrining secara berkala untuk memantau perubahan risiko dan menjaga kesehatan secara berkelanjutan.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- BAGIAN MODALS & SCRIPTS USER --}}
     @if (Auth::check() && Gate::check('asUser'))
         @section('title', auth()->user()->name . html_entity_decode(' &mdash;'))
