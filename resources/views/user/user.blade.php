@@ -10,11 +10,21 @@
                 </div>
                 <div class="col-12 col-lg-6 align-self-center px-3 px-sm-5 order-lg-1" data-aos="fade-left" data-aos-anchor="body"
                     id="col2">
-                    <h1 class="text-start font-bold ">
+                    <h1 class="text-start font-bold " style="color: #001B48;">
                         Langkah Cerdas Cegah Hipertensi
                     </h1>
                     <p class="lead"> <b>TensiTrack</b> hadir sebagai platform cerdas untuk mengenali potensi risiko hipertensi yang dapat membantu anda mengambil langkah preventif demi kesehatan optimal.</p>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div id="alur-interaksi" class="section">
+        <div class="container">
+            <div class="text-center" data-aos="fade-up">
+                <h1 class="text-center font-bold " style="color: #001B48;">Alur Interaksi Pengguna</h1>
+                <p style="color: #001B48;">Ikuti langkah sederhana berikut untuk mulai menggunakan TensiTrack</p>
+                <img class="img-fluid" src="{{ asset('assets/img/Alur Kerja/alur-kerja.png') }}"
+                    alt="Alur Interaksi Pengguna">
             </div>
         </div>
     </div>

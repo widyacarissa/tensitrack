@@ -29,6 +29,28 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <link rel="stylesheet" href="{{ asset('/assets/vendor/chocolat/chocolat.css') }}" type="text/css" media="screen">
     @stack('stylePerPage')
+    <style>
+        #upScroll {
+            background-color: #001B48;
+            color: #FFFFFF;
+            /* Position and other styling can be added here if not already defined */
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        #upScroll:hover {
+            background-color: #E49502;
+        }
+    </style>
 </head>
 
 <body class="bg-light-subtle">
