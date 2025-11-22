@@ -147,8 +147,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            {{-- Menampilkan ID Rule yang sedang diedit --}}
-            <h1>Halaman Ubah Aturan No {{ $rule['id'] }}</h1>
+            <h1>Ubah Aturan untuk Penyakit: {{ $penyakit->name }}</h1>
         </div>
         <div class="section-body">
             <div class="pb-4">
@@ -158,33 +157,22 @@
             </div>
             <div class="card shadow-sm">
                 <div class="card-body p-4">
-                    <form action="{{ route('admin.rule.update', $rule['id']) }}" method="post">
+                    <form action="{{ route('admin.rule.update', $penyakit->id) }}" method="post">
                         @csrf
                         @method('PUT')
                         
                         {{-- Bagian Penyakit --}}
                         <div class="form-group mb-4">
                             <label class="form-label font-weight-bold" style="color: #001B48; font-size: 16px;">Penyakit</label>
-                            <p class="text-muted small mb-2">Ubah penyakit jika diperlukan.</p>
-                            <select name="penyakit" id="penyakit" required
-                                class="form-control select2 @error('penyakit') is-invalid @enderror">
-                                <option value="" disabled>Pilih Penyakit</option>
-                                @foreach ($penyakit as $p)
-                                    <option value="{{ $p->id }}" @if ($p->id == $rule['penyakit_id']) selected @endif>
-                                        {{ $p->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('penyakit')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <input type="text" class="form-control" value="{{ $penyakit->name }}" readonly>
+                            <p class="text-muted small mt-2">Anda sedang mengubah aturan untuk penyakit ini. Penyakit tidak dapat diubah di halaman ini.</p>
                         </div>
 
                         {{-- Bagian Gejala (Format Kartu) --}}
                         <div class="form-group">
                             <label class="form-label font-weight-bold" style="color: #001B48; font-size: 16px;">Gejala</label>
                             <p class="text-muted small mb-3">
-                                Klik kotak gejala untuk mengubah pilihan. Gejala saat ini ditandai dengan warna <b style="color: #001B48">Biru Gelap</b>.
+                                Klik kotak gejala untuk mengubah pilihan. Gejala yang dipilih ditandai dengan warna <b style="color: #001B48">Biru Gelap</b>.
                             </p>
                             
                             {{-- Search Bar --}}
@@ -210,8 +198,7 @@
                             <div class="gejala-container" id="gejalaContainer">
                                 @foreach ($gejala as $g)
                                     @php
-                                        // Cek apakah gejala ini adalah yang sedang diedit
-                                        $isChecked = ($g->id == $rule['gejala_id']);
+                                        $isChecked = in_array($g->id, $selectedGejala);
                                     @endphp
 
                                     <label class="gejala-card {{ $isChecked ? 'active' : '' }}" id="card_{{ $g->id }}">

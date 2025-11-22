@@ -39,12 +39,12 @@ Route::prefix('admin')->group(function () {
     Route::prefix('rule')->group(function () {
         Route::middleware(['auth', 'can:asAdmin'])->group(function () {
             Route::post('store', [\App\Http\Controllers\Admin\RuleController::class, 'store'])->name('admin.rule.store');
-            Route::put('update/{id}', [\App\Http\Controllers\Admin\RuleController::class, 'update'])->name('admin.rule.update');
-            Route::delete('destroy/{id}', [\App\Http\Controllers\Admin\RuleController::class, 'destroy'])->name('admin.rule.destroy');
+            Route::put('update/{penyakit}', [\App\Http\Controllers\Admin\RuleController::class, 'update'])->name('admin.rule.update');
+            Route::delete('destroy/{penyakit}', [\App\Http\Controllers\Admin\RuleController::class, 'destroy'])->name('admin.rule.destroy');
         });
         Route::get('/', [\App\Http\Controllers\Admin\RuleController::class, 'index'])->name('admin.rule');
         Route::get('tambah', [\App\Http\Controllers\Admin\RuleController::class, 'create'])->name('admin.rule.tambah');
-        Route::get('edit/{id}', [\App\Http\Controllers\Admin\RuleController::class, 'edit'])->name('admin.rule.edit');
+        Route::get('edit/{penyakit}', [\App\Http\Controllers\Admin\RuleController::class, 'edit'])->name('admin.rule.edit');
         Route::get('pdf', [ShowPdfController::class, 'rulePdf'])->name('rule.pdf');
     });
     Route::prefix('histori-diagnosis')->group(function () {

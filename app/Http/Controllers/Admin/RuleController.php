@@ -69,19 +69,16 @@ class RuleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'penyakit' => 'required',
-            'gejala' => 'required',
+            'penyakit' => 'required|exists:penyakit,id',
+            'gejala' => 'required|array',
         ]);
 
-        $gejala = $request->input('gejala');
-        foreach ($gejala as $key => $value) {
-            $gejala[$key] = (int) $value;
-        }
+        $gejalaIds = array_unique($request->input('gejala'));
 
-        foreach ($gejala as $key => $value) {
+        foreach ($gejalaIds as $gejalaId) {
             Rule::create([
                 'penyakit_id' => (int) $request->input('penyakit'),
-                'gejala_id' => $value,
+                'gejala_id' => (int) $gejalaId,
             ]);
         }
 
@@ -91,24 +88,18 @@ class RuleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Penyakit  $penyakit
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Penyakit $penyakit)
     {
-        $rule = Rule::with(['penyakit' => function ($query) {
-            $query->select('id', 'name');
-        }, 'gejala' => function ($query) {
-            $query->select('id', 'name');
-        }])->findOrFail($id, ['id', 'penyakit_id', 'gejala_id','updated_at'])->toArray();
-
-        $penyakit = Penyakit::select('id', 'name')->orderByDesc('updated_at')->get();
-        $gejala = Gejala::select('id', 'name')->orderByDesc('updated_at')->get();
+        $gejala = Gejala::select('id', 'name')->orderBy('id')->get();
+        $selectedGejala = Rule::where('penyakit_id', $penyakit->id)->pluck('gejala_id')->toArray();
 
         $data = [
             'penyakit' => $penyakit,
             'gejala' => $gejala,
-            'rule' => $rule,
+            'selectedGejala' => $selectedGejala,
         ];
 
         return view('admin.rule.edit', $data);
@@ -118,30 +109,39 @@ class RuleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Penyakit  $penyakit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Penyakit $penyakit)
     {
-        $rule = Rule::findOrFail($id);
-        $rule->penyakit_id = $request->input('penyakit');
-        $rule->gejala_id = $request->input('gejala');
-        $rule->save();
+        $request->validate([
+            'gejala' => 'required|array',
+        ]);
 
-        return redirect()->route('admin.rule')->with('success', 'Rule berhasil diubah');
+        Rule::where('penyakit_id', $penyakit->id)->delete();
+
+        $gejalaIds = array_unique($request->input('gejala'));
+
+        foreach ($gejalaIds as $gejala_id) {
+            Rule::create([
+                'penyakit_id' => $penyakit->id,
+                'gejala_id' => (int) $gejala_id,
+            ]);
+        }
+
+        return redirect()->route('admin.rule')->with('success', 'Aturan untuk penyakit ' . $penyakit->name . ' berhasil diperbarui');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Penyakit  $penyakit
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Penyakit $penyakit)
     {
-        $rule = Rule::findOrFail($id);
-        $rule->delete();
+        Rule::where('penyakit_id', $penyakit->id)->delete();
 
-        return redirect()->route('admin.rule')->with('success', 'Rule berhasil dihapus');
+        return redirect()->route('admin.rule')->with('success', 'Semua aturan untuk penyakit ' . $penyakit->name . ' berhasil dihapus');
     }
 }

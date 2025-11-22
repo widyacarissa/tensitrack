@@ -35,12 +35,13 @@
     <script>
         const table = document.getElementById('table-1');
         const dataTable = $(table).DataTable({});
-        $(document).on("click", "#table-1 #btnHapus", function(e) {
+        $(document).on("click", ".btnHapus", function(e) {
             e.preventDefault();
-            var form = $(this).closest("td").find("form");
+            var formId = $(this).data('form-id');
+            var form = $("#" + formId);
             swal({
                     title: "Apakah Anda yakin?",
-                    text: "Tindakan ini mungkin akan menghapus aturan untuk penyakit ini!",
+                    text: "Semua aturan gejala untuk penyakit ini akan dihapus!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -99,21 +100,14 @@
                             <tbody>
                                 {{-- LOGIKA PENGELOMPOKAN DATA --}}
                                 @php
-                                    // Kita ubah data $rules menjadi Collection Laravel (jika belum)
-                                    // Lalu kita group berdasarkan 'penyakit.name'
                                     $groupedRules = collect($rules)->groupBy('penyakit.name');
                                 @endphp
 
                                 @foreach ($groupedRules as $penyakitName => $groupItems)
-                                    {{-- Ambil item pertama dari grup untuk data umum (id, tanggal, dll) --}}
                                     @php
                                         $firstItem = $groupItems->first();
-                                        // Cari tanggal update paling baru di grup ini
+                                        $penyakitId = $firstItem['penyakit']['id'];
                                         $latestUpdate = $groupItems->max('updated_at'); 
-                                        
-                                        // PERBAIKAN UTAMA:
-                                        // Kita ambil hanya gejala yang UNIK berdasarkan 'no_gejala' atau 'gejala_id'
-                                        // agar tidak terjadi perulangan tampilan (G01, G01, G02, G02, dst)
                                         $uniqueGejala = $groupItems->unique('no_gejala');
                                     @endphp
 
@@ -125,7 +119,6 @@
                                             {{ $penyakitName }}
                                         </td>
                                         <td>
-                                            {{-- Loop Gejala menggunakan variable $uniqueGejala --}}
                                             <div class="d-flex flex-wrap">
                                                 @foreach ($uniqueGejala as $item)
                                                     <span class="symptom-badge">
@@ -136,31 +129,27 @@
                                             </div>
                                         </td>
                                         <td class="align-top text-small">
-                                            {{-- Menampilkan tanggal update terakhir dari grup tersebut --}}
                                             {{ \Carbon\Carbon::parse($latestUpdate)->format('d M Y H:i') }}
                                         </td>
                                         <td class="align-top">
                                             <div class="dropdown">
                                                 <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
-                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                    id="dropdownMenuButton-{{ $penyakitId }}" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false">
                                                     Aksi
                                                 </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                    {{-- Tombol Edit: Menggunakan ID salah satu rule (biasanya controller akan load by penyakit atau rule id) --}}
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{ $penyakitId }}">
                                                     <a class="dropdown-item has-icon text-warning"
-                                                        href="{{ route('admin.rule.edit', ['id' => $firstItem['id']]) }}">
+                                                        href="{{ route('admin.rule.edit', ['penyakit' => $penyakitId]) }}">
                                                         <i class="far fa-edit"></i> Edit
                                                     </a>
                                                     
-                                                    {{-- Tombol Hapus --}}
-                                                    <a class="dropdown-item has-icon text-danger" href="#" id="btnHapus">
+                                                    <a class="dropdown-item has-icon text-danger btnHapus" href="#" data-form-id="formHapus-{{ $penyakitId }}">
                                                         <i class="far fa-trash-alt"></i> Hapus
                                                     </a>
                                                     
-                                                    {{-- Form Hapus (Menggunakan ID item pertama) --}}
-                                                    <form id="formHapus"
-                                                        action="{{ route('admin.rule.destroy', ['id' => $firstItem['id']]) }}"
+                                                    <form id="formHapus-{{ $penyakitId }}"
+                                                        action="{{ route('admin.rule.destroy', ['penyakit' => $penyakitId]) }}"
                                                         method="post" style="display: none;">
                                                         @csrf
                                                         @method('delete')
