@@ -1,23 +1,26 @@
 @extends('layouts.user.app')
 @section('content')
-    <div id="beranda" class=" section">
+    {{-- BAGIAN 1: BERANDA --}}
+    <div id="beranda" class="section">
         <div class="container">
             <div class="row min-vh-100 min-vh-u-lg-85 align-items-start">
-                    <div class="col-12 col-lg-6 hero-fit-vertical order-lg-2" data-aos="fade-right" id="container-image-hero">
-                        <img class="img-fluid bg-body-tertiary rounded" id="sipakar-home"
-                            src="{{ asset('assets/img/sipakar-home.png') }}" width="773" height="742"
-                            alt="Gambar Home">
+                <div class="col-12 col-lg-6 hero-fit-vertical order-lg-2" data-aos="fade-right" id="container-image-hero">
+                    <img class="img-fluid bg-body-tertiary rounded" id="sipakar-home"
+                        src="{{ asset('assets/img/sipakar-home.png') }}" width="773" height="742" alt="Gambar Home">
                 </div>
-                <div class="col-12 col-lg-6 align-self-center px-3 px-sm-5 order-lg-1" data-aos="fade-left" data-aos-anchor="body"
-                    id="col2">
+                <div class="col-12 col-lg-6 align-self-center px-3 px-sm-5 order-lg-1" data-aos="fade-left"
+                    data-aos-anchor="body" id="col2">
                     <h1 class="text-start font-bold " style="color: #001B48;">
                         Langkah Cerdas Cegah Hipertensi
                     </h1>
-                    <p class="lead"> <b>TensiTrack</b> hadir sebagai platform cerdas untuk mengenali potensi risiko hipertensi yang dapat membantu anda mengambil langkah preventif demi kesehatan optimal.</p>
+                    <p class="lead"> <b>TensiTrack</b> hadir sebagai platform cerdas untuk mengenali potensi risiko
+                        hipertensi yang dapat membantu anda mengambil langkah preventif demi kesehatan optimal.</p>
                 </div>
             </div>
         </div>
     </div>
+
+    {{-- BAGIAN 2: ALUR INTERAKSI --}}
     <div id="alur-interaksi" class="section">
         <div class="container">
             <div class="text-center" data-aos="fade-up">
@@ -29,7 +32,88 @@
         </div>
     </div>
 
+    {{-- BAGIAN BARU: KALKULATOR BMI (Disisipkan di sini) --}}
+    <div id="kalkulator-bmi" class="section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                {{-- Kolom Kiri: Penjelasan & Gambar --}}
+                <div class="col-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                    <h4 class="fw-bold mb-3" style="color: #f59e0b;">Apa itu BMI?</h4>
+                    <p class="text-muted mb-4">
+                        Body Mass Index (BMI) adalah cara menghitung berat badan ideal berdasarkan tinggi dan berat badan. BMI
+                        juga dapat dibedakan berdasarkan usia.
+                    </p>
 
+                    <h4 class="fw-bold mb-3" style="color: #f59e0b;">Apa itu kalkulator BMI?</h4>
+                    <p class="text-muted mb-4">
+                        Kalkulator BMI adalah alat untuk mengidentifikasi apakah berat badan kamu termasuk dalam kategori
+                        ideal atau tidak. Kalkulator ini dapat digunakan oleh seseorang yang berusia 20 tahun ke atas.
+                    </p>
+
+                    <div class="text-center text-lg-start mt-4">
+                        {{-- Gambar sesuai request user --}}
+                        <img src="https://img.freepik.com/premium-vector/weight-loss-bmi-man-woman-before-after-diet-fitness-fat-thin-man-woman_162329-342.jpg"
+                            alt="Ilustrasi BMI" class="img-fluid rounded shadow-sm"
+                            style="max-height: 300px; object-fit: contain;">
+                    </div>
+                </div>
+
+                {{-- Kolom Kanan: Form Kalkulator (Kartu Biru) --}}
+                <div class="col-12 col-lg-6" data-aos="fade-left">
+                    <div class="card border-0 shadow-lg p-4" style="background-color: #001B48; border-radius: 15px;">
+                        <div class="card-body text-white">
+                            {{-- Radio Button Gender --}}
+                            <div class="d-flex justify-content-center gap-4 mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="genderLaki"
+                                        value="male" checked>
+                                    <label class="form-check-label" for="genderLaki">Laki-Laki</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="gender" id="genderPerempuan"
+                                        value="female">
+                                    <label class="form-check-label" for="genderPerempuan">Perempuan</label>
+                                </div>
+                            </div>
+
+                            {{-- Input Tinggi --}}
+                            <div class="mb-3">
+                                <label for="height" class="form-label fw-bold" style="color: #f59e0b;">Tinggi Badan
+                                    (cm)</label>
+                                <input type="number" class="form-control p-3" id="height"
+                                    placeholder="Masukkan tinggi badan..." style="border-radius: 10px;">
+                            </div>
+
+                            {{-- Input Berat --}}
+                            <div class="mb-4">
+                                <label for="weight" class="form-label fw-bold" style="color: #f59e0b;">Berat Badan
+                                    (kg)</label>
+                                <input type="number" class="form-control p-3" id="weight"
+                                    placeholder="Masukkan berat badan..." style="border-radius: 10px;">
+                            </div>
+
+                            {{-- Tombol Hitung --}}
+                            <div class="d-grid gap-2 mb-4">
+                                <button type="button" onclick="calculateBMI()" class="btn btn-light fw-bold py-3"
+                                    style="color: #001B48; border-radius: 10px;">
+                                    Menghitung BMI
+                                </button>
+                            </div>
+
+                            {{-- Hasil --}}
+                            <div class="mb-2">
+                                <label for="result" class="form-label fw-bold" style="color: #f59e0b;">Hasil</label>
+                                <input type="text" class="form-control p-3 fw-bold text-center" id="result" readonly
+                                    style="border-radius: 10px; background-color: #fff;" placeholder="-">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- BAGIAN 3: DIAGNOSIS --}}
     <div id="diagnosis" class="section">
         <div class="container">
             <h2 class="font-semibold pb-3" data-aos="fade-up">
@@ -59,7 +143,7 @@
         </div>
     </div>
 
-
+    {{-- BAGIAN MODALS & SCRIPTS USER --}}
     @if (Auth::check() && Gate::check('asUser'))
         @section('title', auth()->user()->name . html_entity_decode(' &mdash;'))
         @include('user.profile-modal')
@@ -83,6 +167,7 @@
 @endsection
 
 @push('scriptPerPage')
+    {{-- SCRIPT BAWAAN --}}
     <script type="text/javascript">
         const isUser = @json(Auth::check() && Gate::check('asUser'));
         const hasUserProfile = @json(Auth::user()->profile->id ?? false);
@@ -91,5 +176,40 @@
         const penyakitImage = @json($penyakit);
         const assetStoragePenyakit = '{{ asset('/storage/penyakit/') }}';
         const assetStorageGejala = '{{ asset('/storage/gejala/') }}';
+    </script>
+
+    {{-- SCRIPT TAMBAHAN UNTUK KALKULATOR BMI --}}
+    <script>
+        function calculateBMI() {
+            // Ambil nilai input
+            const height = document.getElementById('height').value;
+            const weight = document.getElementById('weight').value;
+            const resultInput = document.getElementById('result');
+
+            // Validasi input
+            if (height === "" || weight === "" || height <= 0 || weight <= 0) {
+                resultInput.value = "Masukkan data yang valid!";
+                return;
+            }
+
+            // Rumus BMI: Berat (kg) / (Tinggi (m) * Tinggi (m))
+            const heightInMeters = height / 100;
+            const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);
+
+            // Tentukan Kategori
+            let category = "";
+            if (bmi < 18.5) {
+                category = "Kurus (Underweight)";
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                category = "Ideal (Normal)";
+            } else if (bmi >= 25 && bmi <= 29.9) {
+                category = "Gemuk (Overweight)";
+            } else {
+                category = "Obesitas";
+            }
+
+            // Tampilkan Hasil
+            resultInput.value = `${bmi} - ${category}`;
+        }
     </script>
 @endpush
