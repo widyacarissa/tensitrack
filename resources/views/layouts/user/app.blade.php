@@ -55,10 +55,7 @@
 
 <body class="bg-light-subtle">
     <div class="splash-screen">
-        <div class="la-timer la-dark la-3x">
-            <div>
-            </div>
-        </div>
+        <div class="heart-loader"></div>
     </div>
     <main>
         <section>
