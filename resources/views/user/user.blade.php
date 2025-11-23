@@ -352,7 +352,7 @@
     </div>
 
 
-        {{-- BAGIAN : ARTIKEL KESEHATAN TERKINI (BARU) --}}
+        {{-- BAGIAN 7: ARTIKEL KESEHATAN TERKINI (BARU) --}}
     <div id="artikel" class="section py-5 bg-light position-relative">
         <div class="container py-4">
             {{-- Judul Section --}}
