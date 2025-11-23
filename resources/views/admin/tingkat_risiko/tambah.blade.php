@@ -13,48 +13,33 @@
                 <div class="card-body">
                     <form action="{{ route('admin.tingkat-risiko.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group">
-                            <label class="form-label">Nama Tingkat Risiko</label>
-                            <input type="text" class="form-control @error('tingkatRisiko') is-invalid @enderror"
-                                name="tingkatRisiko" id="tingkatRisiko" value="{{ old('tingkatRisiko') }}">
-                            @error('tingkatRisiko')
+                            <input type="text" class="form-control @error('tingkat_risiko') is-invalid @enderror"
+                                name="tingkat_risiko" id="tingkatRisiko" value="{{ old('tingkat_risiko') }}">
+                            @error('tingkat_risiko')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Penyebab</label>
-                            <input type="text" class="form-control @error('reason') is-invalid @enderror" name="reason"
-                                id="reason" value="{{ old('reason') }}">
-                            @error('reason')
+                        <div class="mb-3">
+                            <label for="keterangan" class="form-label">Keterangan</label>
+                            <input type="text" class="form-control @error('keterangan') is-invalid @enderror" name="keterangan"
+                                id="keterangan" value="{{ old('keterangan') }}">
+                            @error('keterangan')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Solusi</label>
-                            <textarea name="solution" class="form-control @error('solution') is-invalid @enderror" id="solution"
-                                style="height: 200px">{{ old('solution') }}</textarea>
-                            @error('solution')
+                        <div class="mb-3">
+                            <label for="saran" class="form-label">Saran</label>
+                            <textarea name="saran" class="form-control @error('saran') is-invalid @enderror" id="saran"
+                                style="height: 200px">{{ old('saran') }}</textarea>
+                            @error('saran')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="image" class="form-label">Gambar</label>
-                            <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
-                                id="image">
-                            @error('image')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                            <div class="card card-body mt-3 d-none container-image-preview">
-                                <img class="img-fluid" width="300" id="imagePreview" src="">
-                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
@@ -64,25 +49,4 @@
     </section>
 @endsection
 
-@push('jsCustom')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var input = document.getElementById('image');
 
-            input.addEventListener('change', function(e) {
-                var file = e.target.files[0];
-                var reader = new FileReader();
-
-                reader.onload = function(e) {
-                    var img = document.getElementById('imagePreview');
-                    img.src = e.target.result;
-                };
-
-                reader.readAsDataURL(file);
-
-                const containerImagePreview = document.querySelector('.container-image-preview');
-                containerImagePreview.classList.remove('d-none');
-            });
-        });
-    </script>
-@endpush

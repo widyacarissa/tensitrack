@@ -147,7 +147,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Ubah Aturan untuk Tingkat Risiko: {{ $tingkatRisiko->name }}</h1>
+            <h1>Ubah Aturan untuk Tingkat Risiko: {{ $tingkatRisiko->tingkat_risiko }}</h1>
         </div>
         <div class="section-body">
             <div class="pb-4">
@@ -164,7 +164,7 @@
                         {{-- Bagian Tingkat Risiko --}}
                         <div class="form-group mb-4">
                             <label class="form-label font-weight-bold" style="color: #001B48; font-size: 16px;">Tingkat Risiko</label>
-                            <input type="text" class="form-control" value="{{ $tingkatRisiko->name }}" readonly>
+                            <input type="text" class="form-control" value="{{ $tingkatRisiko->tingkat_risiko }}" readonly>
                             <p class="text-muted small mt-2">Anda sedang mengubah aturan untuk tingkat risiko ini. Tingkat risiko tidak dapat diubah di halaman ini.</p>
                         </div>
 

@@ -76,11 +76,11 @@
                                     <th class="text-center">
                                         No
                                     </th>
-                                    <th>Nama</th>
-                                    <th>Penyebab</th>
-                                    <th>Solusi</th>
+                                    <th>Kode</th>
+                                    <th>Tingkat Risiko</th>
+                                    <th>Keterangan</th>
+                                    <th>Saran</th>
                                     <th>Tanggal Dibuat/Diubah</th>
-                                    <th>Gambar</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -90,15 +90,11 @@
                                         <td class="text-center">
                                             {{ $loop->iteration }}
                                         </td>
-                                        <td>{{ $tr->name }}</td>
-                                        <td>{{ $tr->reason }}</td>
-                                        <td>{{ $tr->solution }}</td>
+                            <td>{{ $tr->kode }}</td>
+                            <td>{{ $tr->tingkat_risiko }}</td>
+                            <td>{{ $tr->keterangan }}</td>
+                            <td>{{ $tr->saran }}</td>
                                         <td>{{ $tr->updated_at }}</td>
-                                        <td>
-                                            <img alt="image" src="{{ asset('storage/tingkat-risiko/' . $tr->image) }}"
-                                                class="" width="200" data-toggle="tooltip"
-                                                title="{{ $tr->name }}">
-                                        </td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-primary dropdown-toggle" type="button"

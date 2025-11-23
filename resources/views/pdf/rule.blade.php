@@ -19,7 +19,7 @@
                     <td>
                         {{ $loop->iteration }}
                     </td>
-                    <td>{{ $rule['tingkatRisiko']['name'] }}</td>
+                    <td>{{ $rule['tingkatRisiko']['tingkat_risiko'] }}</td>
                     <td>{{ $rule['no_faktor_risiko'] }}</td>
                     <td>{{ $rule['faktorRisiko']['name'] }}</td>
                     <td>{{ $rule['updated_at'] }}</td>

@@ -19,10 +19,10 @@
                     <td>
                         {{ $loop->iteration }}
                     </td>
-                    <td>{{ $tr['name'] }}</td>
-                    <td>{{ $tr['reason'] }}</td>
-                    <td>{{ $tr['solution'] }}</td>
-                    <td>{{ $tr['updated_at'] }}</td>
+                                <td>{{ $tr['kode'] }}</td>
+                                <td>{{ $tr['tingkat_risiko'] }}</td>
+                                <td>{{ $tr['keterangan'] }}</td>
+                                <td>{{ $tr['saran'] }}</td>                    <td>{{ $tr['updated_at'] }}</td>
                 </tr>
             @endforeach
         </tbody>

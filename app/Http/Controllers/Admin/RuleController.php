@@ -51,7 +51,7 @@ class RuleController extends Controller
      */
     public function create()
     {
-        $tingkatRisiko = TingkatRisiko::select('id', 'name')->orderByDesc('updated_at')->get();
+        $tingkatRisiko = TingkatRisiko::select('id', 'kode', 'tingkat_risiko')->orderByDesc('updated_at')->get();
         $faktorRisiko = FaktorRisiko::select('id', 'name')->orderByDesc('updated_at')->get();
 
         $data = [
@@ -129,7 +129,7 @@ class RuleController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.rule')->with('success', 'Aturan untuk tingkat risiko '.$tingkatRisiko->name.' berhasil diperbarui');
+        return redirect()->route('admin.rule')->with('success', 'Aturan untuk tingkat risiko '.$tingkatRisiko->tingkat_risiko.' berhasil diperbarui');
     }
 
     /**
@@ -142,6 +142,6 @@ class RuleController extends Controller
     {
         Rule::where('tingkat_risiko_id', $tingkatRisiko->id)->delete();
 
-        return redirect()->route('admin.rule')->with('success', 'Semua aturan untuk tingkat risiko '.$tingkatRisiko->name.' berhasil dihapus');
+        return redirect()->route('admin.rule')->with('success', 'Semua aturan untuk tingkat risiko '.$tingkatRisiko->tingkat_risiko.' berhasil dihapus');
     }
 }

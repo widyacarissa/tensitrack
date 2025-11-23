@@ -18,7 +18,7 @@ class TingkatRisikoController extends Controller
     public function index()
     {
         $data = [
-            'tingkat_risiko' => TingkatRisiko::get(['id', 'name', 'reason', 'solution', 'image', 'updated_at']),
+            'tingkat_risiko' => TingkatRisiko::get(['id', 'kode', 'tingkat_risiko', 'keterangan', 'saran', 'updated_at']),
         ];
 
         return view('admin.tingkat_risiko.tingkat_risiko', $data);
@@ -43,24 +43,16 @@ class TingkatRisikoController extends Controller
     {
         $this->validate($request, [
             'tingkat_risiko' => 'required|string',
-            'reason' => 'required|string',
-            'solution' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'tingkat_risiko' => 'required|string',
+            'keterangan' => 'required|string',
+            'saran' => 'required|string',
         ]);
 
-        // upload image
-        $image = $request->file('image');
-        $new_name = rand().'.'.$image->getClientOriginalExtension();
-        $image->storeAs('public/tingkat_risiko', $new_name);
-
-        $form_data = [
-            'name' => $request->tingkat_risiko,
-            'reason' => $request->reason,
-            'solution' => $request->solution,
-            'image' => $new_name,
-        ];
-
-        TingkatRisiko::create($form_data);
+        $tingkat_risiko = TingkatRisiko::create([
+            'tingkat_risiko' => $request->tingkat_risiko,
+            'keterangan' => $request->keterangan,
+            'saran' => $request->saran,
+        ]);
 
         return redirect(route('admin.tingkat_risiko'))->with('success', 'Data berhasil ditambahkan!');
     }
@@ -90,27 +82,14 @@ class TingkatRisikoController extends Controller
 
         $this->validate($request, [
             'tingkat_risiko' => 'required|string',
-            'reason' => 'required|string',
-            'solution' => 'required|string',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'keterangan' => 'required|string',
+            'saran' => 'required|string',
         ]);
 
-        if ($request->hasFile('image')) {
-            $old_image = $tingkat_risiko->image;
-            $image_path = 'public/tingkat_risiko/'.$old_image;
-            if (file_exists($image_path)) {
-                unlink($image_path);
-            }
-            $image = $request->file('image');
-            $new_name = rand().'.'.$image->getClientOriginalExtension();
-            $image->storeAs('public/tingkat_risiko', $new_name);
-        }
-
         $form_data = [
-            'name' => $request->tingkat_risiko,
-            'reason' => $request->reason,
-            'solution' => $request->solution,
-            'image' => $new_name ?? $tingkat_risiko->image,
+            'tingkat_risiko' => $request->tingkat_risiko,
+            'keterangan' => $request->keterangan,
+            'saran' => $request->saran,
         ];
 
         $tingkat_risiko->update($form_data);
@@ -130,7 +109,7 @@ class TingkatRisikoController extends Controller
 
         try {
             if ($tingkat_risiko->delete()) {
-                Storage::delete('public/tingkat_risiko/'.$tingkat_risiko->image);
+                // Image column removed, no need to delete image file.
             }
         } catch (QueryException $e) {
             if ($e->getCode() == 23000) {

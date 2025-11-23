@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $tingkatRisiko = TingkatRisiko::get(['id', 'name', 'reason', 'solution', 'image']);
+        $tingkatRisiko = TingkatRisiko::get(['id', 'kode', 'tingkat_risiko', 'keterangan', 'saran']);
 
         return view('user.user', compact('tingkatRisiko'));
     }
@@ -71,8 +71,8 @@ class UserController extends Controller
             ->get(['id', 'created_at', 'tingkat_risiko_id']);
 
         $data = $historiDiagnosis->map(function ($item) use (&$no, $orderDirection) {
-            $tingkatRisiko = TingkatRisiko::find($item->tingkat_risiko_id, ['name']);
-            $item->tingkatRisiko = $tingkatRisiko ? $tingkatRisiko->name : 'Tidak Diketahui';
+            $tingkatRisiko = TingkatRisiko::find($item->tingkat_risiko_id, ['tingkat_risiko']);
+            $item->tingkatRisiko = $tingkatRisiko ? $tingkatRisiko->tingkat_risiko : 'Tidak Diketahui';
             $item->no = ($orderDirection == 'asc') ? $no-- : $no++;
 
             return $item;
@@ -90,7 +90,7 @@ class UserController extends Controller
     {
         $tingkatRisiko = TingkatRisiko::find(
             Diagnosis::find($request->id_diagnosis, ['tingkat_risiko_id'])->tingkat_risiko_id,
-            ['name', 'reason', 'solution', 'image']
+            ['kode', 'tingkat_risiko', 'keterangan', 'saran']
         );
 
         $diagnosis = Diagnosis::find($request->id_diagnosis, ['answer_log']);
@@ -157,9 +157,9 @@ class UserController extends Controller
 
         // Melakukan pemetaan bobot ke nama tingkat risiko
         $bobot = collect($bobot)->mapWithKeys(function ($item, $key) {
-            $tingkatRisiko = TingkatRisiko::find($key, ['id', 'name']);
+            $tingkatRisiko = TingkatRisiko::find($key, ['id', 'tingkat_risiko']);
 
-            return [$tingkatRisiko->name => $item];
+            return [$tingkatRisiko->tingkat_risiko => $item];
         });
 
         return response()->json($bobot);

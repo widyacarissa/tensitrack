@@ -122,8 +122,8 @@ class BerandaController extends Controller
     public function diagnosisTingkatRisiko()
     {
         $data = Diagnosis::selectRaw('count(*) as count, tingkat_risiko_id')->groupBy('tingkat_risiko_id')->get()->toArray();
-        $tingkatRisiko = TingkatRisiko::get(['id', 'name'])->toArray();
-        $tingkatRisiko = array_column($tingkatRisiko, 'name', 'id');
+        $tingkatRisiko = TingkatRisiko::get(['id', 'tingkat_risiko'])->toArray();
+        $tingkatRisiko = array_column($tingkatRisiko, 'tingkat_risiko', 'id');
         $data = array_map(function ($item) use ($tingkatRisiko) {
             $item['tingkatRisiko'] = $tingkatRisiko[$item['tingkat_risiko_id']] ?? null;
 

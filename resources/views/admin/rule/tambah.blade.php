@@ -172,7 +172,7 @@
                                 class="form-control select2 @error('tingkatRisiko') is-invalid @enderror">
                                 <option value="" disabled selected>-- Silahkan Pilih Tingkat Risiko --</option>
                                 @foreach ($tingkatRisiko as $tr)
-                                    <option value="{{ $tr->id }}">{{ $tr->name }}</option>
+                                    <option value="{{ $tr->id }}">{{ $tr->kode }} - {{ $tr->tingkat_risiko }}</option>
                                 @endforeach
                             </select>
                             @error('tingkatRisiko')

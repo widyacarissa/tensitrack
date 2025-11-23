@@ -28,14 +28,14 @@ class HistoriDiagnosisController extends Controller
         $diagnosis = Diagnosis::with(['user' => function ($query) {
             $query->select('id', 'name', 'email');
         }, 'tingkatRisiko' => function ($query) {
-            $query->select('id', 'name');
+            $query->select('id', 'kode', 'tingkat_risiko');
         }])
             ->orderBy('updated_at', 'desc')
             ->get(['id', 'user_id', 'tingkat_risiko_id', 'updated_at'])->map(function ($diagnosis) {
                 if ($diagnosis['tingkatRisiko'] == null) {
                     $diagnosis['tingkatRisiko'] = [
                         'id' => null,
-                        'name' => 'Tingkat Risiko tidak ditemukan',
+                        'tingkat_risiko' => 'Tingkat Risiko tidak ditemukan',
                     ];
                 }
                 $diagnosis['updated_at'] = $diagnosis['updated_at'];

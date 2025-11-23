@@ -25,7 +25,7 @@
                     @auth
                         <td>{{ $key['user']['email'] }}</td>
                     @endauth
-                    <td>{{ $key['tingkatRisiko']['name'] }}</td>
+                    <td>{{ $key['tingkatRisiko']['tingkat_risiko'] }}</td>
                     <td>{{ $key['updated_at'] }}</td>
                 </tr>
             @endforeach

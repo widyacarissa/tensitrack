@@ -20,26 +20,20 @@
                                     <div class="row">
                                         <div class="col-12 col-lg-8 pt-5 pt-lg-0 order-1">
                                             <div class="pb-3">
-                                                <h3 class="h4 placeholder">Nama Tingkat Risiko</h3>
-                                                <p class="card-text placeholder" id="tingkatRisikoName">
+                                                <h3 class="h4 placeholder">Tingkat Risiko</h3>
+                                                <p class="card-text placeholder" id="tingkatRisiko">
                                                 </p>
                                             </div>
                                             <div class="pb-3">
-                                                <h3 class="h4 placeholder">Penyebab Tingkat Risiko</h3>
-                                                <p class="card-text placeholder" id="tingkatRisikoReason">
+                                                <h3 class="h4 placeholder">Keterangan Tingkat Risiko</h3>
+                                                <p class="card-text placeholder" id="tingkatRisikoKeterangan">
                                                 </p>
                                             </div>
                                             <div>
-                                                <h3 id="headerTingkatRisikoSolution" class="h4 placeholder">Solusi Tingkat Risiko
+                                                <h3 id="headerTingkatRisikoSaran" class="h4 placeholder">Saran Tingkat Risiko
                                                 </h3>
                                             </div>
                                         </div>
-                                        <div
-                                            class="col-12 col-lg-4 order-lg-2 d-flex align-items-center justify-content-center placeholder">
-                                            <div class="container-image-tingkat-risiko"
-                                                id="containerImageTingkatRisikoDetailDiagnosisModal"
-                                                style="max-width: 350px;">
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
