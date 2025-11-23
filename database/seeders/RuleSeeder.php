@@ -27,7 +27,7 @@ class RuleSeeder extends Seeder
 
         DB::transaction(function () use ($mapping) {
             foreach ($mapping as $tingkatRisikoName => $faktorRisikoNames) {
-                $tingkatRisiko = TingkatRisiko::where('name', $tingkatRisikoName)->first();
+                $tingkatRisiko = TingkatRisiko::where('tingkat_risiko', $tingkatRisikoName)->first();
                 if (! $tingkatRisiko) {
                     // Lewatkan jika belum ada (pastikan urutan seeding benar)
                     continue;
