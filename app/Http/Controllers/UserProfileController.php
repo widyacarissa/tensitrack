@@ -11,8 +11,8 @@ class UserProfileController extends Controller
 {
     public function index(Request $request)
     {
-        //get index method from KotaProvinsiController
-        $kotaProvinsi = new KotaProvinsiController();
+        // get index method from KotaProvinsiController
+        $kotaProvinsi = new KotaProvinsiController;
         $provinces = $kotaProvinsi->indexProvince();
         $profession = [
             'Petani',
@@ -24,6 +24,7 @@ class UserProfileController extends Controller
             'provinsi' => $provinces,
             'profesi' => $profession,
         ];
+
         return response()->json($data);
     }
 
@@ -51,8 +52,8 @@ class UserProfileController extends Controller
             $user->save();
 
             // Update or create user profile
-            if (!$user->profile) {
-                $profile = new UserProfile();
+            if (! $user->profile) {
+                $profile = new UserProfile;
                 $profile->user_id = $user->id;
             } else {
                 $profile = $user->profile;
@@ -66,15 +67,16 @@ class UserProfileController extends Controller
             $profile->age = $data['age'] ?? null;
             $profile->weight = $data['weight'] ?? null;
             $profile->height = $data['height'] ?? null;
-            
+
             // Calculate BMI automatically
             if ($data['weight'] && $data['height']) {
                 $profile->calculateBMI();
             }
-            
+
             $profile->save();
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
+
             return response()->json([
                 'message' => 'Profile failed to update',
                 'error' => $th->getMessage(),

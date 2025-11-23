@@ -48,11 +48,11 @@ function drawHistoriDiagnosisTable() {
             }
         },
         {
-            data: 'penyakit.name',
+            data: 'tingkat_risiko.name',
             render: function (data, type, row, meta) {
                 //handle if data is null
                 if (data == null) {
-                    return `<span class="badge bg-danger">Penyakit tidak ditemukan</span>`;
+                    return `<span class="badge bg-danger">Tingkat Risiko tidak ditemukan</span>`;
                 }
                 return data;
             }
@@ -60,7 +60,7 @@ function drawHistoriDiagnosisTable() {
         {
             data: 'id',
             render: function (data, type, row, meta) {
-                return `<button class="btn btn-outline-primary me-1" onclick="getPenyakitIdFromHistori(${data}, ${row.no})">
+                return `<button class="btn btn-outline-primary me-1" onclick="getTingkatRisikoIdFromHistori(${data}, ${row.no})">
                         <i class="fa-solid fa-eye"></i>
                     <button class="btn btn-outline-danger" onclick="deleteHistoriDiagnosis(${data})">
                         <i class="fa-solid fa-trash"></i>
@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const btnNavbar = [
         btnBeranda = document.querySelector('.beranda'),
         btnDiagnosis = document.querySelector('.diagnosis'),
-        btnPenyakit = document.querySelector('.penyakit'),
+        btnTingkatRisiko = document.querySelector('.tingkat-risiko'),
     ];
     btnNavbar.forEach((btn) => {
         btn.addEventListener('click', (e) => {
@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             });
         } else {
-            new DiagnosisModal(assetStorageGejala, csrfToken).showModal();
+            new DiagnosisModal(assetStorageFaktorRisiko, csrfToken).showModal();
         }
     });
 
@@ -357,8 +357,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (lebarLayar >= 992) {
                 const instanceChocolat = await Chocolat([{
-                    src: `${assetStoragePenyakit}/${penyakitImage[index].image}`,
-                    title: penyakitImage[index].name
+                    src: `${assetStorageTingkatRisiko}/${tingkatRisikoData[index].image}`,
+                    title: tingkatRisikoData[index].name
                 }], {});
 
                 instanceChocolat.api.open();

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('rule', function (Blueprint $table) {
-            $table->dropForeign(['next_first_gejala_id']);
-            $table->dropColumn('next_first_gejala_id');
+            $table->dropForeign(['next_first_faktor_risiko_id']);
+            $table->dropColumn('next_first_faktor_risiko_id');
         });
     }
 
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('rule', function (Blueprint $table) {
-            $table->unsignedSmallInteger('next_first_gejala_id')->nullable();
-            $table->foreign('next_first_gejala_id')->references('id')->on('gejala');
+            $table->unsignedSmallInteger('next_first_faktor_risiko_id')->nullable();
+            $table->foreign('next_first_faktor_risiko_id')->references('id')->on('faktor_risiko');
         });
     }
 };

@@ -3,30 +3,30 @@ const titleDetailDiagnosisModal = detailDiagnosisModal.querySelector('.modal-tit
 const instanceDetailDiagnosisModal = bootstrap.Modal.getOrCreateInstance(detailDiagnosisModal);
 const headerDetailDiagnosis = document.getElementById('headerDetailDiagnosis');
 const subheaderDetailDiagnosis = document.getElementById('subheaderDetailDiagnosis');
-const containerImagePenyakitDetailDiagnosisModal = document.getElementById('containerImagePenyakitDetailDiagnosisModal');
-const headerPenyakitSolution = document.getElementById('headerPenyakitSolution');
-const rowDetailPenyakit = document.getElementById('rowDetailPenyakit');
+const containerImageTingkatRisikoDetailDiagnosisModal = document.getElementById('containerImageTingkatRisikoDetailDiagnosisModal');
+const headerTingkatRisikoSolution = document.getElementById('headerTingkatRisikoSolution');
+const rowDetailTingkatRisiko = document.getElementById('rowDetailTingkatRisiko');
 const detailJawabanDiagnosisTable = document.getElementById('detailJawabanDiagnosisTable');
 const tableBody = detailJawabanDiagnosisTable.querySelector('tbody');
 const placeholder = document.querySelectorAll('.placeholder');
 
-let idPenyakit = null;
+let idTingkatRisiko = null;
 let idDiagnosis = null;
 let noHistoriDiagnosis = null;
 let diagnosed = false;
 let labelChart = null;
 let valueChart = null;
-let chartDiagnosisPenyakit = null;
+let chartDiagnosisTingkatRisiko = null;
 
-function getPenyakitIdFromHistori(data, no) {
+function getTingkatRisikoIdFromHistori(data, no) {
     idDiagnosis = data;
     noHistoriDiagnosis = no;
     diagnosed = false;
     instanceDetailDiagnosisModal.show();
 }
 
-function getPenyakitFromDiagnose(data, wasDiagnosed) {
-    idPenyakit = data.idPenyakit;
+function getTingkatRisikoFromDiagnose(data, wasDiagnosed) {
+    idTingkatRisiko = data.idTingkatRisiko;
     idDiagnosis = data.idDiagnosis;
     diagnosed = wasDiagnosed;
     instanceDetailDiagnosisModal.show();
@@ -37,14 +37,14 @@ function ajaxRequestDetailDiagnosis() {
         url: '/detail-diagnosis',
         method: 'GET',
         data: {
-            id_penyakit: idPenyakit,
+            id_tingkat_risiko: idTingkatRisiko,
             id_diagnosis: idDiagnosis,
         },
     });
 }
-function ajaxRequestChartDiagnosisPenyakit() {
+function ajaxRequestChartDiagnosisTingkatRisiko() {
     return $.ajax({
-        url: '/chart-diagnosis-penyakit',
+        url: '/chart-diagnosis-tingkat-risiko',
         method: 'GET',
         data: {
             id_diagnosis: idDiagnosis,
@@ -69,52 +69,52 @@ function drawDetailDiagnosis(response, diagnosed) {
         titleDetailDiagnosisModal.innerText = 'Detail Diagnosis No. ' + noHistoriDiagnosis;
     }
 
-    if (response.penyakit == null || response.penyakitUnidentified === true) {
-        headerDetailDiagnosis.innerText = "Penyakit Tidak Ditemukan!";
-        subheaderDetailDiagnosis.innerHTML = 'Tidak ada penyakit yang cocok dengan gejala yang anda masukkan.';
-        rowDetailPenyakit.classList.add('d-none');
+    if (response.tingkatRisiko == null || response.tingkatRisikoUnidentified === true) {
+        headerDetailDiagnosis.innerText = "Tingkat Risiko Tidak Ditemukan!";
+        subheaderDetailDiagnosis.innerHTML = 'Tidak ada tingkat risiko yang cocok dengan faktor risiko yang anda masukkan.';
+        rowDetailTingkatRisiko.classList.add('d-none');
         headerDetailDiagnosis.classList.remove('d-none');
         subheaderDetailDiagnosis.classList.remove('d-none');
     } else {
-        headerDetailDiagnosis.innerText = "Penyakit Ditemukan!";
-        subheaderDetailDiagnosis.innerHTML = "Penyakit yang diderita adalah " + `<u>${response.penyakit.name}</u>`;
+        headerDetailDiagnosis.innerText = "Tingkat Risiko Ditemukan!";
+        subheaderDetailDiagnosis.innerHTML = "Tingkat risiko yang diderita adalah " + `<u>${response.tingkatRisiko.name}</u>`;
         headerDetailDiagnosis.classList.remove('d-none');
         subheaderDetailDiagnosis.classList.remove('d-none');
 
-        const penyakitName = document.getElementById('penyakitName');
-        const penyakitReason = document.getElementById('penyakitReason');
-        penyakitName.innerHTML = response.penyakit.name;
-        penyakitReason.innerHTML = response.penyakit.reason;
+        const tingkatRisikoName = document.getElementById('tingkatRisikoName');
+        const tingkatRisikoReason = document.getElementById('tingkatRisikoReason');
+        tingkatRisikoName.innerHTML = response.tingkatRisiko.name;
+        tingkatRisikoReason.innerHTML = response.tingkatRisiko.reason;
 
-        let penyakitSolution = response.penyakit.solution;
+        let tingkatRisikoSolution = response.tingkatRisiko.solution;
         let regex = /(\d+\.)\s*(.*?)(?=(\d+\.|$))/gs;
-        let matches = [...penyakitSolution.matchAll(regex)];
+        let matches = [...tingkatRisikoSolution.matchAll(regex)];
         let nomorAsOlTag = '<ol>';
         for (let i = 0; i < matches.length; i++) {
             nomorAsOlTag += '<li>' + matches[i][2] + '</li>';
         }
         nomorAsOlTag += '</ol>';
-        headerPenyakitSolution.insertAdjacentHTML('afterend', nomorAsOlTag);
+        headerTingkatRisikoSolution.insertAdjacentHTML('afterend', nomorAsOlTag);
 
-        const imagePenyakit = new Image();
-        imagePenyakit.src = assetStoragePenyakit + '/' + response.penyakit.image;
-        imagePenyakit.alt = response.penyakit.name;
-        imagePenyakit.id = 'imagePenyakit';
-        imagePenyakit.classList.add('img-fluid');
-        containerImagePenyakitDetailDiagnosisModal.appendChild(imagePenyakit);
+        const imageTingkatRisiko = new Image();
+        imageTingkatRisiko.src = assetStorageTingkatRisiko + '/' + response.tingkatRisiko.image;
+        imageTingkatRisiko.alt = response.tingkatRisiko.name;
+        imageTingkatRisiko.id = 'imageTingkatRisiko';
+        imageTingkatRisiko.classList.add('img-fluid');
+        containerImageTingkatRisikoDetailDiagnosisModal.appendChild(imageTingkatRisiko);
 
-        new bootstrap.Tooltip(imagePenyakit, {
-            title: response.penyakit.name,
+        new bootstrap.Tooltip(imageTingkatRisiko, {
+            title: response.tingkatRisiko.name,
         });
 
-        imagePenyakit.addEventListener('click', () => {
+        imageTingkatRisiko.addEventListener('click', () => {
             const lebarLayar = window.innerWidth || document.documentElement.clientWidth || document
                 .body.clientWidth;
 
             if (lebarLayar >= 992) {
                 const chocolatInstance = Chocolat([{
-                    src: assetStoragePenyakit + '/' + response.penyakit.image,
-                    title: response.penyakit.name,
+                    src: assetStorageTingkatRisiko + '/' + response.tingkatRisiko.image,
+                    title: response.tingkatRisiko.name,
                 }], {});
                 chocolatInstance.api.open();
             }
@@ -145,9 +145,9 @@ function drawDetailJawabanDiagnosis(data) {
 }
 
 detailDiagnosisModal.addEventListener('hide.bs.modal', () => {
-    containerImagePenyakitDetailDiagnosisModal.innerHTML = '';
-    if (headerPenyakitSolution.nextElementSibling) {
-        headerPenyakitSolution.nextElementSibling.remove();
+    containerImageTingkatRisikoDetailDiagnosisModal.innerHTML = '';
+    if (headerTingkatRisikoSolution.nextElementSibling) {
+        headerTingkatRisikoSolution.nextElementSibling.remove();
     }
     headerDetailDiagnosis.classList.add('d-none');
     subheaderDetailDiagnosis.classList.add('d-none');
@@ -156,16 +156,16 @@ detailDiagnosisModal.addEventListener('hide.bs.modal', () => {
     while (tableBody.firstChild) {
         tableBody.removeChild(tableBody.firstChild);
     }
-    if (chartDiagnosisPenyakit != null) {
-        chartDiagnosisPenyakit.destroy();
+    if (chartDiagnosisTingkatRisiko != null) {
+        chartDiagnosisTingkatRisiko.destroy();
     }
 
-    rowDetailPenyakit.classList.remove('d-none');
+    rowDetailTingkatRisiko.classList.remove('d-none');
 });
 
 detailDiagnosisModal.addEventListener('shown.bs.modal', async () => {
     try {
-        const chartData = await ajaxRequestChartDiagnosisPenyakit();
+        const chartData = await ajaxRequestChartDiagnosisTingkatRisiko();
         drawChart(chartData);
     } catch (error) {
         swalError(error.responseJSON);
@@ -189,8 +189,8 @@ async function drawChart(data) {
     labelChart = Object.entries(bobot).map(([nama, nilai]) => nama);
     valueChart = Object.entries(bobot).map(([nama, nilai]) => nilai);
 
-    var ctx = document.getElementById("chartDiagnosisPenyakit").getContext('2d');
-    chartDiagnosisPenyakit = new Chart(ctx, {
+    var ctx = document.getElementById("chartDiagnosisTingkatRisiko").getContext('2d');
+    chartDiagnosisTingkatRisiko = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labelChart,

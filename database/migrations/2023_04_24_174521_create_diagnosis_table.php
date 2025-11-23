@@ -17,8 +17,8 @@ return new class extends Migration
             $table->smallInteger('id', true, true);
             $table->unsignedSmallInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedSmallInteger('penyakit_id')->nullable();
-            $table->foreign('penyakit_id')->references('id')->on('penyakit');
+            $table->unsignedSmallInteger('tingkat_risiko_id')->nullable();
+            $table->foreign('tingkat_risiko_id')->references('id')->on('tingkat_risiko');
             $table->json('answer_log');
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diagnosa');
+        Schema::dropIfExists('diagnosis');
     }
 };

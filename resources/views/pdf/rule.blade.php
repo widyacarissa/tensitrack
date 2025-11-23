@@ -7,9 +7,9 @@
                 <th>
                     No
                 </th>
-                <th>Penyakit</th>
-                <th>No Gejala</th>
-                <th>Gejala</th>
+                <th>Tingkat Risiko</th>
+                <th>No Faktor Risiko</th>
+                <th>Faktor Risiko</th>
                 <th>Tanggal Dibuat/Diubah</th>
             </tr>
         </thead>
@@ -19,9 +19,9 @@
                     <td>
                         {{ $loop->iteration }}
                     </td>
-                    <td>{{ $rule['penyakit']['name'] }}</td>
-                    <td>{{ $rule['no_gejala'] }}</td>
-                    <td>{{ $rule['gejala']['name'] }}</td>
+                    <td>{{ $rule['tingkatRisiko']['name'] }}</td>
+                    <td>{{ $rule['no_faktor_risiko'] }}</td>
+                    <td>{{ $rule['faktorRisiko']['name'] }}</td>
                     <td>{{ $rule['updated_at'] }}</td>
                 </tr>
             @endforeach

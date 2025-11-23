@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('rule', function (Blueprint $table) {
             $table->smallInteger('id', true, true);
-            $table->unsignedSmallInteger('penyakit_id');
-            $table->foreign('penyakit_id')->references('id')->on('penyakit');
-            $table->unsignedSmallInteger('gejala_id');
-            $table->foreign('gejala_id')->references('id')->on('gejala');
-            $table->unsignedSmallInteger('next_first_gejala_id')->nullable();
-            $table->foreign('next_first_gejala_id')->references('id')->on('gejala');
+            $table->unsignedSmallInteger('tingkat_risiko_id');
+            $table->foreign('tingkat_risiko_id')->references('id')->on('tingkat_risiko');
+            $table->unsignedSmallInteger('faktor_risiko_id');
+            $table->foreign('faktor_risiko_id')->references('id')->on('faktor_risiko');
+            $table->unsignedSmallInteger('next_first_faktor_risiko_id')->nullable();
+            $table->foreign('next_first_faktor_risiko_id')->references('id')->on('faktor_risiko');
             $table->timestamps();
         });
     }

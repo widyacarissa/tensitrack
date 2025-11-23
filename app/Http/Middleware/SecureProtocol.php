@@ -10,7 +10,6 @@ class SecureProtocol
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
@@ -19,7 +18,7 @@ class SecureProtocol
         // if (!$request->secure() && app()->environment() === 'production') {
         //     return redirect()->secure($request->getRequestUri());
         // }
-        if (!$request->secure()) {
+        if (! $request->secure()) {
             return redirect()->secure($request->getRequestUri());
         }
 

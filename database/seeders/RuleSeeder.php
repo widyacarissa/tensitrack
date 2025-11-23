@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Gejala;
-use App\Models\Penyakit;
+use App\Models\FaktorRisiko;
 use App\Models\Rule;
+use App\Models\TingkatRisiko;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -22,23 +22,23 @@ class RuleSeeder extends Seeder
                 'daun mengecil dan berwarna kuning terang',
                 'tanaman kerdil dan tidak berbuah',
             ],
-            // Tambah penyakit lain di sini bila perlu...
+            // Tambah tingkat risiko lain di sini bila perlu...
         ];
 
         DB::transaction(function () use ($mapping) {
-            foreach ($mapping as $penyakitName => $gejalaNames) {
-                $penyakit = Penyakit::where('name', $penyakitName)->first();
-                if (! $penyakit) {
+            foreach ($mapping as $tingkatRisikoName => $faktorRisikoNames) {
+                $tingkatRisiko = TingkatRisiko::where('name', $tingkatRisikoName)->first();
+                if (! $tingkatRisiko) {
                     // Lewatkan jika belum ada (pastikan urutan seeding benar)
                     continue;
                 }
 
-                $gejalas = Gejala::whereIn('name', $gejalaNames)->get(['id', 'name']);
+                $faktorRisikos = FaktorRisiko::whereIn('name', $faktorRisikoNames)->get(['id', 'name']);
 
-                foreach ($gejalas as $g) {
+                foreach ($faktorRisikos as $fr) {
                     Rule::firstOrCreate([
-                        'penyakit_id' => $penyakit->id,
-                        'gejala_id' => $g->id,
+                        'tingkat_risiko_id' => $tingkatRisiko->id,
+                        'faktor_risiko_id' => $fr->id,
                     ]);
                 }
             }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Gejala;
-use App\Models\Penyakit;
+use App\Models\FaktorRisiko;
 use App\Models\Rule;
+use App\Models\TingkatRisiko;
 use Illuminate\Http\Request;
 
 class RuleController extends Controller
@@ -18,24 +18,26 @@ class RuleController extends Controller
     public function index()
     {
         $rules = $this->getRule();
+
         return view('admin.rule.rule', compact('rules'));
     }
 
     private function getRule()
     {
-        $rules = Rule::with(['penyakit' => function ($query) {
+        $rules = Rule::with(['tingkatRisiko' => function ($query) {
             $query->select('id', 'name');
-        }, 'gejala' => function ($query) {
+        }, 'faktorRisiko' => function ($query) {
             $query->select('id', 'name');
-        }])->get(['id', 'penyakit_id', 'gejala_id', 'updated_at'])->map(function ($rule) {
-            $rule['penyakit'] = $rule['penyakit']->toArray();
-            $rule['gejala'] = $rule['gejala']->toArray();
+        }])->get(['id', 'tingkat_risiko_id', 'faktor_risiko_id', 'updated_at'])->map(function ($rule) {
+            $rule['tingkatRisiko'] = $rule['tingkatRisiko']->toArray();
+            $rule['faktorRisiko'] = $rule['faktorRisiko']->toArray();
+
             return [
                 'id' => $rule['id'],
                 'updated_at' => $rule['updated_at'],
-                'penyakit' => $rule['penyakit'],
-                'gejala' => $rule['gejala'],
-                'no_gejala' => 'G'.str_pad($rule['gejala']['id'], 2, '0', STR_PAD_LEFT),
+                'tingkatRisiko' => $rule['tingkatRisiko'],
+                'faktorRisiko' => $rule['faktorRisiko'],
+                'no_faktor_risiko' => 'FR'.str_pad($rule['faktorRisiko']['id'], 2, '0', STR_PAD_LEFT),
             ];
         })->values()->toArray();
 
@@ -49,12 +51,12 @@ class RuleController extends Controller
      */
     public function create()
     {
-        $penyakit = Penyakit::select('id', 'name')->orderByDesc('updated_at')->get();
-        $gejala = Gejala::select('id', 'name')->orderByDesc('updated_at')->get();
+        $tingkatRisiko = TingkatRisiko::select('id', 'name')->orderByDesc('updated_at')->get();
+        $faktorRisiko = FaktorRisiko::select('id', 'name')->orderByDesc('updated_at')->get();
 
         $data = [
-            'penyakit' => $penyakit,
-            'gejala' => $gejala,
+            'tingkatRisiko' => $tingkatRisiko,
+            'faktorRisiko' => $faktorRisiko,
         ];
 
         return view('admin.rule.tambah', $data);
@@ -63,22 +65,21 @@ class RuleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $request->validate([
-            'penyakit' => 'required|exists:penyakit,id',
-            'gejala' => 'required|array',
+            'tingkatRisiko' => 'required|exists:tingkat_risiko,id',
+            'faktorRisiko' => 'required|array',
         ]);
 
-        $gejalaIds = array_unique($request->input('gejala'));
+        $faktorRisikoIds = array_unique($request->input('faktorRisiko'));
 
-        foreach ($gejalaIds as $gejalaId) {
+        foreach ($faktorRisikoIds as $faktorRisikoId) {
             Rule::create([
-                'penyakit_id' => (int) $request->input('penyakit'),
-                'gejala_id' => (int) $gejalaId,
+                'tingkat_risiko_id' => (int) $request->input('tingkatRisiko'),
+                'faktor_risiko_id' => (int) $faktorRisikoId,
             ]);
         }
 
@@ -88,18 +89,18 @@ class RuleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Penyakit  $penyakit
+     * @param  \App\Models\TingkatRisiko  $tingkatRisiko
      * @return \Illuminate\Http\Response
      */
-    public function edit(Penyakit $penyakit)
+    public function edit(TingkatRisiko $tingkatRisiko)
     {
-        $gejala = Gejala::select('id', 'name')->orderBy('id')->get();
-        $selectedGejala = Rule::where('penyakit_id', $penyakit->id)->pluck('gejala_id')->toArray();
+        $faktorRisiko = FaktorRisiko::select('id', 'name')->orderBy('id')->get();
+        $selectedFaktorRisiko = Rule::where('tingkat_risiko_id', $tingkatRisiko->id)->pluck('faktor_risiko_id')->toArray();
 
         $data = [
-            'penyakit' => $penyakit,
-            'gejala' => $gejala,
-            'selectedGejala' => $selectedGejala,
+            'tingkatRisiko' => $tingkatRisiko,
+            'faktorRisiko' => $faktorRisiko,
+            'selectedFaktorRisiko' => $selectedFaktorRisiko,
         ];
 
         return view('admin.rule.edit', $data);
@@ -108,40 +109,39 @@ class RuleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Penyakit  $penyakit
+     * @param  \App\Models\TingkatRisiko  $tingkatRisiko
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Penyakit $penyakit)
+    public function update(Request $request, TingkatRisiko $tingkatRisiko)
     {
         $request->validate([
-            'gejala' => 'required|array',
+            'faktorRisiko' => 'required|array',
         ]);
 
-        Rule::where('penyakit_id', $penyakit->id)->delete();
+        Rule::where('tingkat_risiko_id', $tingkatRisiko->id)->delete();
 
-        $gejalaIds = array_unique($request->input('gejala'));
+        $faktorRisikoIds = array_unique($request->input('faktorRisiko'));
 
-        foreach ($gejalaIds as $gejala_id) {
+        foreach ($faktorRisikoIds as $faktor_risiko_id) {
             Rule::create([
-                'penyakit_id' => $penyakit->id,
-                'gejala_id' => (int) $gejala_id,
+                'tingkat_risiko_id' => $tingkatRisiko->id,
+                'faktor_risiko_id' => (int) $faktor_risiko_id,
             ]);
         }
 
-        return redirect()->route('admin.rule')->with('success', 'Aturan untuk penyakit ' . $penyakit->name . ' berhasil diperbarui');
+        return redirect()->route('admin.rule')->with('success', 'Aturan untuk tingkat risiko '.$tingkatRisiko->name.' berhasil diperbarui');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Penyakit  $penyakit
+     * @param  \App\Models\TingkatRisiko  $tingkatRisiko
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Penyakit $penyakit)
+    public function destroy(TingkatRisiko $tingkatRisiko)
     {
-        Rule::where('penyakit_id', $penyakit->id)->delete();
+        Rule::where('tingkat_risiko_id', $tingkatRisiko->id)->delete();
 
-        return redirect()->route('admin.rule')->with('success', 'Semua aturan untuk penyakit ' . $penyakit->name . ' berhasil dihapus');
+        return redirect()->route('admin.rule')->with('success', 'Semua aturan untuk tingkat risiko '.$tingkatRisiko->name.' berhasil dihapus');
     }
 }

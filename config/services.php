@@ -31,7 +31,7 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT', env('APP_URL') . '/auth/google/callback'),
+        'redirect' => env('GOOGLE_REDIRECT', env('APP_URL').'/auth/google/callback'),
     ],
     'idn_area' => [
         'base_url' => env('IDN_AREA_BASE_URL', 'https://api-idnarea.fityan.tech'),

@@ -11,7 +11,7 @@
                 @auth
                     <th>Email Pengguna</th>
                 @endauth
-                <th>Nama Penyakit</th>
+                <th>Nama Tingkat Risiko</th>
                 <th>Tanggal Dibuat/Diubah</th>
             </tr>
         </thead>
@@ -25,7 +25,7 @@
                     @auth
                         <td>{{ $key['user']['email'] }}</td>
                     @endauth
-                    <td>{{ $key['penyakit']['name'] }}</td>
+                    <td>{{ $key['tingkatRisiko']['name'] }}</td>
                     <td>{{ $key['updated_at'] }}</td>
                 </tr>
             @endforeach

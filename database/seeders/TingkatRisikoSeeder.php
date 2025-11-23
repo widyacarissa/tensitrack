@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\TingkatRisiko;
 use Illuminate\Database\Seeder;
-use App\Models\Penyakit;
 
-class PenyakitSeeder extends Seeder
+class TingkatRisikoSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -30,12 +30,12 @@ class PenyakitSeeder extends Seeder
         ];
 
         foreach ($rows as $row) {
-            Penyakit::updateOrCreate(
+            TingkatRisiko::updateOrCreate(
                 ['name' => $row['name']],
                 [
-                    'reason'  => $row['reason'],
-                    'solution'=> $row['solution'],
-                    'image'   => $row['image'],
+                    'reason' => $row['reason'],
+                    'solution' => $row['solution'],
+                    'image' => $row['image'],
                 ]
             );
         }

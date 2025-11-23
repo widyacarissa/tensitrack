@@ -12,10 +12,10 @@
     <script src="{{ asset('assets/vendor/sweetalert/sweetalert.min.js') }}"></script>
 @endpush
 
+
 @push('jsCustom')
     <script>
         const table = document.getElementById('table-1');
-        $('[data-toggle="tooltip"]').tooltip();
         const dataTable = $(table).DataTable({});
         $(document).on("click", "#table-1 #btnHapus", function(e) {
             e.preventDefault();
@@ -37,14 +37,14 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Halaman Gejala</h1>
+            <h1>Halaman Tingkat Risiko</h1>
         </div>
         <div class="section-body">
             <div class="pb-4">
-                <a href="{{ route('admin.gejala.tambah') }}" class="btn btn-primary" type="button">
+                <a href="{{ route('admin.tingkat-risiko.tambah') }}" class="btn btn-primary" type="button">
                     Tambah Data
                 </a>
-                <a href="{{ route('gejala.pdf') }}" target="_blank" class="btn btn-warning text-dark" type="button">
+                <a href="{{ route('tingkat-risiko.pdf') }}" target="_blank" class="btn btn-warning text-dark" type="button">
                     Cetak Data
                 </a>
             </div>
@@ -77,23 +77,27 @@
                                         No
                                     </th>
                                     <th>Nama</th>
+                                    <th>Penyebab</th>
+                                    <th>Solusi</th>
                                     <th>Tanggal Dibuat/Diubah</th>
                                     <th>Gambar</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($gejala as $p)
+                                @foreach ($tingkat_risiko as $tr)
                                     <tr>
                                         <td class="text-center">
-                                            {{ $loop->iteration}}
+                                            {{ $loop->iteration }}
                                         </td>
-                                        <td>{{ $p->name }}</td>
-                                        <td>{{ $p->updated_at }}</td>
-                                        <td id="imageGejala">
-                                            <img alt="image" src="{{ asset('storage/gejala/' . $p->image) }}"
+                                        <td>{{ $tr->name }}</td>
+                                        <td>{{ $tr->reason }}</td>
+                                        <td>{{ $tr->solution }}</td>
+                                        <td>{{ $tr->updated_at }}</td>
+                                        <td>
+                                            <img alt="image" src="{{ asset('storage/tingkat-risiko/' . $tr->image) }}"
                                                 class="" width="200" data-toggle="tooltip"
-                                                title="{{ $p->name }}">
+                                                title="{{ $tr->name }}">
                                         </td>
                                         <td>
                                             <div class="dropdown">
@@ -104,10 +108,10 @@
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item btn btn-outline-warning"
-                                                        href="{{ route('admin.gejala.edit', ['id' => $p->id]) }}">Edit</a>
+                                                        href="{{ route('admin.tingkat-risiko.edit', ['id' => $tr->id]) }}">Edit</a>
                                                     <a class="dropdown-item btn btn-outline-danger" id="btnHapus">Hapus</a>
                                                     <form id="formHapus"
-                                                        action="{{ route('admin.gejala.destroy', ['id' => $p->id]) }}"
+                                                        action="{{ route('admin.tingkat-risiko.destroy', ['id' => $tr->id]) }}"
                                                         method="post">
                                                         @csrf
                                                         @method('delete')

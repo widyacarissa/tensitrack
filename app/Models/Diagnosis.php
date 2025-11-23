@@ -13,7 +13,7 @@ class Diagnosis extends Model
 
     protected $fillable = [
         'user_id',
-        'penyakit_id',
+        'tingkat_risiko_id',
         'answer_log',
     ];
 
@@ -21,15 +21,14 @@ class Diagnosis extends Model
         'answer_log' => 'json',
     ];
 
-
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function penyakit()
+    public function tingkatRisiko()
     {
-        return $this->belongsTo(Penyakit::class);
+        return $this->belongsTo(TingkatRisiko::class);
     }
 
     public function getAnswerLogAttribute($value)

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Penyakit;
+use App\Models\TingkatRisiko;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class PenyakitController extends Controller
+class TingkatRisikoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +18,10 @@ class PenyakitController extends Controller
     public function index()
     {
         $data = [
-            'penyakit' => Penyakit::get(['id', 'name', 'reason', 'solution', 'image', 'updated_at']),
+            'tingkat_risiko' => TingkatRisiko::get(['id', 'name', 'reason', 'solution', 'image', 'updated_at']),
         ];
 
-        return view('admin.penyakit.penyakit', $data);
+        return view('admin.tingkat_risiko.tingkat_risiko', $data);
     }
 
     /**
@@ -31,39 +31,38 @@ class PenyakitController extends Controller
      */
     public function create()
     {
-        return view('admin.penyakit.tambah');
+        return view('admin.tingkat_risiko.tambah');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $this->validate($request, [
-            'penyakit' => 'required|string',
+            'tingkat_risiko' => 'required|string',
             'reason' => 'required|string',
             'solution' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        //upload image
+        // upload image
         $image = $request->file('image');
-        $new_name = rand() . '.' . $image->getClientOriginalExtension();
-        $image->storeAs('public/penyakit', $new_name);
+        $new_name = rand().'.'.$image->getClientOriginalExtension();
+        $image->storeAs('public/tingkat_risiko', $new_name);
 
-        $form_data = array(
-            'name' => $request->penyakit,
+        $form_data = [
+            'name' => $request->tingkat_risiko,
             'reason' => $request->reason,
             'solution' => $request->solution,
-            'image' => $new_name
-        );
+            'image' => $new_name,
+        ];
 
-        Penyakit::create($form_data);
+        TingkatRisiko::create($form_data);
 
-        return redirect(route('admin.penyakit'))->with('success', 'Data berhasil ditambahkan!');
+        return redirect(route('admin.tingkat_risiko'))->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
@@ -74,49 +73,49 @@ class PenyakitController extends Controller
      */
     public function edit($id)
     {
-        $penyakit = Penyakit::findOrFail($id);
-        return view('admin.penyakit.edit', compact('penyakit'));
+        $tingkat_risiko = TingkatRisiko::findOrFail($id);
+
+        return view('admin.tingkat_risiko.edit', compact('tingkat_risiko'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $penyakit = Penyakit::findOrFail($id);
+        $tingkat_risiko = TingkatRisiko::findOrFail($id);
 
         $this->validate($request, [
-            'penyakit' => 'required|string',
+            'tingkat_risiko' => 'required|string',
             'reason' => 'required|string',
             'solution' => 'required|string',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
-            $old_image = $penyakit->image;
-            $image_path = "public/penyakit/" . $old_image;
+            $old_image = $tingkat_risiko->image;
+            $image_path = 'public/tingkat_risiko/'.$old_image;
             if (file_exists($image_path)) {
                 unlink($image_path);
             }
             $image = $request->file('image');
-            $new_name = rand() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/penyakit', $new_name);
+            $new_name = rand().'.'.$image->getClientOriginalExtension();
+            $image->storeAs('public/tingkat_risiko', $new_name);
         }
 
-        $form_data = array(
-            'name' => $request->penyakit,
+        $form_data = [
+            'name' => $request->tingkat_risiko,
             'reason' => $request->reason,
             'solution' => $request->solution,
-            'image' => $new_name ?? $penyakit->image,
-        );
+            'image' => $new_name ?? $tingkat_risiko->image,
+        ];
 
-        $penyakit->update($form_data);
+        $tingkat_risiko->update($form_data);
 
-        return redirect(route('admin.penyakit'))->with('success', 'Data berhasil diubah!');
+        return redirect(route('admin.tingkat_risiko'))->with('success', 'Data berhasil diubah!');
     }
 
     /**
@@ -127,18 +126,18 @@ class PenyakitController extends Controller
      */
     public function destroy($id)
     {
-        $penyakit = Penyakit::findOrFail($id);
+        $tingkat_risiko = TingkatRisiko::findOrFail($id);
 
         try {
-            if ($penyakit->delete()) {
-                Storage::delete('public/penyakit/' . $penyakit->image);
+            if ($tingkat_risiko->delete()) {
+                Storage::delete('public/tingkat_risiko/'.$tingkat_risiko->image);
             }
         } catch (QueryException $e) {
             if ($e->getCode() == 23000) {
-                return redirect()->route('admin.penyakit')->with('error', 'Data tidak dapat dihapus karena sedang digunakan!');
+                return redirect()->route('admin.tingkat_risiko')->with('error', 'Data tidak dapat dihapus karena sedang digunakan!');
             }
         }
 
-        return redirect(route('admin.penyakit'))->with('success', 'Data berhasil dihapus!');
+        return redirect(route('admin.tingkat_risiko'))->with('success', 'Data berhasil dihapus!');
     }
 }

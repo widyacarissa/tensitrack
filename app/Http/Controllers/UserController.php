@@ -3,26 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Diagnosis;
-use App\Models\Gejala;
-use App\Models\Penyakit;
+use App\Models\FaktorRisiko;
 use App\Models\Rule;
+use App\Models\TingkatRisiko;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $penyakit = Penyakit::get(['id', 'name', 'reason', 'solution', 'image']);
+        $tingkatRisiko = TingkatRisiko::get(['id', 'name', 'reason', 'solution', 'image']);
 
-        return view('user.user', compact('penyakit'));
+        return view('user.user', compact('tingkatRisiko'));
     }
-
 
     public function historiDiagnosis(Request $request)
     {
         if ($request->isMethod('delete')) {
             $diagnosis = Diagnosis::find($request->id);
             $diagnosis->delete();
+
             return response()->json([
                 'message' => 'Berhasil menghapus data',
             ]);
@@ -30,17 +30,17 @@ class UserController extends Controller
 
         $user = auth()->user();
 
-        $query = Diagnosis::with(['penyakit' => function ($query) {
+        $query = Diagnosis::with(['tingkatRisiko' => function ($query) {
             $query->select('id', 'name');
         }])->where('user_id', $user->id ?? null);
 
         if ($request->has('search.value')) {
             $searchValue = $request->input('search.value');
             $query->where(function ($q) use ($searchValue) {
-                $q->where('id', 'like', '%' . $searchValue . '%')
-                    ->orWhere('created_at', 'like', '%' . $searchValue . '%')
-                    ->orWhereHas('penyakit', function ($q) use ($searchValue) {
-                        $q->where('name', 'like', '%' . $searchValue . '%');
+                $q->where('id', 'like', '%'.$searchValue.'%')
+                    ->orWhere('created_at', 'like', '%'.$searchValue.'%')
+                    ->orWhereHas('tingkatRisiko', function ($q) use ($searchValue) {
+                        $q->where('name', 'like', '%'.$searchValue.'%');
                     });
             });
         }
@@ -68,12 +68,13 @@ class UserController extends Controller
         $historiDiagnosis = $query
             ->offset($start)
             ->limit($length)
-            ->get(['id', 'created_at', 'penyakit_id']);
+            ->get(['id', 'created_at', 'tingkat_risiko_id']);
 
         $data = $historiDiagnosis->map(function ($item) use (&$no, $orderDirection) {
-            $penyakit = Penyakit::find($item->penyakit_id, ['name']);
-            $item->penyakit = $penyakit ? $penyakit->name : 'Tidak Diketahui';
+            $tingkatRisiko = TingkatRisiko::find($item->tingkat_risiko_id, ['name']);
+            $item->tingkatRisiko = $tingkatRisiko ? $tingkatRisiko->name : 'Tidak Diketahui';
             $item->no = ($orderDirection == 'asc') ? $no-- : $no++;
+
             return $item;
         });
 
@@ -87,8 +88,8 @@ class UserController extends Controller
 
     public function detailDiagnosis(Request $request)
     {
-        $penyakit = Penyakit::find(
-            Diagnosis::find($request->id_diagnosis, ['penyakit_id'])->penyakit_id,
+        $tingkatRisiko = TingkatRisiko::find(
+            Diagnosis::find($request->id_diagnosis, ['tingkat_risiko_id'])->tingkat_risiko_id,
             ['name', 'reason', 'solution', 'image']
         );
 
@@ -97,11 +98,11 @@ class UserController extends Controller
         foreach ($answerLog as $key => $value) {
             $answerLog[$key] = $value == 1 ? 'Ya' : 'Tidak';
         }
-        $gejala = Gejala::whereIn('id', array_keys($answerLog))->get(['id', 'name']);
-        foreach ($gejala as $item) {
+        $faktorRisiko = FaktorRisiko::whereIn('id', array_keys($answerLog))->get(['id', 'name']);
+        foreach ($faktorRisiko as $item) {
             $item->answer = $answerLog[$item->id];
         }
-        $answerLog = $gejala->map(function ($item) use ($request) {
+        $answerLog = $faktorRisiko->map(function ($item) {
             return [
                 'id' => $item->id,
                 'name' => $item->name,
@@ -111,62 +112,63 @@ class UserController extends Controller
 
         return response()->json(
             [
-                'penyakit' => $penyakit,
+                'tingkatRisiko' => $tingkatRisiko,
                 'answerLog' => $answerLog,
             ]
         );
     }
 
-    public function getGejala()
+    public function getFaktorRisiko()
     {
-        $gejala = Gejala::get(['id', 'name', 'image']);
-        return response()->json($gejala);
+        $faktorRisiko = FaktorRisiko::get(['id', 'name', 'image']);
+
+        return response()->json($faktorRisiko);
     }
 
-
-    public function chartDiagnosisPenyakit(Request $request)
+    public function chartDiagnosisTingkatRisiko(Request $request)
     {
-        // Mengumpulkan aturan-aturan berdasarkan penyakit dan gejala
-        $rule = Rule::get(['penyakit_id', 'gejala_id']);
+        // Mengumpulkan aturan-aturan berdasarkan tingkat risiko dan faktor risiko
+        $rule = Rule::get(['tingkat_risiko_id', 'faktor_risiko_id']);
         $aturan = [];
         foreach ($rule as $value) {
-            $aturan[$value->penyakit_id][] = $value->gejala_id;
+            $aturan[$value->tingkat_risiko_id][] = $value->faktor_risiko_id;
         }
 
         // Mendapatkan data diagnosis dan log jawaban
         $diagnosis = Diagnosis::find($request->id_diagnosis, ['answer_log']);
         $answerLog = json_decode($diagnosis->answer_log, true);
 
-        // Menghitung bobot untuk setiap penyakit
+        // Menghitung bobot untuk setiap tingkat risiko
         $bobot = [];
-        foreach ($aturan as $idPenyakit => $idGejala) {
-            $bobot[$idPenyakit] = 0;
+        foreach ($aturan as $idTingkatRisiko => $idFaktorRisiko) {
+            $bobot[$idTingkatRisiko] = 0;
             foreach ($answerLog as $key => $value) {
-                if (in_array($key, $idGejala)) {
-                    $bobot[$idPenyakit] += $value;
+                if (in_array($key, $idFaktorRisiko)) {
+                    $bobot[$idTingkatRisiko] += $value;
                 }
             }
         }
 
-        // Menghitung persentase bobot untuk setiap penyakit
+        // Menghitung persentase bobot untuk setiap tingkat risiko
         foreach ($bobot as $key => $value) {
-            $jumlahGejala = count($aturan[$key]);
-            $bobot[$key] = ($jumlahGejala > 0) ? round(($value / $jumlahGejala) * 100, 2) : 0;
+            $jumlahFaktorRisiko = count($aturan[$key]);
+            $bobot[$key] = ($jumlahFaktorRisiko > 0) ? round(($value / $jumlahFaktorRisiko) * 100, 2) : 0;
         }
 
-        // Melakukan pemetaan bobot ke nama penyakit
+        // Melakukan pemetaan bobot ke nama tingkat risiko
         $bobot = collect($bobot)->mapWithKeys(function ($item, $key) {
-            $penyakit = Penyakit::find($key, ['id', 'name']);
-            return [$penyakit->name => $item];
+            $tingkatRisiko = TingkatRisiko::find($key, ['id', 'name']);
+
+            return [$tingkatRisiko->name => $item];
         });
 
         return response()->json($bobot);
     }
 
-    public function getAturan()
+    public function getRuleData()
     {
-        $aturan = Rule::get(['penyakit_id', 'gejala_id'])->groupBy('penyakit_id')->map(function ($item) {
-            return $item->pluck('gejala_id');
+        $aturan = Rule::get(['tingkat_risiko_id', 'faktor_risiko_id'])->groupBy('tingkat_risiko_id')->map(function ($item) {
+            return $item->pluck('faktor_risiko_id');
         });
 
         return response()->json($aturan);

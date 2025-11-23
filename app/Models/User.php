@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -48,10 +47,10 @@ class User extends Authenticatable
         return $this->hasOne(GoogleAuth::class);
     }
 
-    //return avatar if user has google avatar, else return default avatar
+    // return avatar if user has google avatar, else return default avatar
     public function getAvatarAttribute()
     {
-        return $this->googleAuth->avatar ?? 'https://ui-avatars.com/api/?name=' . $this->name;
+        return $this->googleAuth->avatar ?? 'https://ui-avatars.com/api/?name='.$this->name;
     }
 
     public function groups()

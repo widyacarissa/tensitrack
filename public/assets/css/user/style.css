@@ -92,12 +92,12 @@ body {
 }
 
 #diagnosis,
-#penyakit,
+#tingkat-risiko,
 #kontak {
     padding-top: 5rem;
 }
 
-#penyakit {
+#tingkat-risiko {
     margin-bottom: 10rem;
 }
 
@@ -202,7 +202,7 @@ body {
     z-index: 9998;
 }
 
-.container-image-penyakit {
+.container-image-tingkat-risiko {
     max-height: 400px;
     overflow: hidden;
     border-radius: 0.375rem;

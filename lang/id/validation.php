@@ -25,7 +25,7 @@ return [
     'before' => 'Isian :attribute harus tanggal sebelum :date.',
     'before_or_equal' => 'Isian :attribute harus tanggal sebelum atau sama dengan :date.',
     'between' => [
-    	'array' => 'Isian :attribute harus memiliki antara :min dan :max item.',
+        'array' => 'Isian :attribute harus memiliki antara :min dan :max item.',
         'file' => 'Isian :attribute harus antara :min dan :max kilobytes.',
         'numeric' => 'Isian :attribute harus antara :min dan :max.',
         'string' => 'Isian :attribute harus antara :min dan :max karakter.',

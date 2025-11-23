@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Diagnosis;
-use App\Models\Gejala;
+use App\Models\FaktorRisiko;
 
 class HistoriDiagnosisController extends Controller
 {
@@ -27,28 +27,28 @@ class HistoriDiagnosisController extends Controller
     {
         $diagnosis = Diagnosis::with(['user' => function ($query) {
             $query->select('id', 'name', 'email');
-        }, 'penyakit' => function ($query) {
+        }, 'tingkatRisiko' => function ($query) {
             $query->select('id', 'name');
         }])
-        ->orderBy('updated_at', 'desc')
-        ->get(['id', 'user_id', 'penyakit_id', 'updated_at'])->map(function ($diagnosis) {
-            if ($diagnosis['penyakit'] == null) {
-                $diagnosis['penyakit'] = [
-                    'id' => null,
-                    'name' => 'Penyakit tidak ditemukan',
-                ];
-            }
-            $diagnosis['updated_at'] = $diagnosis['updated_at'];
-            $diagnosis['user'] = $diagnosis['user']->toArray();
-            $diagnosis['penyakit'] = $diagnosis['penyakit'];
+            ->orderBy('updated_at', 'desc')
+            ->get(['id', 'user_id', 'tingkat_risiko_id', 'updated_at'])->map(function ($diagnosis) {
+                if ($diagnosis['tingkatRisiko'] == null) {
+                    $diagnosis['tingkatRisiko'] = [
+                        'id' => null,
+                        'name' => 'Tingkat Risiko tidak ditemukan',
+                    ];
+                }
+                $diagnosis['updated_at'] = $diagnosis['updated_at'];
+                $diagnosis['user'] = $diagnosis['user']->toArray();
+                $diagnosis['tingkatRisiko'] = $diagnosis['tingkatRisiko'];
 
-            return [
-                'id' => $diagnosis['id'],
-                'updated_at' => $diagnosis['updated_at'],
-                'user' => $diagnosis['user'],
-                'penyakit' => $diagnosis['penyakit'],
-            ];
-        })->values()->toArray();
+                return [
+                    'id' => $diagnosis['id'],
+                    'updated_at' => $diagnosis['updated_at'],
+                    'user' => $diagnosis['user'],
+                    'tingkatRisiko' => $diagnosis['tingkatRisiko'],
+                ];
+            })->values()->toArray();
 
         return $diagnosis;
     }
@@ -60,11 +60,11 @@ class HistoriDiagnosisController extends Controller
         foreach ($answerLog as $key => $value) {
             $answerLog[$key] = $value == 1 ? 'Ya' : 'Tidak';
         }
-        $gejala = Gejala::whereIn('id', array_keys($answerLog))->get(['id', 'name']);
-        foreach ($gejala as $item) {
+        $faktorRisiko = FaktorRisiko::whereIn('id', array_keys($answerLog))->get(['id', 'name']);
+        foreach ($faktorRisiko as $item) {
             $item->answer = $answerLog[$item->id];
         }
-        $answerLog = $gejala->map(function ($item) {
+        $answerLog = $faktorRisiko->map(function ($item) {
             return [
                 'id' => $item->id,
                 'name' => $item->name,

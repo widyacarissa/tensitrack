@@ -20,7 +20,7 @@
 - [Kebijakan Privasi](#kebijakan-privasi)
 
 ## Deskripsi
-Sistem pakar atau sistem pengambilan keputusan untuk mendeteksi atau mendiagnosis penyakit yang menyerang tanaman cabai. Sistem ini menggunakan algoritma *forward chaining* sebagai metode inteferensi. Data yang digunakan dalam proses diagnosis bersumber dari sebuah instansi pemerintah dan berdasarkan jurnal jurnal resmi.
+Sistem pakar atau sistem pengambilan keputusan untuk mendeteksi atau mendiagnosis tingkat risiko hipertensi. Sistem ini menggunakan algoritma *forward chaining* sebagai metode inteferensi. Data yang digunakan dalam proses diagnosis bersumber dari sebuah instansi pemerintah dan berdasarkan jurnal jurnal resmi.
 
 ## Teknologi yang digunakan
 
@@ -129,7 +129,7 @@ Sistem pakar atau sistem pengambilan keputusan untuk mendeteksi atau mendiagnosi
     php artisan migrate:fresh --seed
     ```
 11. _Link storage_
-    > Ini berfungsi untuk mengakses file yang ada di direktori `storage/app/public` atau dalam kata lain untuk menampilkan gambar penyakit
+    > Ini berfungsi untuk mengakses file yang ada di direktori `storage/app/public` atau dalam kata lain untuk menampilkan gambar tingkat risiko
     ```bash
     php artisan storage:link
     ```

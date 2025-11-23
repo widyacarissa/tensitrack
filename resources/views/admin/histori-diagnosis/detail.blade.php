@@ -36,7 +36,7 @@
                                     <th class="text-center">
                                         No
                                     </th>
-                                    <th>Gejala</th>
+                                    <th>Faktor Risiko</th>
                                     <th>Bobot</th>
                                 </tr>
                             </thead>

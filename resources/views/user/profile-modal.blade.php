@@ -248,7 +248,7 @@
                                 <tr class="bg-light">
                                     <th class="fw-semibold" style="color: #001B48;">No</th>
                                     <th class="fw-semibold" style="color: #001B48;">Tanggal</th>
-                                    <th class="fw-semibold" style="color: #001B48;">Diagnosis Penyakit</th>
+                                    <th class="fw-semibold" style="color: #001B48;">Diagnosis Tingkat Risiko</th>
                                     <th class="fw-semibold" style="color: #001B48;">Aksi</th>
                                 </tr>
                             </thead>

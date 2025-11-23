@@ -718,9 +718,9 @@
         const hasUserProfile = @json(Auth::user()->profile->id ?? false);
         let login = @json(session('success') ?? false);
         const csrfToken = '{{ csrf_token() }}';
-        const penyakitImage = @json($penyakit);
-        const assetStoragePenyakit = '{{ asset('/storage/penyakit/') }}';
-        const assetStorageGejala = '{{ asset('/storage/gejala/') }}';
+        const tingkatRisikoData = @json($tingkatRisiko);
+        const assetStorageTingkatRisiko = '{{ asset('/storage/tingkat-risiko/') }}';
+        const assetStorageFaktorRisiko = '{{ asset('/storage/faktor-risiko/') }}';
     </script>
 
     {{-- SCRIPT TAMBAHAN UNTUK KALKULATOR BMI --}}

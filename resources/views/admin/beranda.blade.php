@@ -15,7 +15,7 @@
                             @else
                                 <h2>Selamat datang!</h2>
                             @endauth
-                            <p class="lead">Disini adalah tempat untuk mengelola penyakit, gejala, rule, dan diagnosis</p>
+                            <p class="lead">Disini adalah tempat untuk mengelola tingkat risiko, faktor risiko, rule, dan diagnosis</p>
                         </div>
                     </div>
                 </div>
@@ -44,10 +44,10 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Jumlah Penyakit</h4>
+                            <h4>Jumlah Tingkat Risiko</h4>
                         </div>
                         <div class="card-body">
-                            {{ $jumlahPenyakit }}
+                            {{ $jumlahTingkatRisiko }}
                         </div>
                     </div>
                 </div>
@@ -59,10 +59,10 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Jumlah Gejala</h4>
+                            <h4>Jumlah Faktor Risiko</h4>
                         </div>
                         <div class="card-body">
-                            {{ $jumlahGejala }}
+                            {{ $jumlahFaktorRisiko }}
                         </div>
                     </div>
                 </div>
@@ -119,18 +119,18 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Total Penyakit Hasil Diagnosis</h4>
+                        <h4>Total Tingkat Risiko Hasil Diagnosis</h4>
                     </div>
                     <div class="card-body">
-                        @foreach ($diagnosisPenyakit as $key => $value)
+                        @foreach ($diagnosisTingkatRisiko as $key => $value)
                             <div class="mb-4">
                                 <div class="text-small float-right font-weight-bold text-muted">{{ $value['count'] }}
                                 </div>
                                 <div class="font-weight-bold mb-1">
-                                    @if ($value['penyakit_id'] == null)
-                                        <span class="text-danger">Penyakit tidak ditemukan</span>
+                                    @if ($value['tingkat_risiko_id'] == null)
+                                        <span class="text-danger">Tingkat Risiko tidak ditemukan</span>
                                     @else
-                                        {{ $value['penyakit'] }}
+                                        {{ $value['tingkatRisiko'] }}
                                     @endif
                                 </div>
                                 <div class="progress" data-height="10">

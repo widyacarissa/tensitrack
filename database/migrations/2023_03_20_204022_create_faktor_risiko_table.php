@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('gejala', function (Blueprint $table) {
+        Schema::create('faktor_risiko', function (Blueprint $table) {
             $table->smallInteger('id', true, true);
             $table->string('name', '255');
             $table->string('image', '255')->nullable();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gejala');
+        Schema::dropIfExists('faktor_risiko');
     }
 };

@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\KotaProvinsiController;
 use App\Models\Diagnosis;
-use App\Models\Gejala;
-use App\Models\Penyakit;
+use App\Models\FaktorRisiko;
+use App\Models\TingkatRisiko;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Http\Request as HttpRequest;
@@ -16,15 +16,15 @@ class BerandaController extends Controller
     public function index()
     {
         $data = [
-            'loginDuration' => $this->LoginDuration(),
+            'loginDuration' => self::loginDuration(),
             'jumlahPengguna' => $this->jumlahPengguna(),
-            'jumlahPenyakit' => $this->jumlahPenyakit(),
-            'jumlahGejala' => $this->jumlahGejala(),
+            'jumlahTingkatRisiko' => $this->jumlahTingkatRisiko(),
+            'jumlahFaktorRisiko' => $this->jumlahFaktorRisiko(),
             'jumlahDiagnosis' => $this->jumlahDiagnosis(),
             'chartProvince' => $this->chartProvince(),
             'chartCity' => $this->chartCity(),
             'chartProfession' => $this->chartProfession(),
-            'diagnosisPenyakit' => $this->diagnosisPenyakit(),
+            'diagnosisTingkatRisiko' => $this->diagnosisTingkatRisiko(),
         ];
 
         return view('admin.beranda', $data);
@@ -33,24 +33,28 @@ class BerandaController extends Controller
     public function jumlahPengguna()
     {
         $jumlahPengguna = User::count();
+
         return $jumlahPengguna;
     }
 
-    public function jumlahPenyakit()
+    public function jumlahTingkatRisiko()
     {
-        $jumlahPenyakit = Penyakit::count();
-        return $jumlahPenyakit;
+        $jumlahTingkatRisiko = TingkatRisiko::count();
+
+        return $jumlahTingkatRisiko;
     }
 
-    public function jumlahGejala()
+    public function jumlahFaktorRisiko()
     {
-        $jumlahGejala = Gejala::count();
-        return $jumlahGejala;
+        $jumlahFaktorRisiko = FaktorRisiko::count();
+
+        return $jumlahFaktorRisiko;
     }
 
     public function jumlahDiagnosis()
     {
         $jumlahDiagnosis = Diagnosis::count();
+
         return $jumlahDiagnosis;
     }
 
@@ -59,7 +63,7 @@ class BerandaController extends Controller
         $data = UserProfile::selectRaw('count(*) as count, province')
             ->groupBy('province')
             ->get()->toArray();
-        $indexProvince = new KotaProvinsiController();
+        $indexProvince = new KotaProvinsiController;
         $provinces = $indexProvince->indexProvince();
         $provinces = json_decode(json_encode($provinces), true);
 
@@ -72,6 +76,7 @@ class BerandaController extends Controller
 
         $data = array_map(function ($item) use ($province) {
             $item['province'] = $province[$item['province']]['province'] ?? null;
+
             return $item;
         }, $data);
 
@@ -84,9 +89,9 @@ class BerandaController extends Controller
 
         $userProfileCity = array_column($data, 'city'); // Mengambil semua id dari hasil query
         $userProfiles = UserProfile::whereIn('city', $userProfileCity)->get('province')->toArray();
-        $indexCity = new KotaProvinsiController();
+        $indexCity = new KotaProvinsiController;
 
-        $request = new HttpRequest();
+        $request = new HttpRequest;
 
         $cities = [];
         foreach ($userProfiles as $key => $value) {
@@ -100,6 +105,7 @@ class BerandaController extends Controller
         }
         $data = array_map(function ($item) use ($cities) {
             $item['city'] = $cities[$item['city']]['city'] ?? null;
+
             return $item;
         }, $data);
 
@@ -109,18 +115,21 @@ class BerandaController extends Controller
     public function chartProfession()
     {
         $data = UserProfile::selectRaw('count(*) as count, profession')->groupBy('profession')->get()->toArray();
+
         return $data;
     }
 
-    public function diagnosisPenyakit()
+    public function diagnosisTingkatRisiko()
     {
-        $data = Diagnosis::selectRaw('count(*) as count, penyakit_id')->groupBy('penyakit_id')->get()->toArray();
-        $penyakit = Penyakit::get(['id', 'name'])->toArray();
-        $penyakit = array_column($penyakit, 'name', 'id');
-        $data = array_map(function ($item) use ($penyakit) {
-            $item['penyakit'] = $penyakit[$item['penyakit_id']] ?? null;
+        $data = Diagnosis::selectRaw('count(*) as count, tingkat_risiko_id')->groupBy('tingkat_risiko_id')->get()->toArray();
+        $tingkatRisiko = TingkatRisiko::get(['id', 'name'])->toArray();
+        $tingkatRisiko = array_column($tingkatRisiko, 'name', 'id');
+        $data = array_map(function ($item) use ($tingkatRisiko) {
+            $item['tingkatRisiko'] = $tingkatRisiko[$item['tingkat_risiko_id']] ?? null;
+
             return $item;
         }, $data);
+
         return $data;
     }
 }

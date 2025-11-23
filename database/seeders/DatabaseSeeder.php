@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
             AuthGroupSeeder::class,
             AuthGroupUserSeeder::class,
             UserProfileSeeder::class,
-            PenyakitSeeder::class,
-            GejalaSeeder::class,
+            TingkatRisikoSeeder::class,
+            FaktorRisikoSeeder::class,
             RuleSeeder::class,
         ]);
     }

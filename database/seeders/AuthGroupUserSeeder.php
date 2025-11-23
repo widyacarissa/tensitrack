@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AuthGroupUserSeeder extends Seeder
@@ -22,7 +21,7 @@ class AuthGroupUserSeeder extends Seeder
             ]);
         }
 
-        //create if user_id is admin update group_id to 1
+        // create if user_id is admin update group_id to 1
         \App\Models\AuthGroupUser::where(
             'user_id',
             User::where('name', 'admin')->first()->id

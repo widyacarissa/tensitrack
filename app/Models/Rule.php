@@ -12,22 +12,22 @@ class Rule extends Model
     protected $table = 'rule';
 
     protected $fillable = [
-        'penyakit_id',
-        'gejala_id',
+        'tingkat_risiko_id',
+        'faktor_risiko_id',
     ];
 
-    public function penyakit()
+    public function tingkatRisiko()
     {
-        return $this->belongsTo(Penyakit::class, 'penyakit_id');
+        return $this->belongsTo(TingkatRisiko::class, 'tingkat_risiko_id');
     }
 
-    public function gejala()
+    public function faktorRisiko()
     {
-        return $this->belongsTo(Gejala::class, 'gejala_id');
+        return $this->belongsTo(FaktorRisiko::class, 'faktor_risiko_id');
     }
 
-    public function nextGejala()
+    public function nextFaktorRisiko()
     {
-        return $this->belongsTo(Gejala::class, 'next_first_gejala_id');
+        return $this->belongsTo(FaktorRisiko::class, 'next_first_faktor_risiko_id');
     }
 }

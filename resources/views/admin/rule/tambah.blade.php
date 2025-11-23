@@ -10,7 +10,7 @@
            White:   #FFFFFF
         */
 
-        .gejala-container {
+        .faktor-risiko-container {
             max-height: 400px;
             overflow-y: auto;
             background: #fbfbfb;
@@ -20,7 +20,7 @@
         }
 
         /* 1. KARTU NORMAL (BELUM DIPILIH) */
-        .gejala-card {
+        .faktor-risiko-card {
             display: block;
             position: relative;
             background: #FFFFFF;
@@ -34,13 +34,13 @@
         }
 
         /* Hover Efek: Sedikit oranye pudar */
-        .gejala-card:hover {
+        .faktor-risiko-card:hover {
             border-color: #E49502; 
             background-color: #fffbf0; 
             transform: translateX(2px); /* Geser sedikit ke kanan */
         }
 
-        .gejala-checkbox {
+        .faktor-risiko-checkbox {
             position: absolute;
             opacity: 0;
             cursor: pointer;
@@ -49,7 +49,7 @@
         }
 
         /* 2. KARTU TERPILIH (ACTIVE) - KONTRAS TINGGI */
-        .gejala-card.active {
+        .faktor-risiko-card.active {
             background-color: #001B48 !important; /* Latar jadi Biru Gelap */
             border-color: #E49502 !important;     /* Border jadi Oranye */
             color: #FFFFFF;                       /* Teks jadi Putih */
@@ -58,19 +58,19 @@
         }
 
         /* Warna Teks Nama Gejala saat Aktif */
-        .gejala-card.active .gejala-text {
+        .faktor-risiko-card.active .faktor-risiko-text {
             color: #FFFFFF !important;
             font-weight: 600;
         }
 
         /* Style Badge Kode saat Aktif */
-        .gejala-card.active .badge-kode {
+        .faktor-risiko-card.active .badge-kode {
             background-color: #E49502; /* Badge jadi Oranye */
             color: #001B48;            /* Teks badge jadi Biru Gelap */
         }
 
         /* Ikon Centang saat Aktif */
-        .gejala-card.active .check-icon {
+        .faktor-risiko-card.active .check-icon {
             display: inline-block;
             color: #E49502; /* Centang Oranye menyala */
             background: #fff;
@@ -109,7 +109,7 @@
             transition: 0.3s;
         }
 
-        .gejala-text {
+        .faktor-risiko-text {
             font-size: 14px;
             color: #333;
             line-height: 1.4;
@@ -165,32 +165,32 @@
                     <form action="{{ route('admin.rule.store') }}" method="post">
                         @csrf
                         
-                        {{-- Bagian Penyakit --}}
+                        {{-- Bagian Tingkat Risiko --}}
                         <div class="form-group mb-4">
-                            <label class="form-label font-weight-bold" style="color: #001B48; font-size: 16px;">Pilih Penyakit</label>
-                            <select name="penyakit" id="penyakit" required
-                                class="form-control select2 @error('penyakit') is-invalid @enderror">
-                                <option value="" disabled selected>-- Silahkan Pilih Penyakit --</option>
-                                @foreach ($penyakit as $p)
-                                    <option value="{{ $p->id }}">{{ $p->name }}</option>
+                            <label class="form-label font-weight-bold" style="color: #001B48; font-size: 16px;">Pilih Tingkat Risiko</label>
+                            <select name="tingkatRisiko" id="tingkatRisiko" required
+                                class="form-control select2 @error('tingkatRisiko') is-invalid @enderror">
+                                <option value="" disabled selected>-- Silahkan Pilih Tingkat Risiko --</option>
+                                @foreach ($tingkatRisiko as $tr)
+                                    <option value="{{ $tr->id }}">{{ $tr->name }}</option>
                                 @endforeach
                             </select>
-                            @error('penyakit')
+                            @error('tingkatRisiko')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
                         {{-- Bagian Gejala --}}
                         <div class="form-group">
-                            <label class="form-label font-weight-bold" style="color: #001B48; font-size: 16px;">Pilih Gejala</label>
-                            <p class="text-muted small mb-3">Klik pada kotak gejala untuk memilih. Gejala yang dipilih akan berwarna <b style="color: #001B48">Biru Gelap</b>.</p>
+                            <label class="form-label font-weight-bold" style="color: #001B48; font-size: 16px;">Pilih Faktor Risiko</label>
+                            <p class="text-muted small mb-3">Klik pada kotak faktor risiko untuk memilih. Faktor risiko yang dipilih akan berwarna <b style="color: #001B48">Biru Gelap</b>.</p>
                             
                             {{-- Search Bar --}}
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-white border-right-0"><i class="fas fa-search" style="color: #001B48"></i></span>
                                 </div>
-                                <input type="text" id="searchGejala" class="form-control search-box border-left-0" placeholder="Ketik untuk mencari gejala...">
+                                <input type="text" id="searchFaktorRisiko" class="form-control search-box border-left-0" placeholder="Ketik untuk mencari faktor risiko...">
                             </div>
 
                             {{-- Actions --}}
@@ -205,19 +205,19 @@
                             </div>
 
                             {{-- Container Gejala --}}
-                            <div class="gejala-container" id="gejalaContainer">
-                                @foreach ($gejala as $g)
-                                    <label class="gejala-card" id="card_{{ $g->id }}">
+                            <div class="faktor-risiko-container" id="faktorRisikoContainer">
+                                @foreach ($faktorRisiko as $fr)
+                                    <label class="faktor-risiko-card" id="card_{{ $fr->id }}">
                                         <input type="checkbox" 
-                                               class="gejala-checkbox" 
-                                               name="gejala[]" 
-                                               value="{{ $g->id }}"
-                                               id="input_{{ $g->id }}">
+                                               class="faktor-risiko-checkbox" 
+                                               name="faktorRisiko[]" 
+                                               value="{{ $fr->id }}"
+                                               id="input_{{ $fr->id }}">
                                         
                                         <div class="card-flex">
                                             <div class="info-wrapper">
-                                                <span class="badge-kode">G{{ $g->id }}</span>
-                                                <span class="gejala-text">{{ $g->name }}</span>
+                                                <span class="badge-kode">FR{{ $fr->id }}</span>
+                                                <span class="faktor-risiko-text">{{ $fr->name }}</span>
                                             </div>
                                             <div class="check-icon">
                                                 <i class="fas fa-check"></i>
@@ -227,7 +227,7 @@
                                 @endforeach
                             </div>
 
-                            @error('gejala')
+                            @error('faktorRisiko')
                                 <div class="text-danger mt-2 small font-weight-bold"><i class="fas fa-exclamation-circle"></i> {{ $message }}</div>
                             @enderror
                         </div>
@@ -249,9 +249,9 @@
     
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const searchInput = document.getElementById('searchGejala');
-            const cards = document.querySelectorAll('.gejala-card');
-            const inputs = document.querySelectorAll('.gejala-checkbox');
+            const searchInput = document.getElementById('searchFaktorRisiko');
+            const cards = document.querySelectorAll('.faktor-risiko-card');
+            const inputs = document.querySelectorAll('.faktor-risiko-checkbox');
             const totalDisplay = document.getElementById('totalSelected');
 
             function updateCardVisual(input, card) {
@@ -264,7 +264,7 @@
             }
 
             function updateTotal() {
-                const checked = document.querySelectorAll('.gejala-checkbox:checked').length;
+                const checked = document.querySelectorAll('.faktor-risiko-checkbox:checked').length;
                 totalDisplay.innerText = checked;
             }
 
@@ -289,7 +289,7 @@
             document.getElementById('btnSelectAll').addEventListener('click', function() {
                 cards.forEach(card => {
                     if(card.style.display !== 'none') {
-                        const input = card.querySelector('.gejala-checkbox');
+                        const input = card.querySelector('.faktor-risiko-checkbox');
                         if(!input.checked) {
                             input.checked = true;
                             updateCardVisual(input, card);

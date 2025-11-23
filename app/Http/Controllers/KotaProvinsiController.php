@@ -24,9 +24,9 @@ class KotaProvinsiController extends Controller
 
         $provinces = Cache::remember($cacheKey, $cacheTime, function () {
             try {
-                $client = new Client();
+                $client = new Client;
 
-                $response = $client->request('GET', $this->baseUrl . '/provinces', [
+                $response = $client->request('GET', $this->baseUrl.'/provinces', [
                     'headers' => [
                         'Accept' => 'application/json',
                     ],
@@ -41,15 +41,16 @@ class KotaProvinsiController extends Controller
                 $provinces = collect($data['data'])->map(function ($province) {
                     return (object) [
                         'province_id' => $province['code'],
-                        'province' => $province['name']
+                        'province' => $province['name'],
                     ];
                 })->toArray();
 
             } catch (GuzzleException $e) {
-                Log::debug('Error: ' . json_encode($e->getMessage()));
+                Log::debug('Error: '.json_encode($e->getMessage()));
 
                 $provinces = [];
             }
+
             return $provinces;
         });
 
@@ -63,8 +64,8 @@ class KotaProvinsiController extends Controller
 
         $cities = Cache::remember($cacheKey, $cacheTime, function () use ($id) {
             try {
-                $client = new Client();
-                $response = $client->request('GET', $this->baseUrl . '/regencies', [
+                $client = new Client;
+                $response = $client->request('GET', $this->baseUrl.'/regencies', [
                     'headers' => [
                         'Accept' => 'application/json',
                     ],
@@ -81,12 +82,12 @@ class KotaProvinsiController extends Controller
                     return (object) [
                         'city_id' => $regency['code'],
                         'city_name' => $regency['name'],
-                        'province_id' => $regency['provinceCode']
+                        'province_id' => $regency['provinceCode'],
                     ];
                 })->toArray();
 
             } catch (GuzzleException $e) {
-                Log::debug('Error: ' . json_encode($e->getMessage()));
+                Log::debug('Error: '.json_encode($e->getMessage()));
 
                 $cities = [];
             }

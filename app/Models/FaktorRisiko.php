@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Gejala extends Model
+class FaktorRisiko extends Model
 {
     use HasFactory;
 
-    protected $table = 'gejala';
+    protected $table = 'faktor_risiko';
 
     protected $fillable = [
         'name',
         'image',
     ];
 
-    public function penyakit()
+    public function tingkatRisiko()
     {
-        return $this->belongsToMany(Penyakit::class, 'rule', 'gejala_id', 'penyakit_id');
+        return $this->belongsToMany(TingkatRisiko::class, 'rule', 'faktor_risiko_id', 'tingkat_risiko_id');
     }
 }

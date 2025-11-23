@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
     
     <style>
-        /* Styling untuk badge gejala agar rapi */
+        /* Styling untuk badge faktor risiko agar rapi */
         .symptom-badge {
             display: inline-block;
             padding: 5px 10px;
@@ -41,7 +41,7 @@
             var form = $("#" + formId);
             swal({
                     title: "Apakah Anda yakin?",
-                    text: "Semua aturan gejala untuk penyakit ini akan dihapus!",
+                    text: "Semua aturan faktor risiko untuk tingkat risiko ini akan dihapus!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -91,8 +91,8 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th class="text-center" width="5%">No</th>
-                                    <th width="20%">Penyakit</th>
-                                    <th width="50%">Daftar Gejala (Aturan)</th>
+                                    <th width="20%">Tingkat Risiko</th>
+                                    <th width="50%">Daftar Faktor Risiko (Aturan)</th>
                                     <th width="15%">Update Terakhir</th>
                                     <th width="10%">Aksi</th>
                                 </tr>
@@ -100,15 +100,15 @@
                             <tbody>
                                 {{-- LOGIKA PENGELOMPOKAN DATA --}}
                                 @php
-                                    $groupedRules = collect($rules)->groupBy('penyakit.name');
+                                    $groupedRules = collect($rules)->groupBy('tingkatRisiko.name');
                                 @endphp
 
-                                @foreach ($groupedRules as $penyakitName => $groupItems)
+                                @foreach ($groupedRules as $tingkatRisikoName => $groupItems)
                                     @php
                                         $firstItem = $groupItems->first();
-                                        $penyakitId = $firstItem['penyakit']['id'];
+                                        $tingkatRisikoId = $firstItem['tingkatRisiko']['id'];
                                         $latestUpdate = $groupItems->max('updated_at'); 
-                                        $uniqueGejala = $groupItems->unique('no_gejala');
+                                        $uniqueFaktorRisiko = $groupItems->unique('no_faktor_risiko');
                                     @endphp
 
                                     <tr>
@@ -116,14 +116,14 @@
                                             {{ $loop->iteration }}
                                         </td>
                                         <td class="align-top font-weight-bold">
-                                            {{ $penyakitName }}
+                                            {{ $tingkatRisikoName }}
                                         </td>
                                         <td>
                                             <div class="d-flex flex-wrap">
-                                                @foreach ($uniqueGejala as $item)
+                                                @foreach ($uniqueFaktorRisiko as $item)
                                                     <span class="symptom-badge">
-                                                        <span class="symptom-code">{{ $item['no_gejala'] }}</span>
-                                                        {{ $item['gejala']['name'] }}
+                                                        <span class="symptom-code">{{ $item['no_faktor_risiko'] }}</span>
+                                                        {{ $item['faktorRisiko']['name'] }}
                                                     </span>
                                                 @endforeach
                                             </div>
@@ -134,22 +134,22 @@
                                         <td class="align-top">
                                             <div class="dropdown">
                                                 <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
-                                                    id="dropdownMenuButton-{{ $penyakitId }}" data-toggle="dropdown" aria-haspopup="true"
+                                                    id="dropdownMenuButton-{{ $tingkatRisikoId }}" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false">
                                                     Aksi
                                                 </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{ $penyakitId }}">
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{ $tingkatRisikoId }}">
                                                     <a class="dropdown-item has-icon text-warning"
-                                                        href="{{ route('admin.rule.edit', ['penyakit' => $penyakitId]) }}">
+                                                        href="{{ route('admin.rule.edit', ['tingkatRisiko' => $tingkatRisikoId]) }}">
                                                         <i class="far fa-edit"></i> Edit
                                                     </a>
                                                     
-                                                    <a class="dropdown-item has-icon text-danger btnHapus" href="#" data-form-id="formHapus-{{ $penyakitId }}">
+                                                    <a class="dropdown-item has-icon text-danger btnHapus" href="#" data-form-id="formHapus-{{ $tingkatRisikoId }}">
                                                         <i class="far fa-trash-alt"></i> Hapus
                                                     </a>
                                                     
-                                                    <form id="formHapus-{{ $penyakitId }}"
-                                                        action="{{ route('admin.rule.destroy', ['penyakit' => $penyakitId]) }}"
+                                                    <form id="formHapus-{{ $tingkatRisikoId }}"
+                                                        action="{{ route('admin.rule.destroy', ['tingkatRisiko' => $tingkatRisikoId]) }}"
                                                         method="post" style="display: none;">
                                                         @csrf
                                                         @method('delete')

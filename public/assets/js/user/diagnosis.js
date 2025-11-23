@@ -1,20 +1,20 @@
 class DiagnosisModal {
-    constructor(assetStorageGejala, csrfToken) {
-        this.assetStorageGejala = assetStorageGejala;
+    constructor(assetStorageFaktorRisiko, csrfToken) {
+        this.assetStorageFaktorRisiko = assetStorageFaktorRisiko;
         this.csrfToken = csrfToken;
     }
 
-    async ajaxGetGejala() {
+    async ajaxGetFaktorRisiko() {
         return $.ajax({
-            url: '/get-gejala',
+            url: '/get-faktor-risiko',
             method: 'GET',
             dataType: 'json',
         });
     }
 
-    async ajaxGetAturan() {
+    async ajaxGetRuleData() {
         return $.ajax({
-            url: '/get-aturan',
+            url: '/get-rule-data',
             method: 'GET',
         });
     }
@@ -25,7 +25,7 @@ class DiagnosisModal {
             type: "POST",
             data: {
                 _token: csrfToken,
-                idgejala: element,
+                id_faktor_risiko: element,
                 value: jawaban
             },
         });
@@ -53,7 +53,7 @@ class DiagnosisModal {
     async showModal() {
         const swalBeforeDiagnosis = await Swal.fire({
             title: 'Catatan',
-            text: 'Sistem ini memiliki keterbatasan dalam cakupan data penyakit tanaman cabai, sehingga tidak semua penyakit dapat didiagnosis. Hanya penyakit yang terdapat dalam daftar penyakit yang dapat didiagnosis. Apakah Anda ingin melanjutkan proses diagnosis?',
+            text: 'Sistem ini memiliki keterbatasan dalam cakupan data tingkat risiko hipertensi, sehingga tidak semua tingkat risiko dapat didiagnosis. Hanya tingkat risiko yang terdapat dalam daftar yang dapat didiagnosis. Apakah Anda ingin melanjutkan proses diagnosis?',
             icon: 'info',
             showCancelButton: true,
             confirmButtonText: 'Lanjutkan',
@@ -73,18 +73,18 @@ class DiagnosisModal {
         });
 
         try {
-            const [gejala, aturan] = await Promise.all([this.ajaxGetGejala(), this.ajaxGetAturan()]);
+            const [faktorRisiko, ruleData] = await Promise.all([this.ajaxGetFaktorRisiko(), this.ajaxGetRuleData()]);
 
             let isClosed = false;
 
-            for (let i = 0; i < gejala.length; i++) {
-                let element = gejala[i];
+            for (let i = 0; i < faktorRisiko.length; i++) {
+                let element = faktorRisiko[i];
 
                 const { value: jawaban, dismiss: dismissReason } = await Swal.fire({
                     title: 'Pertanyaan ' + (i + 1),
-                    imageUrl: `${this.assetStorageGejala}/${element.image}`,
+                    imageUrl: `${this.assetStorageFaktorRisiko}/${element.image}`,
                     imageHeight: '300px',
-                    imageAlt: `Gambar Gejala ${element.name}`,
+                    imageAlt: `Gambar Faktor Risiko ${element.name}`,
                     text: 'Apakah ' + element.name + '?',
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Ya',
@@ -106,23 +106,23 @@ class DiagnosisModal {
                 try {
                     const response = await this.ajaxRequestToDiagnosis(element.id, jawaban);
 
-                    if (response.idPenyakit != null || response.penyakitUnidentified === true) {
+                    if (response.idTingkatRisiko != null || response.tingkatRisikoUnidentified === true) {
                         await Swal.close();
-                        return getPenyakitFromDiagnose(response, true);
+                        return getTingkatRisikoFromDiagnose(response, true);
                     }
 
                     if (!jawaban) {
-                        for(let j in aturan) {
-                            for(let k in aturan[j]) {
-                                if(aturan[j][k] == element.id) {
+                        for(let j in ruleData) {
+                            for(let k in ruleData[j]) {
+                                if(ruleData[j][k] == element.id) {
                                     const iteration = parseInt(j) + 1;
 
-                                    if(aturan[iteration] == null) {
+                                    if(ruleData[iteration] == null) {
                                         await Swal.close();
-                                        return getPenyakitFromDiagnose(response, true);
+                                        return getTingkatRisikoFromDiagnose(response, true);
                                     }
 
-                                    i = aturan[iteration][0] - 2;
+                                    i = ruleData[iteration][0] - 2;
                                     break;
                                 }
                             }

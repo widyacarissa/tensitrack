@@ -1,5 +1,5 @@
 @extends('layouts.pdf-layout')
-@section('title', 'Data Gejala')
+@section('title', 'Data Faktor Risiko')
 @section('content')
     <table class="table table-bordered table-striped">
         <thead>
@@ -12,13 +12,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($gejala as $p)
+            @foreach ($faktorRisiko as $fr)
                 <tr>
                     <td>
                         {{ $loop->iteration }}
                     </td>
-                    <td>{{ $p['name'] }}</td>
-                    <td>{{ $p['updated_at'] }}</td>
+                    <td>{{ $fr['name'] }}</td>
+                    <td>{{ $fr['updated_at'] }}</td>
                 </tr>
             @endforeach
         </tbody>

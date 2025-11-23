@@ -80,8 +80,8 @@ return [
         ],
 
         'resend' => [
-            'transport' => 'resend'
-        ]
+            'transport' => 'resend',
+        ],
     ],
 
     /*

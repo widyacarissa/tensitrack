@@ -44,6 +44,7 @@ class UserProfile extends Model
             $heightInMeters = $this->height / 100; // Convert cm to m
             $this->bmi = round($this->weight / ($heightInMeters * $heightInMeters), 2);
         }
+
         return $this;
     }
 
@@ -52,7 +53,7 @@ class UserProfile extends Model
      */
     public function getBMICategory()
     {
-        if (!$this->bmi) {
+        if (! $this->bmi) {
             return null;
         }
 
@@ -73,7 +74,8 @@ class UserProfile extends Model
     public function getBMICategoryColor()
     {
         $category = $this->getBMICategory();
-        return match($category) {
+
+        return match ($category) {
             'Underweight' => 'info',
             'Normal' => 'success',
             'Overweight' => 'warning',

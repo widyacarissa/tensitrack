@@ -69,7 +69,7 @@
                                     @auth
                                         <th>Email Pengguna</th>
                                     @endauth
-                                    <th>Nama Penyakit</th>
+                                    <th>Nama Tingkat Risiko</th>
                                     <th>Tanggal Dibuat/Diubah</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -84,11 +84,11 @@
                                         @auth
                                             <td>{{ $value['user']['email'] }}</td>
                                         @endauth
-                                        @if ($value['penyakit']['id'] == null)
-                                            <td><span class="badge bg-danger text-white">Penyakit tidak ditemukan</span>
+                                        @if ($value['tingkatRisiko']['id'] == null)
+                                            <td><span class="badge bg-danger text-white">Tingkat Risiko tidak ditemukan</span>
                                             </td>
                                         @else
-                                            <td>{{ $value['penyakit']['name'] }}</td>
+                                            <td>{{ $value['tingkatRisiko']['name'] }}</td>
                                         @endif
                                         <td>{{ $value['updated_at'] }}</td>
                                         <td>

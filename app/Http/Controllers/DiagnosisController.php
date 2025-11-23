@@ -3,113 +3,114 @@
 namespace App\Http\Controllers;
 
 use App\Models\Diagnosis;
-use App\Models\Gejala;
-use App\Models\Penyakit;
+use App\Models\FaktorRisiko;
 use App\Models\Rule;
+use App\Models\TingkatRisiko;
 use Illuminate\Http\Request;
 
 class DiagnosisController extends Controller
 {
-    private $allGejala;
+    private $allFaktorRisiko;
 
     public function __construct()
     {
-        $this->allGejala =  Gejala::get('id')->count();
+        $this->allFaktorRisiko = FaktorRisiko::get('id')->count();
     }
 
     private function newDiagnosis()
     {
-        $modelDiagnosis = new Diagnosis();
+        $modelDiagnosis = new Diagnosis;
         $modelDiagnosis->user_id = auth()->user()->id;
+
         return $modelDiagnosis;
     }
 
     private function lastDiagnosis()
     {
-        return Diagnosis::where('user_id',  auth()->user()->id)->get()->last();
+        return Diagnosis::where('user_id', auth()->user()->id)->get()->last();
     }
 
-    private function checkDiagnosis($idGejala)
+    private function checkDiagnosis($id_faktor_risiko)
     {
         $lastDiagnosis = $this->lastDiagnosis();
 
-        if ($idGejala === 1) {
+        if ($id_faktor_risiko === 1) {
             return $this->newDiagnosis();
         }
 
-        if ($lastDiagnosis->penyakit_id === null) {
+        if ($lastDiagnosis->tingkat_risiko_id === null) {
             $answerLog = json_decode($lastDiagnosis->answer_log, true) ?? [];
             $maxAnswerLog = max(array_keys($answerLog));
 
-            if ($maxAnswerLog === $this->allGejala) {
+            if ($maxAnswerLog === $this->allFaktorRisiko) {
                 return $this->newDiagnosis();
             }
 
             return $lastDiagnosis;
         }
-        
+
         return $this->newDiagnosis();
     }
 
     public function diagnosis(Request $request)
     {
         $request->validate([
-            'idgejala' => ['required', 'numeric', 'max:' . $this->allGejala, 'min:1'],
+            'id_faktor_risiko' => ['required', 'numeric', 'max:'.$this->allFaktorRisiko, 'min:1'],
         ]);
 
         $requestFakta = [
-            $request->idgejala => filter_var($request->value, FILTER_VALIDATE_BOOLEAN)
+            $request->id_faktor_risiko => filter_var($request->value, FILTER_VALIDATE_BOOLEAN),
         ];
 
-        $modelDiagnosis = $this->checkDiagnosis((int) $request->idgejala);
+        $modelDiagnosis = $this->checkDiagnosis((int) $request->id_faktor_risiko);
         $answerLog = json_decode($modelDiagnosis->answer_log, true) ?? [];
         $answerLog = $answerLog + $requestFakta;
         $modelDiagnosis->answer_log = json_encode($answerLog);
         $modelDiagnosis->save();
 
-        //Aturan
-        $rule = Rule::get(['penyakit_id', 'gejala_id']);
+        // Aturan
+        $rule = Rule::get(['tingkat_risiko_id', 'faktor_risiko_id']);
         $aturan = [];
         foreach ($rule as $key => $value) {
-            $aturan[$value->penyakit_id][] = $value->gejala_id;
+            $aturan[$value->tingkat_risiko_id][] = $value->faktor_risiko_id;
         }
 
-        //Basis Fakta
+        // Basis Fakta
         $fakta = $answerLog;
 
-        //Inferensi
+        // Inferensi
         $terdeteksi = false;
-        foreach ($aturan as $penyakitId => $gejala) {
-            $apakahPenyakit = true;
-            foreach ($gejala as $gejalaPenyakit) {
-                $fakta[$gejalaPenyakit] = $fakta[$gejalaPenyakit] ?? false;
-                if (!$fakta[$gejalaPenyakit]) {
-                    $apakahPenyakit = false;
+        foreach ($aturan as $tingkatRisikoId => $faktorRisiko) {
+            $apakahTingkatRisiko = true;
+            foreach ($faktorRisiko as $idFaktorRisiko) {
+                $fakta[$idFaktorRisiko] = $fakta[$idFaktorRisiko] ?? false;
+                if (! $fakta[$idFaktorRisiko]) {
+                    $apakahTingkatRisiko = false;
                     break;
                 }
             }
-            if ($apakahPenyakit) {
-                if ($modelDiagnosis->penyakit_id == null) {
-                    $modelDiagnosis->penyakit_id = $penyakitId;
+            if ($apakahTingkatRisiko) {
+                if ($modelDiagnosis->tingkat_risiko_id == null) {
+                    $modelDiagnosis->tingkat_risiko_id = $tingkatRisikoId;
                     $modelDiagnosis->save();
                 }
-                $penyakit = Penyakit::where('id', $modelDiagnosis->penyakit_id)->first('id');
+                $tingkatRisiko = TingkatRisiko::where('id', $modelDiagnosis->tingkat_risiko_id)->first('id');
                 $terdeteksi = true;
             }
         }
 
-        // Tidak ada penyakit yang terdeteksi
-        if (!$terdeteksi && $request->idgejala == $this->allGejala) {
+        // Tidak ada tingkat risiko yang terdeteksi
+        if (! $terdeteksi && $request->id_faktor_risiko == $this->allFaktorRisiko) {
             return response()->json([
-                'penyakitUnidentified' => true,
-                'idPenyakit' => null,
+                'tingkatRisikoUnidentified' => true,
+                'idTingkatRisiko' => null,
                 'idDiagnosis' => $modelDiagnosis->id,
             ]);
         }
 
         return response()->json([
             'idDiagnosis' => $modelDiagnosis->id,
-            'idPenyakit' => $penyakit ?? null
+            'idTingkatRisiko' => $tingkatRisiko ?? null,
         ]);
     }
 }

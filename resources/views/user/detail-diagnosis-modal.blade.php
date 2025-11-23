@@ -11,34 +11,33 @@
                     </h1>
                     <p id="subheaderDetailDiagnosis" class="h3 placeholder font-normal text-center d-none">
                     </p>
-                    <div class="row pt-5" id="rowDetailPenyakit">
+                    <div class="row pt-5" id="rowDetailTingkatRisiko">
                         <div class="col-12 ">
-                            <h2 class="font-semibold pb-3 placeholder">
-                                Detail Penyakit
-                            </h2>
-                            <div class="card border border-0  shadow">
+                                                            <h2 class="font-semibold pb-3 placeholder">
+                                                                Detail Tingkat Risiko
+                                                            </h2>                            <div class="card border border-0  shadow">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-12 col-lg-8 pt-5 pt-lg-0 order-1">
                                             <div class="pb-3">
-                                                <h3 class="h4 placeholder">Nama Penyakit</h3>
-                                                <p class="card-text placeholder" id="penyakitName">
+                                                <h3 class="h4 placeholder">Nama Tingkat Risiko</h3>
+                                                <p class="card-text placeholder" id="tingkatRisikoName">
                                                 </p>
                                             </div>
                                             <div class="pb-3">
-                                                <h3 class="h4 placeholder">Penyebab Penyakit</h3>
-                                                <p class="card-text placeholder" id="penyakitReason">
+                                                <h3 class="h4 placeholder">Penyebab Tingkat Risiko</h3>
+                                                <p class="card-text placeholder" id="tingkatRisikoReason">
                                                 </p>
                                             </div>
                                             <div>
-                                                <h3 id="headerPenyakitSolution" class="h4 placeholder">Solusi Penyakit
+                                                <h3 id="headerTingkatRisikoSolution" class="h4 placeholder">Solusi Tingkat Risiko
                                                 </h3>
                                             </div>
                                         </div>
                                         <div
                                             class="col-12 col-lg-4 order-lg-2 d-flex align-items-center justify-content-center placeholder">
-                                            <div class="container-image-penyakit"
-                                                id="containerImagePenyakitDetailDiagnosisModal"
+                                            <div class="container-image-tingkat-risiko"
+                                                id="containerImageTingkatRisikoDetailDiagnosisModal"
                                                 style="max-width: 350px;">
                                             </div>
                                         </div>
@@ -58,7 +57,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">No</th>
-                                                <th scope="col">Gejala</th>
+                                                <th scope="col">Faktor Risiko</th>
                                                 <th scope="col">Jawaban</th>
                                             </tr>
                                         </thead>
@@ -71,11 +70,11 @@
                     </div>
                     <div class="row pb-5 ">
                         <h2 class="font-semibold pb-3 placeholder">
-                            Persentase Penyakit
+                            Persentase Tingkat Risiko
                         </h2>
                         <div class="card border border-0 shadow">
                             <div class="card-body placeholder">
-                                <canvas id="chartDiagnosisPenyakit" height="300"></canvas>
+                                <canvas id="chartDiagnosisTingkatRisiko" height="300"></canvas>
                             </div>
                         </div>
                     </div>

@@ -19,14 +19,14 @@
                 <span>Beranda</span>
             </a>
         </li>
-        <li class="nav-item {{ request()->is('admin/penyakit*') ? 'active' : '' }}">
-            <a href="{{ route('admin.penyakit') }}"><i class="fas fa-medkit"></i>
-                <span>Penyakit</span>
+        <li class="nav-item {{ request()->is('admin/tingkat-risiko*') ? 'active' : '' }}">
+            <a href="{{ route('admin.tingkat-risiko') }}"><i class="fas fa-medkit"></i>
+                <span>Tingkat Risiko</span>
             </a>
         </li>
-        <li class="nav-item {{ request()->is('admin/gejala*') ? 'active' : '' }}">
-            <a href="{{ route('admin.gejala') }}"><i class="fas fa-flag"></i>
-                <span>Gejala</span>
+        <li class="nav-item {{ request()->is('admin/faktor-risiko*') ? 'active' : '' }}">
+            <a href="{{ route('admin.faktor-risiko') }}"><i class="fas fa-flag"></i>
+                <span>Faktor Risiko</span>
             </a>
         </li>
         <li class="nav-item {{ request()->is('admin/rule*') ? 'active' : '' }}">

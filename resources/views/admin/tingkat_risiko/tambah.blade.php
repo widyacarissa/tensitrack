@@ -1,24 +1,23 @@
 @extends('layouts.admin.app')
+
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h1>Halaman Edit Penyakit No {{ $penyakit->id }}</h1>
+            <h1>Halaman Tambah Tingkat Risiko</h1>
         </div>
         <div class="section-body">
             <div class="pb-4">
-                <a href="{{ route('admin.penyakit') }}" class="btn btn-secondary">Kembali</a>
+                <a href="{{ route('admin.tingkat-risiko') }}" class="btn btn-secondary">Kembali</a>
             </div>
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('admin.penyakit.update', ['id' => $penyakit->id]) }}" method="post"
-                        enctype="multipart/form-data">
+                    <form action="{{ route('admin.tingkat-risiko.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
                         <div class="form-group">
-                            <label class="form-label">Nama Penyakit</label>
-                            <input type="text" class="form-control @error('penyakit') is-invalid @enderror"
-                                name="penyakit" id="penyakit" value="{{ old('penyakit', $penyakit->name) }}">
-                            @error('penyakit')
+                            <label class="form-label">Nama Tingkat Risiko</label>
+                            <input type="text" class="form-control @error('tingkatRisiko') is-invalid @enderror"
+                                name="tingkatRisiko" id="tingkatRisiko" value="{{ old('tingkatRisiko') }}">
+                            @error('tingkatRisiko')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -27,7 +26,7 @@
                         <div class="form-group">
                             <label class="form-label">Penyebab</label>
                             <input type="text" class="form-control @error('reason') is-invalid @enderror" name="reason"
-                                id="reason" value="{{ old('reason', $penyakit->reason) }}">
+                                id="reason" value="{{ old('reason') }}">
                             @error('reason')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -37,7 +36,7 @@
                         <div class="form-group">
                             <label class="form-label">Solusi</label>
                             <textarea name="solution" class="form-control @error('solution') is-invalid @enderror" id="solution"
-                                style="height: 200px">{{ old('solution', $penyakit->solution) }}</textarea>
+                                style="height: 200px">{{ old('solution') }}</textarea>
                             @error('solution')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -46,10 +45,15 @@
                         </div>
                         <div class="form-group">
                             <label for="image" class="form-label">Gambar</label>
-                            <input type="file" class="form-control" name="image" id="image">
-                            <div class="card card-body mt-3">
-                                <img class="img-fluid" width="300" id="imagePreview"
-                                    src="{{ asset('storage/penyakit/' . $penyakit->image) }}">
+                            <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
+                                id="image">
+                            @error('image')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            <div class="card card-body mt-3 d-none container-image-preview">
+                                <img class="img-fluid" width="300" id="imagePreview" src="">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
@@ -75,6 +79,9 @@
                 };
 
                 reader.readAsDataURL(file);
+
+                const containerImagePreview = document.querySelector('.container-image-preview');
+                containerImagePreview.classList.remove('d-none');
             });
         });
     </script>

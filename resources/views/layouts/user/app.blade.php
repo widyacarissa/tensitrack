@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="keywords" content="Sistem Pakar, Forward Chaining, Penyakit Tanaman Cabai">
+    <meta name="keywords" content="Sistem Pakar, Forward Chaining, Tingkat Risiko Hipertensi">
     <meta name="description"
-        content="Sistem pakar untuk mendeteksi/mendiagnosis penyakit pada tanaman cabai dengan algoritma forward chaining">
+        content="Sistem pakar untuk mendeteksi/mendiagnosis tingkat risiko hipertensi dengan algoritma forward chaining">
 
     <link rel="icon" href="{{ asset('favicon.ico') }}">
     <title>@yield('title') TensiTrack</title>
