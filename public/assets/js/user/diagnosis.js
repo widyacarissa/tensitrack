@@ -4,6 +4,28 @@ class DiagnosisModal {
         this.csrfToken = csrfToken;
     }
 
+    // Define a SweetAlert2 mixin for consistent styling
+    DiagnosisSwal = Swal.mixin({
+        customClass: {
+            popup: 'diagnosis-swal-popup',
+            title: 'diagnosis-swal-title',
+            htmlContainer: 'diagnosis-swal-html-container',
+            confirmButton: 'diagnosis-swal-confirm-button',
+            denyButton: 'diagnosis-swal-deny-button',
+            cancelButton: 'diagnosis-swal-cancel-button',
+            closeButton: 'diagnosis-swal-close-button',
+        },
+        buttonsStyling: false, // Disable default styling to use custom classes
+        confirmButtonColor: '#001B48', // Navy Blue
+        denyButtonColor: '#E49502', // Orange
+        cancelButtonColor: '#6c757d', // Grey for cancel
+        reverseButtons: true, // Keep 'Ya' on right, 'Tidak' on left
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showCloseButton: true,
+    });
+
     async ajaxGetFaktorRisiko() {
         return $.ajax({
             url: '/get-faktor-risiko',
@@ -24,7 +46,7 @@ class DiagnosisModal {
             url: "/diagnosis",
             type: "POST",
             data: {
-                _token: csrfToken,
+                _token: this.csrfToken, // Use this.csrfToken
                 id_faktor_risiko: element,
                 value: jawaban
             },
@@ -32,17 +54,14 @@ class DiagnosisModal {
     }
 
     swalError = async (error) => {
-        const result = await Swal.mixin({
+        const result = await this.DiagnosisSwal.fire({
             title: 'Terjadi kesalahan',
             text: error.message,
             icon: 'error',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Muat Ulang',
-            cancelButtonText: 'Tutup',
+            showCancelButton: false, // Hapus tombol batal
+            // cancelButtonText: 'Tutup', // Tidak perlu karena tombol batal dihapus
             reverseButtons: true
-        }).fire();
+        });
 
         if (result.isConfirmed) {
             window.location.reload();
@@ -51,22 +70,25 @@ class DiagnosisModal {
 
 
     async showModal() {
-        const swalBeforeDiagnosis = await Swal.fire({
-            title: 'Catatan',
-            text: 'Sistem ini memiliki keterbatasan dalam cakupan data tingkat risiko hipertensi, sehingga tidak semua tingkat risiko dapat didiagnosis. Hanya tingkat risiko yang terdapat dalam daftar yang dapat didiagnosis. Apakah Anda ingin melanjutkan proses diagnosis?',
+        const swalBeforeDiagnosis = await this.DiagnosisSwal.fire({
+            title: 'Catatan Penting',
+            html: '<p>Sistem ini memiliki keterbatasan dalam cakupan data tingkat risiko hipertensi. Tidak semua tingkat risiko dapat didiagnosis, hanya yang terdapat dalam daftar.</p><p>Apakah Anda ingin melanjutkan proses diagnosis?</p>',
             icon: 'info',
-            showCancelButton: true,
+            // showCancelButton: true, // Hapus tombol batal
             confirmButtonText: 'Lanjutkan',
-            cancelButtonText: 'Batal',
-            reverseButtons: true
+            // cancelButtonText: 'Batal', // Tidak perlu karena tombol batal dihapus
         });
 
         if (!swalBeforeDiagnosis.isConfirmed) return;
 
         //Swal mohon tunggu
-        Swal.fire({
-            title: 'Mohon tunggu',
+        this.DiagnosisSwal.fire({
+            title: 'Memuat Data...',
+            text: 'Mohon tunggu sebentar',
             allowOutsideClick: false,
+            showConfirmButton: false,
+            showCancelButton: false,
+            showCloseButton: false,
             didOpen: () => {
                 Swal.showLoading()
             },
@@ -74,25 +96,20 @@ class DiagnosisModal {
 
         try {
             const [faktorRisiko, ruleData] = await Promise.all([this.ajaxGetFaktorRisiko(), this.ajaxGetRuleData()]);
-
+            const totalFaktorRisiko = faktorRisiko.length;
             let isClosed = false;
 
-            for (let i = 0; i < faktorRisiko.length; i++) {
+            for (let i = 0; i < totalFaktorRisiko; i++) {
                 let element = faktorRisiko[i];
 
-                const { value: jawaban, dismiss: dismissReason } = await Swal.fire({
-                    title: 'Pertanyaan ' + (i + 1),
-                    text: 'Apakah ' + element.name + '?',
-                    confirmButtonColor: '#3085d6',
+                const { value: jawaban, dismiss: dismissReason } = await this.DiagnosisSwal.fire({
+                    title: `Faktor Risiko <span class="text-primary">${i + 1}</span> dari ${totalFaktorRisiko}`,
+                    html: `<div class="diagnosis-question-content">
+                                <p class="diagnosis-question-name mb-0">${element.name}</p>
+                                <p class="diagnosis-question-prompt mt-2">Apakah Anda memiliki faktor risiko ini?</p>
+                           </div>`,
                     confirmButtonText: 'Ya',
-                    showDenyButton: true,
-                    denyButtonColor: '#d33',
                     denyButtonText: 'Tidak',
-                    showCloseButton: true,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    allowEnterKey: false,
-                    reverseButtons: true,
                 });
 
                 if (dismissReason == Swal.DismissReason.close) {
