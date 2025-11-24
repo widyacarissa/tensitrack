@@ -73,9 +73,6 @@
                         <table class="table table-striped" id="table-1">
                             <thead>
                                 <tr>
-                                    <th class="text-center">
-                                        No
-                                    </th>
                                     <th>Kode</th>
                                     <th>Tingkat Risiko</th>
                                     <th>Keterangan</th>
@@ -87,9 +84,6 @@
                             <tbody>
                                 @foreach ($tingkat_risiko as $tr)
                                     <tr>
-                                        <td class="text-center">
-                                            {{ $loop->iteration }}
-                                        </td>
                             <td>{{ $tr->kode }}</td>
                             <td>{{ $tr->tingkat_risiko }}</td>
                             <td>{{ $tr->keterangan }}</td>

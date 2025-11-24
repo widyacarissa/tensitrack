@@ -216,7 +216,7 @@
                                         
                                         <div class="card-flex">
                                             <div class="info-wrapper">
-                                                <span class="badge-kode">FR{{ $fr->id }}</span>
+                                                <span class="badge-kode">{{ $fr->kode }}</span>
                                                 <span class="faktor-risiko-text">{{ $fr->name }}</span>
                                             </div>
                                             <div class="check-icon">

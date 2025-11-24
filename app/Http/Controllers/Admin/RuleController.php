@@ -52,7 +52,7 @@ class RuleController extends Controller
     public function create()
     {
         $tingkatRisiko = TingkatRisiko::select('id', 'kode', 'tingkat_risiko')->orderByDesc('updated_at')->get();
-        $faktorRisiko = FaktorRisiko::select('id', 'name')->orderByDesc('updated_at')->get();
+        $faktorRisiko = FaktorRisiko::select('id', 'kode', 'name')->orderByDesc('updated_at')->get();
 
         $data = [
             'tingkatRisiko' => $tingkatRisiko,

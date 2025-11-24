@@ -65,7 +65,7 @@ class TingkatRisikoController extends Controller
             'saran' => $request->saran,
         ]);
 
-        return redirect(route('admin.tingkat_risiko'))->with('success', 'Data berhasil ditambahkan!');
+        return redirect(route('admin.tingkat-risiko'))->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
@@ -105,7 +105,7 @@ class TingkatRisikoController extends Controller
 
         $tingkat_risiko->update($form_data);
 
-        return redirect(route('admin.tingkat_risiko'))->with('success', 'Data berhasil diubah!');
+        return redirect(route('admin.tingkat-risiko'))->with('success', 'Data berhasil diubah!');
     }
 
     /**
@@ -124,10 +124,10 @@ class TingkatRisikoController extends Controller
             }
         } catch (QueryException $e) {
             if ($e->getCode() == 23000) {
-                return redirect()->route('admin.tingkat_risiko')->with('error', 'Data tidak dapat dihapus karena sedang digunakan!');
+                return redirect()->route('admin.tingkat-risiko')->with('error', 'Data tidak dapat dihapus karena sedang digunakan!');
             }
         }
 
-        return redirect(route('admin.tingkat_risiko'))->with('success', 'Data berhasil dihapus!');
+        return redirect(route('admin.tingkat-risiko'))->with('success', 'Data berhasil dihapus!');
     }
 }
