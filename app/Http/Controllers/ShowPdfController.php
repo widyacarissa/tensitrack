@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Admin\FaktorRisikoController;
-use App\Http\Controllers\Admin\HistoriDiagnosisController;
-use App\Http\Controllers\Admin\RuleController;
-use App\Http\Controllers\Admin\TingkatRisikoController;
+use App\Models\FaktorRisiko;
+use App\Models\TingkatRisiko;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 
@@ -13,30 +11,22 @@ class ShowPdfController extends Controller
 {
     public function tingkatRisikoPdf()
     {
-        $data = new TingkatRisikoController;
-        $data = $data->index();
-        $data = $data['tingkat_risiko'];
-        $data = $data->toArray();
-        foreach ($data as $key => $value) {
-            $data[$key]['updated_at'] = Carbon::parse($value['updated_at'])->format('d-m-Y');
+        $tingkatRisiko = TingkatRisiko::all();
+        foreach ($tingkatRisiko as $key => $value) {
+            $value->updated_at_formatted = Carbon::parse($value->updated_at)->format('d-m-Y');
         }
-        $data = ['tingkat_risiko' => $data];
-        $pdf = Pdf::loadView('pdf.tingkat-risiko', $data);
+        $pdf = Pdf::loadView('pdf.tingkat-risiko', compact('tingkatRisiko'));
 
         return $pdf->stream('tingkat_risiko_SPDHTC.pdf');
     }
 
     public function faktorRisikoPdf()
     {
-        $data = new FaktorRisikoController;
-        $data = $data->index();
-        $data = $data['faktor_risiko'];
-        $data = $data->toArray();
-        foreach ($data as $key => $value) {
-            $data[$key]['updated_at'] = Carbon::parse($value['updated_at'])->format('d-m-Y');
+        $faktorRisiko = FaktorRisiko::all();
+        foreach ($faktorRisiko as $key => $value) {
+            $value->updated_at_formatted = Carbon::parse($value->updated_at)->format('d-m-Y');
         }
-        $data = ['faktor_risiko' => $data];
-        $pdf = Pdf::loadView('pdf.faktor-risiko', $data);
+        $pdf = Pdf::loadView('pdf.faktor-risiko', compact('faktorRisiko'));
 
         return $pdf->stream('faktor_risiko_SPDHTC.pdf');
     }
