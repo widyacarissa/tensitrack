@@ -10,6 +10,7 @@ class DiagnosisModal {
             popup: 'diagnosis-swal-popup',
             title: 'diagnosis-swal-title',
             htmlContainer: 'diagnosis-swal-html-container',
+            actions: 'diagnosis-swal-actions',
             confirmButton: 'diagnosis-swal-confirm-button',
             denyButton: 'diagnosis-swal-deny-button',
             cancelButton: 'diagnosis-swal-cancel-button',
@@ -56,10 +57,10 @@ class DiagnosisModal {
     swalError = async (error) => {
         const result = await this.DiagnosisSwal.fire({
             title: 'Terjadi kesalahan',
-            text: error.message,
+            html: `<div class="text-center mt-3 mb-4"><p class="modal-text-content lead">${error.message}</p><p class="modal-text-content text-muted">Coba muat ulang halaman atau hubungi administrator.</p></div>`,
             icon: 'error',
-            showCancelButton: false, // Hapus tombol batal
-            // cancelButtonText: 'Tutup', // Tidak perlu karena tombol batal dihapus
+            showCancelButton: false, 
+            confirmButtonText: 'Muat Ulang',
             reverseButtons: true
         });
 
@@ -72,11 +73,10 @@ class DiagnosisModal {
     async showModal() {
         const swalBeforeDiagnosis = await this.DiagnosisSwal.fire({
             title: 'Catatan Penting',
-            html: '<p>Sistem ini memiliki keterbatasan dalam cakupan data tingkat risiko hipertensi. Tidak semua tingkat risiko dapat didiagnosis, hanya yang terdapat dalam daftar.</p><p>Apakah Anda ingin melanjutkan proses diagnosis?</p>',
+            html: '<div class="text-center mt-3 mb-4"><p class="modal-text-content lead">Sistem ini memiliki keterbatasan dalam cakupan data tingkat risiko hipertensi. Tidak semua tingkat risiko dapat didiagnosis, hanya yang terdapat dalam daftar.</p><p class="modal-text-content text-muted">Apakah Anda ingin melanjutkan proses diagnosis?</p></div>',
             icon: 'info',
-            // showCancelButton: true, // Hapus tombol batal
             confirmButtonText: 'Lanjutkan',
-            // cancelButtonText: 'Batal', // Tidak perlu karena tombol batal dihapus
+            reverseButtons: true
         });
 
         if (!swalBeforeDiagnosis.isConfirmed) return;
@@ -103,10 +103,11 @@ class DiagnosisModal {
                 let element = faktorRisiko[i];
 
                 const { value: jawaban, dismiss: dismissReason } = await this.DiagnosisSwal.fire({
-                    title: `Faktor Risiko <span class="text-primary">${i + 1}</span> dari ${totalFaktorRisiko}`,
-                    html: `<div class="diagnosis-question-content">
-                                <p class="diagnosis-question-name mb-0">${element.name}</p>
-                                <p class="diagnosis-question-prompt mt-2">Apakah Anda memiliki faktor risiko ini?</p>
+                    title: `<span class="text-primary">Faktor Risiko ${i + 1}</span> dari ${totalFaktorRisiko}`,
+                    html: `<div class="question-highlight-card">
+                                <i class="bi bi-question-diamond question-card-icon"></i>
+                                <h3 class="question-card-name">${element.name}</h3>
+                                <p class="question-card-prompt">Apakah Anda memiliki faktor risiko ini?</p>
                            </div>`,
                     confirmButtonText: 'Ya',
                     denyButtonText: 'Tidak',

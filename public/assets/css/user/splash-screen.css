@@ -4,7 +4,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #001B48;
+    background-image: linear-gradient(to bottom, #001B48 0%, #FFFFFF 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,114 +13,184 @@
 }
 
 .ekg-wave-loader {
-    width: 200px; /* Sesuaikan ukuran SVG agar terlihat baik */
-    height: 50px; /* Tinggi yang masuk akal */
+    width: 200px;
+    height: 50px;
 }
 
 .ekg-line {
-    stroke-dasharray: 100 250; /* Segmen terlihat 100px, diikuti gap 250px. Total 350 (panjang path) */
-    stroke-dashoffset: 350; /* Mulai dari ujung kanan (tersembunyi) */
-    animation: sweep-ekg-wave 2s infinite linear; /* Animasi berulang */
+    stroke-dasharray: 100 250;
+    stroke-dashoffset: 350;
+    animation: sweep-ekg-wave 2s infinite linear;
 }
 
 @keyframes sweep-ekg-wave {
     0% {
-        stroke-dashoffset: 350; /* Wave tersembunyi di kanan */
+        stroke-dashoffset: 350;
     }
     100% {
-        stroke-dashoffset: 0; /* Wave bergerak ke kiri, lalu muncul kembali */
+        stroke-dashoffset: 0;
     }
 }
 
-/* Custom styles for Diagnosis Modal */
+/* Masterpiece Modal Styles (Refined for Typography & UX) */
 .diagnosis-swal-popup {
-    border-radius: 12px !important;
+    border-radius: 15px !important;
     background: #FFFFFF !important;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
     color: #001B48 !important;
     font-family: 'Poppins', sans-serif !important;
-    max-width: 600px !important; /* Batasi lebar modal */
+    max-width: 600px !important;
+    max-height: 85vh; 
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding: 1.8rem !important; /* Slightly more padding for breathability */
+    overflow-y: auto; 
 }
 
 .diagnosis-swal-title {
     color: #001B48 !important;
     font-weight: 700 !important;
-    font-size: 1.6rem !important; /* Sedikit lebih besar */
+    font-size: 1.6rem !important; /* Prominent title size */
     padding-bottom: 0.8rem !important;
     border-bottom: 1px solid rgba(0, 27, 72, 0.1) !important;
     margin-bottom: 1.8rem !important;
 }
 
 .diagnosis-swal-html-container {
-    color: #333 !important;
-    font-size: 1.1rem !important;
+    color: #444 !important; /* Slightly softer body text color */
+    font-size: 1rem !important; 
+    line-height: 1.6 !important;
+    margin-bottom: 2rem !important; 
+    padding: 0 !important;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Styling for general modal text content (e.g., in initial notes or error messages) */
+p.modal-text-content {
+    font-size: 1.05rem !important;
     line-height: 1.7 !important;
-    margin-bottom: 2rem !important; /* Lebih banyak ruang */
+    color: #4a4a4a !important; /* Slightly darker for better readability */
+    margin-bottom: 1rem !important;
+}
+p.modal-text-content.lead {
+    font-weight: 500 !important;
+    color: #333 !important;
+}
+p.modal-text-content.text-muted {
+    font-size: 0.95rem !important;
+    color: #777 !important;
+    margin-top: 0.5rem !important;
+}
+
+.diagnosis-swal-actions {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding-top: 1.8rem !important; /* Matching overall padding */
+    padding-bottom: 0 !important; 
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-top: auto !important; 
+    gap: 20px; /* Jarak antar tombol yang nyaman */
+}
+
+.diagnosis-swal-confirm-button,
+.diagnosis-swal-deny-button {
+    padding: 11px 28px !important; /* Ukuran tombol lebih moderat */
+    border-radius: 50px !important;
+    font-weight: 600 !important;
+    font-size: 1.05rem !important; /* Font tombol nyaman dibaca */
+    transition: all 0.2s ease-in-out !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 130px; /* Lebar minimum tombol konsisten */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08) !important;
+    letter-spacing: 0.2px !important;
 }
 
 .diagnosis-swal-confirm-button {
-    background-color: #001B48 !important; /* Navy Blue */
+    background-color: #001B48 !important;
     color: #FFFFFF !important;
-    padding: 12px 30px !important; /* Lebih besar */
-    border-radius: 50px !important;
-    font-weight: 600 !important;
-    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-size: 1.1rem !important; /* Font lebih besar */
 }
 .diagnosis-swal-confirm-button:hover {
-    background-color: #001333 !important; /* Slightly darker navy on hover */
-    transform: translateY(-2px);
+    background-color: #001333 !important;
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12) !important;
 }
 
 .diagnosis-swal-deny-button {
-    background-color: #E49502 !important; /* Orange */
-    color: #001B48 !important; /* Dark text on orange */
-    padding: 12px 30px !important;
-    border-radius: 50px !important;
-    font-weight: 600 !important;
-    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-size: 1.1rem !important; /* Font lebih besar */
+    background-color: #E49502 !important;
+    color: #001B48 !important;
 }
 .diagnosis-swal-deny-button:hover {
-    background-color: #cf7a03 !important; /* Slightly darker orange on hover */
-    transform: translateY(-2px);
+    background-color: #cf7a03 !important;
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12) !important;
 }
-
-
 
 .diagnosis-swal-close-button {
-    color: #001B48 !important; /* Dark blue close button */
-    font-size: 1.5rem !important; /* Ukuran X lebih besar */
-    right: 1.5rem !important;
-    top: 1.5rem !important;
+    color: #001B48 !important;
+    font-size: 1.4rem !important; /* Ukuran X yang nyaman */
+    right: 1.2rem !important;
+    top: 1.2rem !important;
+    transition: transform 0.2s ease-in-out !important;
+}
+.diagnosis-swal-close-button:hover {
+    transform: rotate(90deg) scale(1.05);
+    color: #E49502 !important;
 }
 
-/* Refined styles for question content */
-.diagnosis-question-content {
+/* The highlighted question card (Refined) */
+.question-highlight-card {
+    background-color: #fcfdfe; 
+    border: 1px solid rgba(0, 27, 72, 0.05); 
+    border-left: 4px solid #E49502; 
+    border-radius: 10px;
+    padding: 2rem 1.5rem; 
+    margin: 1rem auto; 
     text-align: center;
-    padding: 0.5rem 0 1.5rem 0; /* Padding lebih disebar */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
+    max-width: 95%; 
+    min-height: 120px; /* Tinggi minimum yang disesuaikan */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.diagnosis-question-name {
-    font-size: 1.7rem; /* Sedikit lebih kecil dari sebelumnya, lebih profesional */
+.question-card-icon {
+    font-size: 2rem; /* Ukuran ikon yang lebih nyaman */
+    color: #001B48; 
+    margin-bottom: 0.8rem;
+    display: block;
+    line-height: 1;
+    opacity: 0.7;
+}
+
+.question-card-name {
+    font-size: 1.5rem; /* Ukuran nama pertanyaan yang nyaman */
     font-weight: 700;
     color: #001B48;
     margin-bottom: 0.5rem;
     line-height: 1.3;
 }
 
-.diagnosis-question-prompt {
-    font-size: 1rem;
+.question-card-prompt {
+    font-size: 0.95rem; 
     color: #666;
     margin-bottom: 0;
+    font-weight: 500;
 }
 
 .text-primary {
-    color: #001B48 !important; /* Ensure primary color is used for numbers */
+    color: #001B48 !important;
 }
