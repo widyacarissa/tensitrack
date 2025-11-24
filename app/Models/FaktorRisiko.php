@@ -12,8 +12,8 @@ class FaktorRisiko extends Model
     protected $table = 'faktor_risiko';
 
     protected $fillable = [
+        'kode',
         'name',
-        'image',
     ];
 
     public function tingkatRisiko()

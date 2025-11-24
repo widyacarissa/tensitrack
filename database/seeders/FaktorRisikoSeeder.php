@@ -14,28 +14,53 @@ class FaktorRisikoSeeder extends Seeder
     {
         $rows = [
             [
-                'name' => 'sekitar tulang daun menebal berwarna hijau tua dan daun berwarna kuning',
-                'image' => '2010365565.jpg',
+                'kode' => 'E01',
+                'name' => 'Tekanan darah yang terukur mengalami peningkatan (sistolik 120–139 mmHg) dan/atau (diastolik 80–89 mmHg)',
             ],
             [
-                'name' => 'tulang daun menebal dan daun menggulung ke atas',
-                'image' => '1677054521.jpg',
+                'kode' => 'E02',
+                'name' => 'Terdapat anggota keluarga inti (ayah, ibu, kakak/adik) yang memiliki riwayat penyakit tekanan darah tinggi (hipertensi)',
             ],
             [
-                'name' => 'daun mengecil dan berwarna kuning terang',
-                'image' => '1393673814.jpg',
+                'kode' => 'E03',
+                'name' => 'Indeks massa tubuh termasuk dalam kategori obesitas (IMT ≥ 25)',
             ],
             [
-                'name' => 'tanaman kerdil dan tidak berbuah',
-                'image' => '312554642.jpg',
+                'kode' => 'E04',
+                'name' => 'Memiliki kebiasaan merokok (tembakau/elektrik)',
+            ],
+            [
+                'kode' => 'E05',
+                'name' => 'Memiliki kebiasaan mengonsumsi minuman beralkohol',
+            ],
+            [
+                'kode' => 'E06',
+                'name' => 'Memiliki kebiasaan mengonsumsi minuman berenergi seperti kratingdeng, extrajoss',
+            ],
+            [
+                'kode' => 'E07',
+                'name' => 'Memiliki kebiasaan mengonsumsi minuman kafein seperti kopi atau teh kental',
+            ],
+            [
+                'kode' => 'E08',
+                'name' => 'Memiliki kebiasaan mengonsumsi makanan tinggi garam dan lemak seperti mie instan, chiki, keripik, gorengan, sosis, nugget, basreng',
+            ],
+            [
+                'kode' => 'E09',
+                'name' => 'Jarang melakukan aktivitas fisik atau berolahraga seperti jogging, senam, bersepeda',
+            ],
+            [
+                'kode' => 'E10',
+                'name' => 'Memiliki pola istirahat yang tidak teratur (sering begadang)',
+            ],
+            [
+                'kode' => 'E11',
+                'name' => 'Sering merasa stres ekstrim, tertekan, atau cemas berlebih',
             ],
         ];
 
         foreach ($rows as $row) {
-            FaktorRisiko::updateOrCreate(
-                ['name' => $row['name']],
-                ['image' => $row['image']]
-            );
+            FaktorRisiko::updateOrCreate($row);
         }
     }
 }

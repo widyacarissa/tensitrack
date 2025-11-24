@@ -17,7 +17,7 @@ class FaktorRisikoController extends Controller
      */
     public function index()
     {
-        $faktorRisiko = FaktorRisiko::get(['id', 'name', 'image', 'updated_at']);
+        $faktorRisiko = FaktorRisiko::get(['id', 'kode', 'name', 'updated_at']);
 
         return view('admin.faktor-risiko.faktor-risiko', compact('faktorRisiko'));
     }
@@ -41,17 +41,22 @@ class FaktorRisikoController extends Controller
     {
         $this->validate($request, [
             'faktorRisiko' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // upload image
-        $image = $request->file('image');
-        $new_name = rand().'.'.$image->getClientOriginalExtension();
-        $image->storeAs('public/faktor-risiko', $new_name);
+        // Automatic Kode Generation
+        $latestFaktorRisiko = FaktorRisiko::orderBy('id', 'desc')->first();
+        if ($latestFaktorRisiko) {
+            $lastKode = $latestFaktorRisiko->kode;
+            $number = (int) substr($lastKode, 1);
+            $newNumber = $number + 1;
+            $newKode = 'E' . str_pad($newNumber, 2, '0', STR_PAD_LEFT);
+        } else {
+            $newKode = 'E01';
+        }
 
         $form_data = [
+            'kode' => $newKode,
             'name' => $request->faktorRisiko,
-            'image' => $new_name,
         ];
 
         FaktorRisiko::create($form_data);
@@ -84,25 +89,10 @@ class FaktorRisikoController extends Controller
 
         $this->validate($request, [
             'faktorRisiko' => 'required|string',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        if ($request->hasFile('image')) {
-            $old_image = $faktorRisiko->image;
-            $image_path = 'public/faktor-risiko/'.$old_image;
-
-            if (file_exists($image_path)) {
-                unlink($image_path);
-            }
-
-            $image = $request->file('image');
-            $new_name = rand().'.'.$image->getClientOriginalExtension();
-            $image->storeAs('public/faktor-risiko', $new_name);
-        }
 
         $form_data = [
             'name' => $request->faktorRisiko,
-            'image' => $new_name ?? $faktorRisiko->image,
         ];
 
         $faktorRisiko->update($form_data);
@@ -121,9 +111,7 @@ class FaktorRisikoController extends Controller
         $faktorRisiko = FaktorRisiko::findOrFail($id);
 
         try {
-            if ($faktorRisiko->delete()) {
-                Storage::delete('public/faktor-risiko/'.$faktorRisiko->image);
-            }
+            $faktorRisiko->delete();
         } catch (QueryException $q) {
             if ($q->getCode() == 23000) {
                 return redirect()->route('admin.faktor-risiko')->with('error', 'Data tidak dapat dihapus karena sedang digunakan!');

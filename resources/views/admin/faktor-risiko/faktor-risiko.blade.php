@@ -74,11 +74,10 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">
-                                        No
+                                        Kode
                                     </th>
                                     <th>Nama</th>
-                                    <th>Tanggal Dibuat/Diubah</th>
-                                    <th>Gambar</th>
+                                    <th>Update Terakhir</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -86,15 +85,10 @@
                                 @foreach ($faktorRisiko as $fr)
                                     <tr>
                                         <td class="text-center">
-                                            {{ $loop->iteration}}
+                                            {{ $fr->kode }}
                                         </td>
                                         <td>{{ $fr->name }}</td>
                                         <td>{{ $fr->updated_at }}</td>
-                                        <td id="imageFaktorRisiko">
-                                            <img alt="image" src="{{ asset('storage/faktor-risiko/' . $fr->image) }}"
-                                                class="" width="200" data-toggle="tooltip"
-                                                title="{{ $fr->name }}">
-                                        </td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-primary dropdown-toggle" type="button"

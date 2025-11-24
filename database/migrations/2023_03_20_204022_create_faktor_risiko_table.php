@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('faktor_risiko', function (Blueprint $table) {
             $table->smallInteger('id', true, true);
+            $table->string('kode', 10)->unique();
             $table->string('name', '255');
-            $table->string('image', '255')->nullable();
             $table->timestamps();
         });
     }
