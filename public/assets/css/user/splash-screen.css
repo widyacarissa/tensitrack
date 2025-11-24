@@ -12,50 +12,22 @@
     transition: opacity 0.5s ease-out;
 }
 
-.heart-loader {
-    position: relative;
-    width: 100px;
-    height: 90px;
-    animation: heartbeat 1s infinite;
+.ekg-wave-loader {
+    width: 200px; /* Sesuaikan ukuran SVG agar terlihat baik */
+    height: 50px; /* Tinggi yang masuk akal */
 }
 
-.heart-loader:before,
-.heart-loader:after {
-    position: absolute;
-    content: "";
-    left: 50px;
-    top: 0;
-    width: 50px;
-    height: 80px;
-    background: #FFFFFF;
-    border-radius: 50px 50px 0 0;
-    transform: rotate(-45deg);
-    transform-origin: 0 100%;
+.ekg-line {
+    stroke-dasharray: 100 250; /* Segmen terlihat 100px, diikuti gap 250px. Total 350 (panjang path) */
+    stroke-dashoffset: 350; /* Mulai dari ujung kanan (tersembunyi) */
+    animation: sweep-ekg-wave 2s infinite linear; /* Animasi berulang */
 }
 
-.heart-loader:after {
-    left: 0;
-    transform: rotate(45deg);
-    transform-origin: 100% 100%;
-}
-
-@keyframes heartbeat {
+@keyframes sweep-ekg-wave {
     0% {
-        transform: scale(0.95);
-    }
-    5% {
-        transform: scale(1.1);
-    }
-    39% {
-        transform: scale(0.85);
-    }
-    45% {
-        transform: scale(1);
-    }
-    60% {
-        transform: scale(0.95);
+        stroke-dashoffset: 350; /* Wave tersembunyi di kanan */
     }
     100% {
-        transform: scale(0.9);
+        stroke-dashoffset: 0; /* Wave bergerak ke kiri, lalu muncul kembali */
     }
 }

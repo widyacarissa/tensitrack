@@ -55,7 +55,9 @@
 
 <body class="bg-light-subtle">
     <div class="splash-screen">
-        <div class="heart-loader"></div>
+        <svg class="ekg-wave-loader" viewBox="0 0 250 60">
+      <path class="ekg-line" d="M0 30 L40 30 C45 20 50 40 55 30 L65 30 L70 45 L75 15 L80 45 L85 30 L125 30 C130 20 135 40 140 30 L150 30 L155 45 L160 15 L165 45 L170 30 L210 30" fill="none" stroke="#E49502" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
     </div>
     <main>
         <section>
