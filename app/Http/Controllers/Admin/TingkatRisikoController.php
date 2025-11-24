@@ -43,12 +43,23 @@ class TingkatRisikoController extends Controller
     {
         $this->validate($request, [
             'tingkat_risiko' => 'required|string',
-            'tingkat_risiko' => 'required|string',
             'keterangan' => 'required|string',
             'saran' => 'required|string',
         ]);
 
-        $tingkat_risiko = TingkatRisiko::create([
+        // Automatic Kode Generation
+        $latestTingkatRisiko = TingkatRisiko::orderBy('id', 'desc')->first();
+        if ($latestTingkatRisiko) {
+            $lastKode = $latestTingkatRisiko->kode;
+            $number = (int) substr($lastKode, 1);
+            $newNumber = $number + 1;
+            $newKode = 'H' . str_pad($newNumber, 2, '0', STR_PAD_LEFT);
+        } else {
+            $newKode = 'R01';
+        }
+
+        TingkatRisiko::create([
+            'kode' => $newKode,
             'tingkat_risiko' => $request->tingkat_risiko,
             'keterangan' => $request->keterangan,
             'saran' => $request->saran,

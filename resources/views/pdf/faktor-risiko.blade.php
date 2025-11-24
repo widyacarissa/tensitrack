@@ -1,7 +1,7 @@
 @extends('layouts.pdf-layout')
 @section('title', 'Data Faktor Risiko')
 @section('content')
-    <table class="table table-bordered table-striped">
+    <table>
         <thead>
             <tr>
                 <th>No</th>

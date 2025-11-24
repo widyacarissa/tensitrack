@@ -1,28 +1,29 @@
 @extends('layouts.pdf-layout')
-@section('title', 'Data Rule')
+@section('title', 'Data Aturan Tingkat Risiko')
 @section('content')
     <table>
         <thead>
             <tr>
-                <th>
-                    No
-                </th>
-                <th>Tingkat Risiko</th>
-                <th>No Faktor Risiko</th>
-                <th>Faktor Risiko</th>
-                <th>Tanggal Dibuat/Diubah</th>
+                <th class="text-center">No</th>
+                <th>Tingkat Risiko (Kode - Nama)</th>
+                <th>Daftar Faktor Risiko (Kode - Nama)</th>
+                <th>Update Terakhir</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($rules as $rule)
+            @php $i = 1; @endphp
+            @foreach ($groupedRules as $group)
                 <tr>
+                    <td class="text-center">{{ $i++ }}</td>
+                    <td>{{ $group['tingkatRisiko']->kode }} - {{ $group['tingkatRisiko']->tingkat_risiko }}</td>
                     <td>
-                        {{ $loop->iteration }}
+                        <ul>
+                            @foreach ($group['faktorRisiko'] as $fr)
+                                <li>{{ $fr->kode }} - {{ $fr->name }}</li>
+                            @endforeach
+                        </ul>
                     </td>
-                    <td>{{ $rule['tingkatRisiko']['tingkat_risiko'] }}</td>
-                    <td>{{ $rule['no_faktor_risiko'] }}</td>
-                    <td>{{ $rule['faktorRisiko']['name'] }}</td>
-                    <td>{{ $rule['updated_at'] }}</td>
+                    <td>{{ $group['latest_update_formatted'] }}</td>
                 </tr>
             @endforeach
         </tbody>

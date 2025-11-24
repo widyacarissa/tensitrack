@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FaktorRisiko;
+use App\Models\Rule;
 use App\Models\TingkatRisiko;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -33,14 +34,20 @@ class ShowPdfController extends Controller
 
     public function rulePdf()
     {
-        $data = new RuleController;
-        $data = $data->index();
-        $data = $data['rules'];
-        foreach ($data as $key => $value) {
-            $data[$key]['updated_at'] = Carbon::parse($value['updated_at'])->format('d-m-Y');
-        }
-        $data = ['rules' => $data];
-        $pdf = Pdf::loadView('pdf.rule', $data);
+        $rules = Rule::with(['tingkatRisiko', 'faktorRisiko'])->get();
+
+        $groupedRules = $rules->groupBy('tingkatRisiko.tingkat_risiko')->map(function ($group) {
+            $firstItem = $group->first();
+            $latestUpdate = $group->max('updated_at');
+
+            return [
+                'tingkatRisiko' => $firstItem->tingkatRisiko,
+                'faktorRisiko' => $group->map(fn($item) => $item->faktorRisiko)->unique('id'),
+                'latest_update_formatted' => Carbon::parse($latestUpdate)->format('d M Y H:i'),
+            ];
+        });
+
+        $pdf = Pdf::loadView('pdf.rule', compact('groupedRules'));
 
         return $pdf->stream('rule_SPDHTC.pdf');
     }
