@@ -48,7 +48,7 @@ function drawHistoriDiagnosisTable() {
             }
         },
         {
-            data: 'tingkat_risiko.name',
+            data: 'tingkat_risiko.tingkat_risiko',
             render: function (data, type, row, meta) {
                 //handle if data is null
                 if (data == null) {
@@ -123,19 +123,11 @@ function ajaxPostEditProfile() {
             _token: csrfToken,
             name: $('input[name="name"]').val(),
             email: $('input[name="email"]').val(),
-            address: $('textarea[name="address"]').val(),
-            province: $('#provinsi').val(),
-            city: $('#kota').val(),
-            profession: $('#profesi').val(),
+            gender: $('select[name="gender"]').val(),
+            age: $('input[name="age"]').val(),
+            height: $('input[name="height"]').val(),
+            weight: $('input[name="weight"]').val()
         },
-    });
-}
-
-function ajaxCityRequest(provinsi_id) {
-    return $.ajax({
-        url: '/edit-profile/lokasi/kota/' + provinsi_id,
-        type: 'GET',
-        dataType: 'json',
     });
 }
 

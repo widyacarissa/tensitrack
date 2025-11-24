@@ -17,10 +17,6 @@ return new class extends Migration
             $table->smallInteger('id', true, true);
             $table->unsignedSmallInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('address')->nullable();
-            $table->string('city')->nullable();
-            $table->string('province')->nullable();
-            $table->string('profession')->nullable();
             $table->timestamps();
         });
     }

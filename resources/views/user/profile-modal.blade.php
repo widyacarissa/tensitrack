@@ -162,60 +162,6 @@
                                 </div>
                             </div>
 
-                            <!-- Address Information Section -->
-                            <div class="section-divider mb-4 mt-5">
-                                <h5 class="text-muted fw-bold mb-4">
-                                    <i class="fas fa-map-marker-alt me-2" style="color: #001B48;"></i>Alamat & Domisili
-                                </h5>
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="address" class="form-label fw-semibold mb-2">
-                                    <i class="fas fa-home me-2" style="color: #001B48;"></i>Alamat Lengkap
-                                </label>
-                                <textarea rows="3" id="address" name="address" class="form-control form-control-lg rounded-3 border-2"
-                                    placeholder="Masukkan alamat tempat tinggal Anda"
-                                    style="border-color: #001B48; transition: all 0.3s ease; resize: vertical;">{{ auth()->user()->profile->address ?? '' }}</textarea>
-                            </div>
-
-                            <div class="row pb-3 gy-4">
-                                <div class="col-lg-6 col-12">
-                                    <div class="mb-3">
-                                        <label for="provinsi" class="form-label fw-semibold mb-2">
-                                            <i class="fas fa-globe me-2" style="color: #001B48;"></i>Provinsi
-                                        </label>
-                                        <select class="form-select form-select-lg select2 select-custom rounded-3 border-2" 
-                                            name="province" id="provinsi"
-                                            style="border-color: #001B48;">
-                                            <option value="">-- Pilih Provinsi --</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-12">
-                                    <div class="mb-3">
-                                        <label for="kota" class="form-label fw-semibold mb-2">
-                                            <i class="fas fa-city me-2" style="color: #001B48;"></i>Kota/Kabupaten
-                                        </label>
-                                        <select class="form-select form-select-lg select2 select-custom rounded-3 border-2" 
-                                            name="city" id="kota"
-                                            style="border-color: #001B48;">
-                                            <option value="">-- Pilih Kota/Kabupaten --</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mb-4">
-                                <label for="profesi" class="form-label fw-semibold mb-2">
-                                    <i class="fas fa-briefcase me-2" style="color: #001B48;"></i>Profesi
-                                </label>
-                                <select class="form-select form-select-lg select2 select-custom rounded-3 border-2" 
-                                    name="profession" id="profesi"
-                                    style="border-color: #001B48;">
-                                    <option value="">-- Pilih Profesi --</option>
-                                </select>
-                            </div>
-
                             <!-- Submit Button -->
                             <div class="pt-4 mt-5">
                                 <div class="d-grid gap-2">

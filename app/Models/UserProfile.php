@@ -13,10 +13,6 @@ class UserProfile extends Model
 
     protected $fillable = [
         'user_id',
-        'address',
-        'city',
-        'province',
-        'profession',
         'gender',
         'age',
         'weight',
@@ -27,11 +23,6 @@ class UserProfile extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function getProfessionAttribute($value)
-    {
-        return ucwords($value);
     }
 
     /**

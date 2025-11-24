@@ -11,18 +11,8 @@ class UserProfileController extends Controller
 {
     public function index(Request $request)
     {
-        // get index method from KotaProvinsiController
-        $kotaProvinsi = new KotaProvinsiController;
-        $provinces = $kotaProvinsi->indexProvince();
-        $profession = [
-            'Petani',
-            'Lainnya',
-        ];
-
         $data = [
             'user' => User::where('id', auth()->user()->id)->with('profile')->first(),
-            'provinsi' => $provinces,
-            'profesi' => $profession,
         ];
 
         return response()->json($data);
@@ -37,10 +27,6 @@ class UserProfileController extends Controller
             'age' => 'nullable|integer|min:1|max:120',
             'height' => 'nullable|numeric|min:50|max:250',
             'weight' => 'nullable|numeric|min:20|max:250',
-            'address' => 'nullable',
-            'city' => 'nullable',
-            'province' => 'nullable',
-            'profession' => 'nullable',
         ]);
 
         try {
@@ -59,10 +45,6 @@ class UserProfileController extends Controller
                 $profile = $user->profile;
             }
 
-            $profile->address = $data['address'] ?? null;
-            $profile->city = $data['city'] ?? null;
-            $profile->province = $data['province'] ?? null;
-            $profile->profession = $data['profession'] ?? null;
             $profile->gender = $data['gender'] ?? null;
             $profile->age = $data['age'] ?? null;
             $profile->weight = $data['weight'] ?? null;

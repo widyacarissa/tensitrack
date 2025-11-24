@@ -31,7 +31,7 @@ class UserController extends Controller
         $user = auth()->user();
 
         $query = Diagnosis::with(['tingkatRisiko' => function ($query) {
-            $query->select('id', 'name');
+            $query->select('id', 'tingkat_risiko');
         }])->where('user_id', $user->id ?? null);
 
         if ($request->has('search.value')) {
@@ -40,7 +40,7 @@ class UserController extends Controller
                 $q->where('id', 'like', '%'.$searchValue.'%')
                     ->orWhere('created_at', 'like', '%'.$searchValue.'%')
                     ->orWhereHas('tingkatRisiko', function ($q) use ($searchValue) {
-                        $q->where('name', 'like', '%'.$searchValue.'%');
+                        $q->where('tingkat_risiko', 'like', '%'.$searchValue.'%');
                     });
             });
         }

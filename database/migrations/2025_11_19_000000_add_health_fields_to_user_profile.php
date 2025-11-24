@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('user_profile', function (Blueprint $table) {
-            $table->enum('gender', ['male', 'female', 'other'])->nullable()->after('profession');
+            $table->enum('gender', ['male', 'female', 'other'])->nullable()->after('user_id');
             $table->integer('age')->nullable()->after('gender');
             $table->decimal('weight', 5, 2)->nullable()->after('age')->comment('Weight in kg');
             $table->decimal('height', 5, 2)->nullable()->after('weight')->comment('Height in cm');
