@@ -82,9 +82,6 @@ class DiagnosisModal {
 
                 const { value: jawaban, dismiss: dismissReason } = await Swal.fire({
                     title: 'Pertanyaan ' + (i + 1),
-                    imageUrl: `${this.assetStorageFaktorRisiko}/${element.image}`,
-                    imageHeight: '300px',
-                    imageAlt: `Gambar Faktor Risiko ${element.name}`,
                     text: 'Apakah ' + element.name + '?',
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: 'Ya',

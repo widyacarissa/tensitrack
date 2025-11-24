@@ -120,7 +120,7 @@ class UserController extends Controller
 
     public function getFaktorRisiko()
     {
-        $faktorRisiko = FaktorRisiko::get(['id', 'name', 'image']);
+        $faktorRisiko = FaktorRisiko::get(['id', 'name']);
 
         return response()->json($faktorRisiko);
     }
