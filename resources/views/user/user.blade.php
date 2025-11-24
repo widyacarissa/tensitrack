@@ -759,6 +759,7 @@
     </script>
 
     {{-- SCRIPT SLIDER ARTIKEL (BARU) --}}
+    <script src="{{ asset('assets/js/user/diagnosis.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('articleContainer');
@@ -791,6 +792,33 @@
                         left: -getScrollAmount(),
                         behavior: 'smooth'
                     });
+                });
+            }
+
+            // Logic for Diagnosis Button
+            const btnDiagnosis = document.getElementById('btn-diagnosis');
+            if (btnDiagnosis) {
+                const diagnosisModal = new DiagnosisModal(assetStorageFaktorRisiko, csrfToken);
+
+                btnDiagnosis.addEventListener('click', function() {
+                    if (!isUser) {
+                        Swal.fire({
+                            title: 'Anda Belum Login',
+                            text: "Untuk memulai skrining, Anda harus login terlebih dahulu.",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Login Sekarang',
+                            cancelButtonText: 'Batal'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '/login';
+                            }
+                        });
+                        return;
+                    }
+                    diagnosisModal.showModal();
                 });
             }
         });

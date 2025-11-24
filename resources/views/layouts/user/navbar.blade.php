@@ -32,7 +32,7 @@
             @if (Auth::check() && Gate::check('asUser'))
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a href="{{ route('edit-profile') }}" class="nav-link" id="btnNavLinkProfile">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#editProfileModal" class="nav-link" id="btnNavLinkProfile">
                             <div class="d-grid">
                                 <button class="btn btn-masuk font-medium text-start">
                                     <i class="fa-solid fa-user pe-2"></i>
