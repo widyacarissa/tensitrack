@@ -25,7 +25,7 @@ class RuleController extends Controller
     private function getRule()
     {
         $rules = Rule::with(['tingkatRisiko' => function ($query) {
-            $query->select('id', 'name');
+            $query->select('id', 'tingkat_risiko');
         }, 'faktorRisiko' => function ($query) {
             $query->select('id', 'name');
         }])->get(['id', 'tingkat_risiko_id', 'faktor_risiko_id', 'updated_at'])->map(function ($rule) {
@@ -35,7 +35,10 @@ class RuleController extends Controller
             return [
                 'id' => $rule['id'],
                 'updated_at' => $rule['updated_at'],
-                'tingkatRisiko' => $rule['tingkatRisiko'],
+                'tingkatRisiko' => [
+                    'id' => $rule['tingkatRisiko']['id'],
+                    'name' => $rule['tingkatRisiko']['tingkat_risiko'],
+                ],
                 'faktorRisiko' => $rule['faktorRisiko'],
                 'no_faktor_risiko' => 'FR'.str_pad($rule['faktorRisiko']['id'], 2, '0', STR_PAD_LEFT),
             ];
