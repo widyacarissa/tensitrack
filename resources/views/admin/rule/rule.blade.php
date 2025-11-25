@@ -100,7 +100,7 @@
                             <tbody>
                                 {{-- LOGIKA PENGELOMPOKAN DATA --}}
                                 @php
-                                    $groupedRules = collect($rules)->groupBy('tingkatRisiko.tingkat_risiko');
+                                    $groupedRules = collect($rules)->groupBy('tingkatRisiko.name');
                                 @endphp
 
                                 @foreach ($groupedRules as $tingkatRisikoName => $groupItems)
