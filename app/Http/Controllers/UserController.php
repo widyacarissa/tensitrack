@@ -88,32 +88,24 @@ class UserController extends Controller
 
     public function detailDiagnosis(Request $request)
     {
-        $tingkatRisiko = TingkatRisiko::find(
-            Diagnosis::find($request->id_diagnosis, ['tingkat_risiko_id'])->tingkat_risiko_id,
-            ['kode', 'tingkat_risiko', 'keterangan', 'saran']
-        );
+        $diagnosis = Diagnosis::findOrFail($request->id_diagnosis);
+        $tingkatRisiko = TingkatRisiko::find($diagnosis->tingkat_risiko_id, ['kode', 'tingkat_risiko', 'keterangan', 'saran']);
 
-        $diagnosis = Diagnosis::find($request->id_diagnosis, ['answer_log']);
-        $answerLog = json_decode($diagnosis->answer_log, true);
-        foreach ($answerLog as $key => $value) {
-            $answerLog[$key] = $value == 1 ? 'Ya' : 'Tidak';
-        }
-        $faktorRisiko = FaktorRisiko::whereIn('id', array_keys($answerLog))->get(['id', 'name']);
-        foreach ($faktorRisiko as $item) {
-            $item->answer = $answerLog[$item->id];
-        }
-        $answerLog = $faktorRisiko->map(function ($item) {
+        $selectedFactorIds = json_decode($diagnosis->answer_log, true) ?? [];
+        
+        // Get all factors and determine the answer for each
+        $allFaktorRisiko = FaktorRisiko::orderBy('id')->get(['id', 'name'])->map(function ($item) use ($selectedFactorIds) {
             return [
                 'id' => $item->id,
                 'name' => $item->name,
-                'answer' => $item->answer,
+                'answer' => in_array($item->id, $selectedFactorIds) ? 'Ya' : 'Tidak',
             ];
         });
 
         return response()->json(
             [
                 'tingkatRisiko' => $tingkatRisiko,
-                'answerLog' => $answerLog,
+                'answerLog' => $allFaktorRisiko,
             ]
         );
     }
@@ -127,50 +119,16 @@ class UserController extends Controller
 
     public function chartDiagnosisTingkatRisiko(Request $request)
     {
-        // Mengumpulkan aturan-aturan berdasarkan tingkat risiko dan faktor risiko
-        $rule = Rule::get(['tingkat_risiko_id', 'faktor_risiko_id']);
-        $aturan = [];
-        foreach ($rule as $value) {
-            $aturan[$value->tingkat_risiko_id][] = $value->faktor_risiko_id;
-        }
-
-        // Mendapatkan data diagnosis dan log jawaban
-        $diagnosis = Diagnosis::find($request->id_diagnosis, ['answer_log']);
-        $answerLog = json_decode($diagnosis->answer_log, true);
-
-        // Menghitung bobot untuk setiap tingkat risiko
+        $diagnosis = Diagnosis::findOrFail($request->id_diagnosis);
+        $allTingkatRisiko = TingkatRisiko::all(['id', 'tingkat_risiko']);
+        
         $bobot = [];
-        foreach ($aturan as $idTingkatRisiko => $idFaktorRisiko) {
-            $bobot[$idTingkatRisiko] = 0;
-            foreach ($answerLog as $key => $value) {
-                if (in_array($key, $idFaktorRisiko)) {
-                    $bobot[$idTingkatRisiko] += $value;
-                }
-            }
+        foreach ($allTingkatRisiko as $tingkat) {
+            // If this is the diagnosed risk level, set percentage to 100, otherwise 0.
+            $percentage = ($tingkat->id == $diagnosis->tingkat_risiko_id) ? 100 : 0;
+            $bobot[$tingkat->tingkat_risiko] = $percentage;
         }
-
-        // Menghitung persentase bobot untuk setiap tingkat risiko
-        foreach ($bobot as $key => $value) {
-            $jumlahFaktorRisiko = count($aturan[$key]);
-            $bobot[$key] = ($jumlahFaktorRisiko > 0) ? round(($value / $jumlahFaktorRisiko) * 100, 2) : 0;
-        }
-
-        // Melakukan pemetaan bobot ke nama tingkat risiko
-        $bobot = collect($bobot)->mapWithKeys(function ($item, $key) {
-            $tingkatRisiko = TingkatRisiko::find($key, ['id', 'tingkat_risiko']);
-
-            return [$tingkatRisiko->tingkat_risiko => $item];
-        });
 
         return response()->json($bobot);
-    }
-
-    public function getRuleData()
-    {
-        $aturan = Rule::get(['tingkat_risiko_id', 'faktor_risiko_id'])->groupBy('tingkat_risiko_id')->map(function ($item) {
-            return $item->pluck('faktor_risiko_id');
-        });
-
-        return response()->json($aturan);
     }
 }

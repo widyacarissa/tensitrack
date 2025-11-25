@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             UserProfileSeeder::class,
             TingkatRisikoSeeder::class,
             FaktorRisikoSeeder::class,
-            RuleSeeder::class,
+            ComplexRuleSeeder::class,
         ]);
     }
 }

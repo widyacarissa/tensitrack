@@ -29,9 +29,9 @@
                 <span>Faktor Risiko</span>
             </a>
         </li>
-        <li class="nav-item {{ request()->is('admin/rule*') ? 'active' : '' }}">
-            <a href="{{ route('admin.rule') }}"><i class="fas fa-landmark"></i>
-                <span>Rule</span>
+        <li class="nav-item {{ request()->is('admin/rules*') ? 'active' : '' }}">
+            <a href="{{ route('admin.rules.index') }}"><i class="fas fa-landmark"></i>
+                <span>Manajemen Aturan</span>
             </a>
         </li>
         <li class="nav-item {{ request()->is('admin/histori-diagnosis*') ? 'active' : '' }}">

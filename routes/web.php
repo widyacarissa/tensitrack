@@ -36,16 +36,22 @@ Route::prefix('admin')->group(function () {
         Route::get('edit/{id}', [\App\Http\Controllers\Admin\FaktorRisikoController::class, 'edit'])->name('admin.faktor-risiko.edit');
         Route::get('pdf', [ShowPdfController::class, 'faktorRisikoPdf'])->name('faktor-risiko.pdf');
     });
-    Route::prefix('rule')->group(function () {
-        Route::middleware(['auth', 'can:asAdmin'])->group(function () {
-            Route::post('store', [\App\Http\Controllers\Admin\RuleController::class, 'store'])->name('admin.rule.store');
-            Route::put('update/{tingkatRisiko}', [\App\Http\Controllers\Admin\RuleController::class, 'update'])->name('admin.rule.update');
-            Route::delete('destroy/{tingkatRisiko}', [\App\Http\Controllers\Admin\RuleController::class, 'destroy'])->name('admin.rule.destroy');
-        });
-        Route::get('/', [\App\Http\Controllers\Admin\RuleController::class, 'index'])->name('admin.rule');
-        Route::get('tambah', [\App\Http\Controllers\Admin\RuleController::class, 'create'])->name('admin.rule.tambah');
-        Route::get('edit/{tingkatRisiko}', [\App\Http\Controllers\Admin\RuleController::class, 'edit'])->name('admin.rule.edit');
-        Route::get('pdf', [ShowPdfController::class, 'rulePdf'])->name('rule.pdf');
+    // Old Rule Routes (obsolete)
+    // Route::prefix('rule')->group(function () {
+    //     Route::middleware(['auth', 'can:asAdmin'])->group(function () {
+    //         Route::post('store', [\App\Http\Controllers\Admin\RuleController::class, 'store'])->name('admin.rule.store');
+    //         Route::put('update/{tingkatRisiko}', [\App\Http\Controllers\Admin\RuleController::class, 'update'])->name('admin.rule.update');
+    //         Route::delete('destroy/{tingkatRisiko}', [\App\Http\Controllers\Admin\RuleController::class, 'destroy'])->name('admin.rule.destroy');
+    //     });
+    //     Route::get('/', [\App\Http\Controllers\Admin\RuleController::class, 'index'])->name('admin.rule');
+    //     Route::get('tambah', [\App\Http\Controllers\Admin\RuleController::class, 'create'])->name('admin.rule.tambah');
+    //     Route::get('edit/{tingkatRisiko}', [\App\Http\Controllers\Admin\RuleController::class, 'edit'])->name('admin.rule.edit');
+    //     Route::get('pdf', [ShowPdfController::class, 'rulePdf'])->name('rule.pdf');
+    // });
+    
+    // New Complex Rule Routes
+    Route::middleware(['auth', 'can:asAdmin'])->group(function () {
+        Route::resource('rules', \App\Http\Controllers\Admin\RuleController::class)->names('admin.rules');
     });
     Route::prefix('histori-diagnosis')->group(function () {
         Route::middleware(['auth', 'can:asAdmin'])->group(function () {
@@ -61,7 +67,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('home', [\App\Http\Controllers\Controller::class, 'authenticated'])->name('home');
 
     Route::middleware('can:asUser')->group(function () {
-        Route::post('diagnosis', [DiagnosisController::class, 'diagnosis'])
+        Route::post('diagnosis', [DiagnosisController::class, 'calculate'])
             ->middleware('can:hasUserProfile')
             ->name('user.diagnosis');
         Route::put('edit-profile', [\App\Http\Controllers\UserProfileController::class, 'updateUser'])->name('update-profile');

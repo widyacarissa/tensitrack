@@ -4,7 +4,6 @@ class DiagnosisModal {
         this.csrfToken = csrfToken;
     }
 
-    // Define a SweetAlert2 mixin for consistent styling
     DiagnosisSwal = Swal.mixin({
         customClass: {
             popup: 'diagnosis-swal-popup',
@@ -16,11 +15,11 @@ class DiagnosisModal {
             cancelButton: 'diagnosis-swal-cancel-button',
             closeButton: 'diagnosis-swal-close-button',
         },
-        buttonsStyling: false, // Disable default styling to use custom classes
-        confirmButtonColor: '#001B48', // Navy Blue
-        denyButtonColor: '#E49502', // Orange
-        cancelButtonColor: '#6c757d', // Grey for cancel
-        reverseButtons: true, // Keep 'Ya' on right, 'Tidak' on left
+        buttonsStyling: false,
+        confirmButtonColor: '#001B48',
+        denyButtonColor: '#E49502',
+        cancelButtonColor: '#6c757d',
+        reverseButtons: true,
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
@@ -35,29 +34,22 @@ class DiagnosisModal {
         });
     }
 
-    async ajaxGetRuleData() {
-        return $.ajax({
-            url: '/get-rule-data',
-            method: 'GET',
-        });
-    }
-
-    async ajaxRequestToDiagnosis(element, jawaban) {
+    async submitDiagnosis(selectedFactors) {
         return $.ajax({
             url: "/diagnosis",
             type: "POST",
             data: {
-                _token: this.csrfToken, // Use this.csrfToken
-                id_faktor_risiko: element,
-                value: jawaban
+                _token: this.csrfToken,
+                selected_factors: selectedFactors
             },
+            dataType: 'json',
         });
     }
 
     swalError = async (error) => {
         const result = await this.DiagnosisSwal.fire({
             title: 'Terjadi kesalahan',
-            html: `<div class="text-center mt-3 mb-4"><p class="modal-text-content lead">${error.message}</p><p class="modal-text-content text-muted">Coba muat ulang halaman atau hubungi administrator.</p></div>`,
+            html: `<div class="text-center mt-3 mb-4"><p class="modal-text-content lead">${error.message || 'Request failed.'}</p><p class="modal-text-content text-muted">Coba muat ulang halaman atau hubungi administrator.</p></div>`,
             icon: 'error',
             showCancelButton: false, 
             confirmButtonText: 'Muat Ulang',
@@ -69,35 +61,31 @@ class DiagnosisModal {
         }
     };
 
-
     async showModal() {
         const swalBeforeDiagnosis = await this.DiagnosisSwal.fire({
             title: 'Catatan Penting',
-            html: '<div class="text-center mt-3 mb-4"><p class="modal-text-content lead">Sistem ini memiliki keterbatasan dalam cakupan data tingkat risiko hipertensi. Tidak semua tingkat risiko dapat didiagnosis, hanya yang terdapat dalam daftar.</p><p class="modal-text-content text-muted">Apakah Anda ingin melanjutkan proses diagnosis?</p></div>',
+            html: '<div class="text-center mt-3 mb-4"><p class="modal-text-content lead">Sistem ini hanya memberikan indikasi awal dan tidak menggantikan diagnosis medis profesional.</p><p class="modal-text-content text-muted">Apakah Anda ingin melanjutkan proses diagnosis?</p></div>',
             icon: 'info',
             confirmButtonText: 'Lanjutkan',
+            showDenyButton: true,
+            denyButtonText: 'Batal',
             reverseButtons: true
         });
 
         if (!swalBeforeDiagnosis.isConfirmed) return;
 
-        //Swal mohon tunggu
         this.DiagnosisSwal.fire({
             title: 'Memuat Data...',
             text: 'Mohon tunggu sebentar',
             allowOutsideClick: false,
             showConfirmButton: false,
-            showCancelButton: false,
-            showCloseButton: false,
-            didOpen: () => {
-                Swal.showLoading()
-            },
+            didOpen: () => { Swal.showLoading() },
         });
 
         try {
-            const [faktorRisiko, ruleData] = await Promise.all([this.ajaxGetFaktorRisiko(), this.ajaxGetRuleData()]);
+            const faktorRisiko = await this.ajaxGetFaktorRisiko();
             const totalFaktorRisiko = faktorRisiko.length;
-            let isClosed = false;
+            let selectedFactors = [];
 
             for (let i = 0; i < totalFaktorRisiko; i++) {
                 let element = faktorRisiko[i];
@@ -109,44 +97,35 @@ class DiagnosisModal {
                                 <h3 class="question-card-name">${element.name}</h3>
                                 <p class="question-card-prompt">Apakah Anda memiliki faktor risiko ini?</p>
                            </div>`,
+                    showDenyButton: true,
                     confirmButtonText: 'Ya',
                     denyButtonText: 'Tidak',
                 });
 
-                if (dismissReason == Swal.DismissReason.close) {
-                    isClosed = true;
-                    break;
+                if (dismissReason === Swal.DismissReason.close) {
+                    return; // End the process if user closes the modal
                 }
 
-                try {
-                    const response = await this.ajaxRequestToDiagnosis(element.id, jawaban);
-
-                    if (response.idTingkatRisiko != null || response.tingkatRisikoUnidentified === true) {
-                        await Swal.close();
-                        return getTingkatRisikoFromDiagnose(response, true);
-                    }
-
-                    if (!jawaban) {
-                        for(let j in ruleData) {
-                            for(let k in ruleData[j]) {
-                                if(ruleData[j][k] == element.id) {
-                                    const iteration = parseInt(j) + 1;
-
-                                    if(ruleData[iteration] == null) {
-                                        await Swal.close();
-                                        return getTingkatRisikoFromDiagnose(response, true);
-                                    }
-
-                                    i = ruleData[iteration][0] - 2;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                } catch (error) {
-                    await this.swalError(error.responseJSON ?? error);
+                if (jawaban) { // 'Ya' was clicked
+                    selectedFactors.push(element.id);
                 }
             }
+
+            // After loop, show processing message and send all data at once
+            this.DiagnosisSwal.fire({
+                title: 'Menganalisis Hasil...',
+                text: 'Mohon tunggu sebentar',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                didOpen: () => { Swal.showLoading() },
+            });
+
+            const response = await this.submitDiagnosis(selectedFactors);
+
+            await Swal.close();
+            // Call the same result handler function as before
+            return getTingkatRisikoFromDiagnose(response, true);
+
         } catch (error) {
             await this.swalError(error.responseJSON ?? error);
         }

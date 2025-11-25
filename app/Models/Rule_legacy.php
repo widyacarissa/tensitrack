@@ -9,28 +9,25 @@ class Rule extends Model
 {
     use HasFactory;
 
-    protected $table = 'rules';
+    protected $table = 'rule';
 
     protected $fillable = [
-        'name',
-        'description',
         'tingkat_risiko_id',
-        'priority',
+        'faktor_risiko_id',
     ];
 
-    /**
-     * Get the risk level associated with this rule.
-     */
     public function tingkatRisiko()
     {
         return $this->belongsTo(TingkatRisiko::class, 'tingkat_risiko_id');
     }
 
-    /**
-     * Get the condition groups for this rule.
-     */
-    public function conditionGroups()
+    public function faktorRisiko()
     {
-        return $this->hasMany(RuleConditionGroup::class, 'rule_id');
+        return $this->belongsTo(FaktorRisiko::class, 'faktor_risiko_id');
+    }
+
+    public function nextFaktorRisiko()
+    {
+        return $this->belongsTo(FaktorRisiko::class, 'next_first_faktor_risiko_id');
     }
 }

@@ -14,10 +14,6 @@ class FaktorRisiko extends Model
     protected $fillable = [
         'kode',
         'name',
+        'tipe',
     ];
-
-    public function tingkatRisiko()
-    {
-        return $this->belongsToMany(TingkatRisiko::class, 'rule', 'faktor_risiko_id', 'tingkat_risiko_id');
-    }
 }
