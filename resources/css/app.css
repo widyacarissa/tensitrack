@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+    /* Font Default */
+    --font-sans: "Poppins", sans-serif;
+
+    /* Warna Custom */
+    --color-brand-blue: #001B48;
+    --color-brand-orange: #E3943B;
+    --color-brand-white: #FFFFFF;
+
+    /* Animasi Custom */
+    --animate-slide-left: slideLeft 1s ease-out forwards;
+    --animate-slide-right: slideRight 1s ease-out forwards;
+    --animate-fade-up: fadeUp 0.8s ease-out forwards;
+
+    @keyframes slideLeft {
+        0% { opacity: 0; transform: translateX(50px); }
+        100% { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideRight {
+        0% { opacity: 0; transform: translateX(-50px); }
+        100% { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeUp {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+}
+
+.animate-heartbeat {
+    animation: heartbeat 1.5s infinite ease-in-out;
+}
+
+/* Alpine.js Cloak */
+[x-cloak] { 
+    display: none !important; 
+}
